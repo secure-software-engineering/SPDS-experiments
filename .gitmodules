@@ -1,0 +1,6 @@
+[submodule "Boomerang"]
+	path = Boomerang
+	url = https://github.com/johspaeth/Boomerang
+[submodule "WPDS"]
+	path = WPDS
+	url = https://github.com/CROSSINGTUD/WPDS
