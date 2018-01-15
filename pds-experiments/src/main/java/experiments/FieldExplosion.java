@@ -1,11 +1,15 @@
-package field.complexity;
+package experiments;
 
 import java.time.Duration;
 import java.util.ArrayList;
 
 import com.google.common.collect.Lists;
 
-public class Main {
+import field.complexity.AbstractAnalysis;
+import field.complexity.AccessPathAnalysis;
+import field.complexity.PDSAnalysis;
+
+public class FieldExplosion {
 	public static void main(String...args) {
 		ArrayList<Long> pdsAnalysisTimes = Lists.<Long>newArrayList();
 		ArrayList<Long> apAnalysisTimes = Lists.<Long>newArrayList();

@@ -1,7 +1,5 @@
 package field.complexity.benchmark;
 
-import org.junit.Test;
-
 import test.core.selfrunning.AllocatedObject;
 
 public class Fields2LongTest extends Base{
@@ -9,7 +7,6 @@ public class Fields2LongTest extends Base{
 		Fields2LongTest o = new Fields2LongTest();
 		o.test();
 	}
-	@Test
 	public void test() {
 		TreeNode x = new TreeNode();
 		TreeNode p = null;
