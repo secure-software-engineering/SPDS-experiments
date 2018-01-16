@@ -6,7 +6,7 @@ from subprocess import call
 PROJECTS = "projects.txt"
 POINTS_TO_JAR = "../build/pds-experiments-0.0.1-SNAPSHOT-jar-with-dependencies.jar"
 MAIN_CLASS = "experiments.WholeProgramPointsToAnalysis"
-TIMEOUT_IN_MINUTES = 12*60 #12 hours per project
+TIMEOUT_IN_MINUTES = 2*60 #12 hours per project
 
 MAX_MEMORY = sys.argv[1]
 

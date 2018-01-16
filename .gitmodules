@@ -4,3 +4,6 @@
 [submodule "WPDS"]
 	path = WPDS
 	url = https://github.com/CROSSINGTUD/WPDS
+[submodule "PointerBench"]
+	path = PointerBench
+	url = https://github.com/secure-software-engineering/PointerBench.git
