@@ -3,6 +3,7 @@ package experiments;
 import java.io.File;
 import java.util.List;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
 import pointerbench.PointerBenchAnalysis;
@@ -16,17 +17,20 @@ public class PointerBench {
 	public static void main(String... args) {
 		List<File> foundClassFiles = Lists.newArrayList();
 		String pointerBenchClassesFolder = args[0];
-		searchFile(new File(pointerBenchClassesFolder), foundClassFiles);
-		System.out.println(foundClassFiles);
+		File file = new File(pointerBenchClassesFolder);
+		searchFile(file, foundClassFiles);
+		List<PointerBenchResult> boomerangResults = Lists.newArrayList();
 		for(File f : foundClassFiles){
-			String className = f.getAbsolutePath().replaceAll(pointerBenchClassesFolder, "").replaceAll(".class", "").replaceAll("/",".");
+			String relative = file.toURI().relativize(f.toURI()).getPath();
+			String className = relative.replaceAll(".class", "").replaceAll("/",".");
+			if(className.contains("$"))
+				continue;
 			if(packagePrefixFilter(className)){
-				if(!className.contains("ASD"))
-					continue;
 				PointerBenchAnalysis pointerBenchAnalysis = new PointerBenchAnalysisBoomerang(args[0], className);
-				pointerBenchAnalysis.run();
+				boomerangResults.add(pointerBenchAnalysis.run());
 			}
 		}
+		System.out.println(Joiner.on("\n").join(boomerangResults));
 	}
 
 	private static boolean packagePrefixFilter(String className) {

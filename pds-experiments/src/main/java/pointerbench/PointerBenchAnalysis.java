@@ -17,6 +17,7 @@ import boomerang.jimple.AllocVal;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
 import boomerang.seedfactory.SeedFactory;
+import experiments.PointerBenchResult;
 import soot.G;
 import soot.Local;
 import soot.PackManager;
@@ -54,11 +55,12 @@ public abstract class PointerBenchAnalysis {
 		initializeSootWithEntryPoint();
 	}
 
-	public void run() {
+	public PointerBenchResult run() {
 		Transform transform = new Transform("wjtp.ifds", createAnalysisTransformer());
 		PackManager.v().getPack("wjtp").add(transform);
 		PackManager.v().getPack("cg").apply();
 		PackManager.v().getPack("wjtp").apply();
+		return new PointerBenchResult(mainClass, allocationSites.size()-unsoundErrors.size(), imprecisionErrors.size(), unsoundErrors.size());
 	}
 
 	@SuppressWarnings("static-access")

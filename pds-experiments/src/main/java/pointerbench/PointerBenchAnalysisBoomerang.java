@@ -64,6 +64,10 @@ public class PointerBenchAnalysisBoomerang extends PointerBenchAnalysis {
 				public boolean arrayFlows() {
 					return true;
 				}
+				@Override
+				public boolean staticFlows() {
+					return true;
+				}
 			};
 			Boomerang solver = new Boomerang(options) {
 				@Override
