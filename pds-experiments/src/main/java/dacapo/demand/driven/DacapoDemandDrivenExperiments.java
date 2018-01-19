@@ -3,7 +3,6 @@ package dacapo.demand.driven;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,13 +34,11 @@ import soot.Unit;
 import soot.Value;
 import soot.jimple.InstanceInvokeExpr;
 import soot.jimple.Stmt;
-import soot.jimple.spark.ondemand.AllocAndContext;
-import soot.jimple.spark.ondemand.AllocAndContextSet;
-import soot.jimple.spark.ondemand.genericutil.ObjectVisitor;
-import soot.jimple.spark.pag.AllocNode;
-import soot.jimple.spark.sets.PointsToSetInternal;
 import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
 import soot.jimple.toolkits.ide.icfg.JimpleBasedInterproceduralCFG;
+import sridharan.DemandCSPointsTo;
+import sridharan.ManuTimeoutException;
+import sridharan.SridharanHelper;
 import wpds.impl.Weight.NoWeight;
 
 public class DacapoDemandDrivenExperiments extends SootSceneSetupDacapo {
@@ -150,7 +147,7 @@ public class DacapoDemandDrivenExperiments extends SootSceneSetupDacapo {
 							+ (i - manuMorePrecise - pdsMorePrecise));
 					if(!pdsTime.timeout){
 						PointsToSet reachingObjects = Scene.v().getPointsToAnalysis().reachingObjects((Local) q.asNode().fact().value());
-						if(getPointsToSize(reachingObjects) > pdsTime.pointsToSetSize){
+						if(SridharanHelper.getPointsToSize(reachingObjects) > pdsTime.pointsToSetSize){
 							betterThanSPARK++;
 							System.out.println(reachingObjects);
 							System.out.println(pdsTime.results);
@@ -170,41 +167,20 @@ public class DacapoDemandDrivenExperiments extends SootSceneSetupDacapo {
 
 	protected ExperimentResults queryManu(Query q, SeedFactory<NoWeight> seedFactory) {
 		Stopwatch watch = Stopwatch.createStarted();
-//		DemandCSPointsTo pts = DemandCSPointsTo.makeWithBudget(75000, 10, false);
+		DemandCSPointsTo pts = DemandCSPointsTo.makeWithBudget(75000, 10, false);
 		boolean timeout = false;
 		DemandCSPointsTo.timeBudget = TIMEOUT_IN_MS;
 		int ptsSetSize = 0;
 		Object results = null;
 		try {
-//			PointsToSet reachingObjects = pts.reachingObjects((Local) q.var().value());
-//			ptsSetSize = getPointsToSize(reachingObjects);
-//			
-//			results = reachingObjects;
+			PointsToSet reachingObjects = pts.reachingObjects((Local) q.var().value());
+			ptsSetSize = SridharanHelper.getPointsToSize(reachingObjects);
+			
+			results = reachingObjects;
 		} catch (ManuTimeoutException e) {
 			timeout = true;
 		}
 		return new ExperimentResults(watch.elapsed(), ptsSetSize, timeout, results);
-	}
-
-	private int getPointsToSize(PointsToSet reachingObjects) {
-		if (reachingObjects instanceof PointsToSetInternal) {
-			PointsToSetInternal i = (PointsToSetInternal) reachingObjects;
-			return i.size();
-		} else if (reachingObjects instanceof AllocAndContextSet) {
-			final HashSet<AllocNode> flat = Sets.newHashSet();
-			AllocAndContextSet set = ((AllocAndContextSet) reachingObjects);
-			set.forall(new ObjectVisitor<AllocAndContext>() {
-				
-				@Override
-				public void visit(AllocAndContext obj_) {
-					flat.add(obj_.alloc);
-				}
-			});
-			return flat.size();
-		} else {
-			System.out.println("Sure?" + reachingObjects.getClass());
-		}
-		return 0;
 	}
 
 	protected ExperimentResults queryWPDS(Query q, SeedFactory<NoWeight> seedFactory) {

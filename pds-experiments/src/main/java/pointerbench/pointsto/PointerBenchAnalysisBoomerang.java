@@ -1,4 +1,4 @@
-package pointerbench;
+package pointerbench.pointsto;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -45,13 +45,8 @@ public class PointerBenchAnalysisBoomerang extends PointerBenchAnalysis {
 			falsePositiveAllocationSites.remove(res.asNode());
 		}
 
-		String answer = (falseNegativeAllocationSites.isEmpty() ? "" : "\nFN:" + falseNegativeAllocationSites)
-				+ (falsePositiveAllocationSites.isEmpty() ? "" : "\nFP:" + falsePositiveAllocationSites + "\n");
-		if (!falseNegativeAllocationSites.isEmpty()) {
-			unsoundErrors.add(new Error(" Unsound results for:" + answer));
-		}
-		if (!falsePositiveAllocationSites.isEmpty())
-			imprecisionErrors.add(new Error(" Imprecise results for:" + answer));
+		unsoundErrors = falseNegativeAllocationSites.size();
+		imprecisionErrors = falsePositiveAllocationSites.size();
 	}
 
 	private Set<Node<Statement, Val>> runQuery() {

@@ -1,10 +1,11 @@
-package pointerbench;
+package pointerbench.alias;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
@@ -16,10 +17,14 @@ import boomerang.Query;
 import boomerang.jimple.AllocVal;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
+import boomerang.preanalysis.AddNopStatementTransformer;
 import boomerang.seedfactory.SeedFactory;
+import pointerbench.alias.PointerBenchAliasAnalysis.AliasQuery;
+import pointerbench.pointsto.PointerBenchResult;
 import soot.G;
 import soot.Local;
 import soot.PackManager;
+import soot.PointsToSet;
 import soot.RefType;
 import soot.Scene;
 import soot.SceneTransformer;
@@ -29,6 +34,7 @@ import soot.Transform;
 import soot.Unit;
 import soot.Value;
 import soot.jimple.AssignStmt;
+import soot.jimple.IntConstant;
 import soot.jimple.InvokeExpr;
 import soot.jimple.NewExpr;
 import soot.jimple.Stmt;
@@ -37,29 +43,32 @@ import soot.jimple.toolkits.ide.icfg.JimpleBasedInterproceduralCFG;
 import soot.options.Options;
 import wpds.impl.Weight.NoWeight;
 
-public abstract class PointerBenchAnalysis {
+public abstract class PointerBenchAliasAnalysis {
 
 	private String pointerBenchClassesPath;
 	private String mainClass;
 	protected JimpleBasedInterproceduralCFG icfg;
-	protected Collection<Query> allocationSites = Sets.newHashSet();
 	protected Collection<? extends Query> queryForCallSites;
-	protected Collection<Error> unsoundErrors = Sets.newHashSet();
-	protected Collection<Error> imprecisionErrors = Sets.newHashSet();
+	protected Collection<AliasQuery> queries = Sets.newHashSet();
+	protected int truePositive = 0;
+	protected int falseNegative = 0;
+	protected int falsePositive = 0;
 	protected SeedFactory<NoWeight> seedFactory;
 
-	public PointerBenchAnalysis(String pointerBenchClassesPath, String mainClass) {
+	public PointerBenchAliasAnalysis(String pointerBenchClassesPath, String mainClass) {
 		this.pointerBenchClassesPath = pointerBenchClassesPath;
 		this.mainClass = mainClass;
 		initializeSootWithEntryPoint();
 	}
 
 	public PointerBenchResult run() {
+		PackManager.v().getPack("wjtp").add(new Transform("wjtp.prepare", new AddNopStatementTransformer()));
 		Transform transform = new Transform("wjtp.ifds", createAnalysisTransformer());
 		PackManager.v().getPack("wjtp").add(transform);
 		PackManager.v().getPack("cg").apply();
 		PackManager.v().getPack("wjtp").apply();
-		return new PointerBenchResult(mainClass, allocationSites.size()-unsoundErrors.size(), imprecisionErrors.size(), unsoundErrors.size());
+		return new PointerBenchResult(mainClass, truePositive, falsePositive,
+				falseNegative);
 	}
 
 	@SuppressWarnings("static-access")
@@ -68,7 +77,7 @@ public abstract class PointerBenchAnalysis {
 		Options.v().set_whole_program(true);
 		Options.v().setPhaseOption("cg.spark", "on");
 		Options.v().set_output_format(Options.output_format_none);
-//		Options.v().setPhaseOption("cg", "trim-clinit:false");
+		// Options.v().setPhaseOption("cg", "trim-clinit:false");
 		Options.v().set_no_bodies_for_excluded(true);
 		Options.v().set_allow_phantom_refs(true);
 
@@ -94,10 +103,10 @@ public abstract class PointerBenchAnalysis {
 			c.setApplicationClass();
 		}
 
-//		SootMethod methodByName = c.getMethodByName("main");
-//		List<SootMethod> ePoints = new LinkedList<>();
-//		ePoints.add(methodByName);
-//		Scene.v().setEntryPoints(ePoints);
+		// SootMethod methodByName = c.getMethodByName("main");
+		// List<SootMethod> ePoints = new LinkedList<>();
+		// ePoints.add(methodByName);
+		// Scene.v().setEntryPoints(ePoints);
 	}
 
 	protected boolean includeJDK() {
@@ -117,7 +126,6 @@ public abstract class PointerBenchAnalysis {
 		return excludedPackages;
 	}
 
-
 	protected SceneTransformer createAnalysisTransformer() {
 		return new SceneTransformer() {
 
@@ -132,94 +140,65 @@ public abstract class PointerBenchAnalysis {
 					@Override
 					protected Collection<? extends Query> generate(SootMethod method, Stmt u,
 							Collection calledMethods) {
-						Optional<? extends Query> query = new FirstArgumentOf("pointsToQuery").test(u);
-						
-						Optional<? extends Query> alloc = new AllocationSiteOf().test(u);
-						//Side effect:
-						if(alloc.isPresent()){
-							allocationSites.add(alloc.get());
-						}
-
-						if (query.isPresent()) {
-							return Collections.singleton(query.get());
-						}
-						return Collections.emptySet();
+						Stmt stmt = (Stmt) u;
+						if (!(stmt.containsInvokeExpr()))
+							return Collections.emptySet();
+						InvokeExpr invokeExpr = stmt.getInvokeExpr();
+						if (!invokeExpr.getMethod().getName().matches("mayAliasQuery"))
+							return Collections.emptySet();
+						Value param1 = invokeExpr.getArg(0);
+						Value param2 = invokeExpr.getArg(1);
+						Value param3 = invokeExpr.getArg(2);
+						Set<Query> out = Sets.newHashSet();
+						BackwardQuery queryA = new BackwardQuery(new Statement(stmt, icfg.getMethodOf(stmt)),
+								new Val(param1, icfg.getMethodOf(stmt)));
+						BackwardQuery queryB = new BackwardQuery(new Statement(stmt, icfg.getMethodOf(stmt)),
+								new Val(param2, icfg.getMethodOf(stmt)));
+						queries.add(new AliasQuery(stmt, (Local) param1, (Local) param2, queryA,queryB,((IntConstant) param3).value > 0));
+						out.add(queryA);
+						out.add(queryB);
+						return out;
 					}
 				};
 				queryForCallSites = seedFactory.computeSeeds();
-				if(queryForCallSites.isEmpty())
-					System.err.println("No query found for "+ mainClass);
+				if (queryForCallSites.isEmpty())
+					System.err.println("No query found for " + mainClass);
 				runAndCompare();
-				System.err.println("Results for " + mainClass);
-				if (!unsoundErrors.isEmpty()) {
-					System.err.println(Joiner.on("\n").join(unsoundErrors));
-				}
-				if (!imprecisionErrors.isEmpty()) {
-					System.err.println(Joiner.on("\n").join(imprecisionErrors));
-				}
 			}
 		};
 	}
 
-
-	protected abstract void runAndCompare();
-
-
-	private class AllocationSiteOf implements ValueOfInterestInUnit {
-		public Optional<? extends Query> test(Stmt unit) {
-			if (unit instanceof AssignStmt) {
-				AssignStmt as = (AssignStmt) unit;
-				if (as.getLeftOp() instanceof Local && as.getRightOp() instanceof NewExpr) {
-					NewExpr expr = ((NewExpr) as.getRightOp());
-					if (allocatesObjectOfInterest(expr)) {
-						Local local = (Local) as.getLeftOp();
-						Statement statement = new Statement(unit, icfg.getMethodOf(unit));
-						ForwardQuery forwardQuery = new ForwardQuery(statement,
-								new AllocVal(local, icfg.getMethodOf(unit), as.getRightOp()));
-						return Optional.<Query>of(forwardQuery);
-					}
-				}
+	protected void runAndCompare(){
+		for(AliasQuery q : queries){	
+			boolean result = computeQuery(q);
+			if(result == q.alias){
+				truePositive++;
+			} else if(q.alias == true && result == false){
+				falseNegative++;
+			} else if(q.alias == false && result == true){
+				falsePositive++;
 			}
-			return Optional.absent();
 		}
 	}
-
-	private class FirstArgumentOf implements ValueOfInterestInUnit {
-
-		private String methodNameMatcher;
-
-		public FirstArgumentOf(String methodNameMatcher) {
-			this.methodNameMatcher = methodNameMatcher;
-		}
-
-		@Override
-		public Optional<? extends Query> test(Stmt unit) {
-			Stmt stmt = (Stmt) unit;
-			if (!(stmt.containsInvokeExpr()))
-				return Optional.absent();
-			InvokeExpr invokeExpr = stmt.getInvokeExpr();
-			if (!invokeExpr.getMethod().getName().matches(methodNameMatcher))
-				return Optional.absent();
-			Value param = invokeExpr.getArg(0);
-			if (!(param instanceof Local))
-				return Optional.absent();
-			return Optional.<Query>of(new BackwardQuery(new Statement(unit, icfg.getMethodOf(unit)),
-					new Val(param, icfg.getMethodOf(unit))));
-		}
-	}
-
 	
+	protected abstract boolean computeQuery(AliasQuery q);
 
-	private boolean allocatesObjectOfInterest(NewExpr rightOp) {
-		SootClass interfaceType = Scene.v().getSootClass("pointerbench.markers.Allocation");
-		if (!interfaceType.isInterface())
-			return false;
-		RefType allocatedType = rightOp.getBaseType();
-		return Scene.v().getActiveHierarchy().getImplementersOf(interfaceType).contains(allocatedType.getSootClass());
-	}
+	protected static class AliasQuery{
+		final Unit stmt;
+		final Local a;
+		final Local b;
+		final boolean alias;
+		final BackwardQuery queryA;
+		final BackwardQuery queryB;
 
-	private interface ValueOfInterestInUnit {
-		Optional<? extends Query> test(Stmt unit);
+		public AliasQuery(Unit stmt, Local a, Local b, BackwardQuery queryA, BackwardQuery queryB, boolean alias){
+			this.stmt = stmt;
+			this.a = a;
+			this.b = b;
+			this.queryA = queryA;
+			this.queryB = queryB;
+			this.alias = alias;
+		}
 	}
 
 }

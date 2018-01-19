@@ -16,7 +16,7 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
-package dacapo.demand.driven;
+package sridharan;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -293,7 +293,7 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 
 	private final boolean lazy;
 
-	public static long timeBudget;
+	public static long timeBudget = 60000;
 
 	public DemandCSPointsTo(ContextSensitiveInfo csInfo, PAG pag) {
 		this(csInfo, pag, DEFAULT_MAX_TRAVERSAL, DEFAULT_MAX_PASSES, DEFAULT_LAZY);

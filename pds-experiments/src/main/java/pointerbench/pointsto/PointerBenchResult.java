@@ -1,4 +1,4 @@
-package pointerbench;
+package pointerbench.pointsto;
 
 public class PointerBenchResult {
 	
