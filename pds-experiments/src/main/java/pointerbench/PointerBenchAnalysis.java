@@ -17,7 +17,6 @@ import boomerang.jimple.AllocVal;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
 import boomerang.seedfactory.SeedFactory;
-import experiments.PointerBenchResult;
 import soot.G;
 import soot.Local;
 import soot.PackManager;
@@ -69,7 +68,7 @@ public abstract class PointerBenchAnalysis {
 		Options.v().set_whole_program(true);
 		Options.v().setPhaseOption("cg.spark", "on");
 		Options.v().set_output_format(Options.output_format_none);
-		Options.v().setPhaseOption("cg", "trim-clinit:false");
+//		Options.v().setPhaseOption("cg", "trim-clinit:false");
 		Options.v().set_no_bodies_for_excluded(true);
 		Options.v().set_allow_phantom_refs(true);
 

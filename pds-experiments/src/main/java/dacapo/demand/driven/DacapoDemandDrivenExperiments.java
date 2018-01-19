@@ -23,7 +23,6 @@ import boomerang.stats.AdvancedBoomerangStats;
 import boomerang.stats.IBoomerangStats;
 import dacapo.SootSceneSetupDacapo;
 import heros.solver.Pair;
-import java_cup.symbol_set;
 import soot.Local;
 import soot.PackManager;
 import soot.PointsToSet;

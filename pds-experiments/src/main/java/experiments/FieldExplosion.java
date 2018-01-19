@@ -1,6 +1,5 @@
 package experiments;
 
-import java.time.Duration;
 import java.util.ArrayList;
 
 import com.google.common.collect.Lists;
@@ -19,7 +18,7 @@ public class FieldExplosion {
 			pdsAnalysisTimes.add(analysis.getAnalysisTime().toMillis());
 //			
 			
-			if(i < 11){
+			if(i < 1){
 				analysis = new AccessPathAnalysis("field.complexity.benchmark.Fields"+i+"LongTest");
 				analysis.run();
 				apAnalysisTimes.add(analysis.getAnalysisTime().toMillis());

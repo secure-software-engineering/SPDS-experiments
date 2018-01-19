@@ -13,7 +13,6 @@ import boomerang.Query;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
 import boomerang.seedfactory.SeedFactory;
-import heros.solver.Pair;
 import soot.SceneTransformer;
 import soot.SootMethod;
 import soot.Transformer;

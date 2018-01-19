@@ -2,7 +2,6 @@ package field.complexity;
 
 import java.io.File;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

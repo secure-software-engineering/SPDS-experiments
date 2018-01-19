@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 
 import pointerbench.PointerBenchAnalysis;
 import pointerbench.PointerBenchAnalysisBoomerang;
+import pointerbench.PointerBenchResult;
 
 public class PointerBench {
 

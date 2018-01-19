@@ -1,10 +1,7 @@
 package field.complexity;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 
-import com.google.common.base.Optional;
 import com.google.common.base.Stopwatch;
 
 import boomerang.accessgraph.AccessGraph;
@@ -18,11 +15,8 @@ import soot.Local;
 import soot.SceneTransformer;
 import soot.SootMethod;
 import soot.Transformer;
-import soot.Unit;
 import soot.Value;
 import soot.jimple.Stmt;
-import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
-import wpds.impl.Weight.NoWeight;
 
 public class AccessPathAnalysis extends AbstractAnalysis {
 

@@ -2,11 +2,11 @@ package pointerbench;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
 
+import boomerang.BackwardQuery;
 import boomerang.Boomerang;
 import boomerang.DefaultBoomerangOptions;
 import boomerang.ForwardQuery;
@@ -14,11 +14,9 @@ import boomerang.Query;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
 import boomerang.seedfactory.SeedFactory;
-import boomerang.solver.AbstractBoomerangSolver;
 import soot.SootMethod;
 import soot.Unit;
 import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
-import sync.pds.solver.EmptyStackWitnessListener;
 import sync.pds.solver.nodes.Node;
 import wpds.impl.Weight.NoWeight;
 
@@ -34,15 +32,15 @@ public class PointerBenchAnalysisBoomerang extends PointerBenchAnalysis {
 		compare(allocationSites, backwardResults);
 	}
 
-	private void compare(Collection<Query> expectedResults, Set<Node<Statement, Val>> results) {
-		System.out.println("Boomerang Results: " + results);
+	private void compare(Collection<Query> expectedResults, Set<Node<Statement, Val>> backwardResults) {
+		System.out.println("Boomerang Results: " + backwardResults);
 		System.out.println("Expected Results: " + expectedResults);
 		Collection<Node<Statement, Val>> falseNegativeAllocationSites = new HashSet<>();
 		for (Query res : expectedResults) {
-			if (!results.contains(res.asNode()))
+			if (!backwardResults.contains(res.asNode()))
 				falseNegativeAllocationSites.add(res.asNode());
 		}
-		Collection<? extends Node<Statement, Val>> falsePositiveAllocationSites = new HashSet<>(results);
+		Collection<? extends Node<Statement, Val>> falsePositiveAllocationSites = new HashSet<>(backwardResults);
 		for (Query res : expectedResults) {
 			falsePositiveAllocationSites.remove(res.asNode());
 		}
@@ -81,21 +79,9 @@ public class PointerBenchAnalysisBoomerang extends PointerBenchAnalysis {
 				}
 			};
 			solver.solve(query);
-			for (final Entry<Query, AbstractBoomerangSolver<NoWeight>> fw : solver.getSolvers().entrySet()) {
-				
-				if (fw.getKey() instanceof ForwardQuery) {
-					fw.getValue().synchedEmptyStackReachable(query.asNode(),
-							new EmptyStackWitnessListener<Statement, Val>() {
-
-								@Override
-								public void witnessFound(Node<Statement, Val> allocation) {
-									results.add(fw.getKey().asNode());
-								}
-
-							});
-				}
+			for(ForwardQuery q : solver.getAllocationSites((BackwardQuery) query)){
+				results.add(q.asNode());
 			}
-
 		}
 		return results;
 	}

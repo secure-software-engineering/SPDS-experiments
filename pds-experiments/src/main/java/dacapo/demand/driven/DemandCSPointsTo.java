@@ -49,7 +49,6 @@ import soot.jimple.spark.ondemand.CallSiteException;
 import soot.jimple.spark.ondemand.DotPointerGraph;
 import soot.jimple.spark.ondemand.FieldCheckHeuristic;
 import soot.jimple.spark.ondemand.HeuristicType;
-import soot.jimple.spark.ondemand.LazyContextSensitivePointsToSet;
 import soot.jimple.spark.ondemand.TerminateEarlyException;
 import soot.jimple.spark.ondemand.WrappedPointsToSet;
 import soot.jimple.spark.ondemand.genericutil.ArraySet;

@@ -1,4 +1,4 @@
-package experiments;
+package pointerbench;
 
 public class PointerBenchResult {
 	
