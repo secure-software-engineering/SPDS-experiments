@@ -3,7 +3,7 @@ package pointerbench.alias;
 import soot.Local;
 import soot.PointsToSet;
 import soot.Scene;
-import soot.jimple.spark.ondemand.DemandCSPointsTo;
+import soot.jimple.spark.ondemand2.DemandCSPointsTo;
 
 public class PointerBenchAnalysisAliasSridharan extends PointerBenchAliasAnalysis {
 
@@ -13,7 +13,7 @@ public class PointerBenchAnalysisAliasSridharan extends PointerBenchAliasAnalysi
 	}
 
 	private PointsToSet getPointsTo(Local l){
-		DemandCSPointsTo pts = DemandCSPointsTo.makeWithBudget(7500000, 1000, false);
+		DemandCSPointsTo pts = DemandCSPointsTo.makeDefault();
 		try{
 			return pts.reachingObjects(l);
 		} catch (Exception e){

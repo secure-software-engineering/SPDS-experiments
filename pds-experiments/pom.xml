@@ -68,7 +68,11 @@
 			<artifactId>guava</artifactId>
 			<version>23.5-jre</version>
 		</dependency>
-
+		<dependency>
+			<groupId>spa</groupId>
+			<artifactId>spa</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 		<dependency>
 			<groupId>de.fraunhofer.iem</groupId>
 			<artifactId>PathExpression</artifactId>

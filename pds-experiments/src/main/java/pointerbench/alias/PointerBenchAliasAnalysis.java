@@ -199,6 +199,11 @@ public abstract class PointerBenchAliasAnalysis {
 			this.queryB = queryB;
 			this.alias = alias;
 		}
+		
+		@Override
+		public String toString() {
+			return stmt.toString();
+		}
 	}
 
 }

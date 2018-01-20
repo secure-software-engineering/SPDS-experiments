@@ -6,12 +6,10 @@ import boomerang.Query;
 import soot.Local;
 import soot.PointsToSet;
 import soot.Scene;
-import soot.jimple.spark.ondemand.DemandCSPointsTo;
+import soot.jimple.spark.ondemand2.DemandCSPointsTo;
 import sridharan.SridharanHelper;
 
 public class PointerBenchAnalysisSridharan extends PointerBenchAnalysis {
-
-	private static final String Local = null;
 
 	public PointerBenchAnalysisSridharan(String pointerBenchClassesPath, String mainClass) {
 		super(pointerBenchClassesPath, mainClass);
@@ -33,7 +31,7 @@ public class PointerBenchAnalysisSridharan extends PointerBenchAnalysis {
 	}
 
 	private int runQuery() {
-		DemandCSPointsTo pts = DemandCSPointsTo.makeWithBudget(7500000, 1000, false);
+		DemandCSPointsTo pts = DemandCSPointsTo.makeDefault();
 		int pointsToSize = 0;
 		for(Query q : queryForCallSites){
 			Local v = (Local) q.asNode().fact().value();
