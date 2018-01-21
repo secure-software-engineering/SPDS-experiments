@@ -1,5 +1,6 @@
 package experiments.typestate.microbench.tests;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -9,6 +10,7 @@ import com.ibm.safe.options.WholeProgramProperties;
 
 import experiments.typestate.microbench.IDEALTestSetup;
 import experiments.typestate.microbench.TypestateRegressionUnit;
+import experiments.typestate.microbench.Util;
 import junit.framework.TestCase;
 
 public class AbstractTestCase extends TestCase{
@@ -16,7 +18,7 @@ public class AbstractTestCase extends TestCase{
 
 	public static void runAllTests(Class clz) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
 		for (Method m : clz.getDeclaredMethods()) {
-			System.out.println(m);
+			System.setProperty("method", m.toString());
 			m.invoke(clz.newInstance(), null);
 		}
 	}
@@ -24,6 +26,10 @@ public class AbstractTestCase extends TestCase{
 	
 	public void run(TypestateRegressionUnit test) throws SafeException, Exception{
 		System.setProperty("expectedFinding", String.valueOf(test.getExpectedNumberOfFindings()));
+		if(!new File("outputMicro").exists())
+			new File("outputMicro").mkdirs();
+		String outputFile =  "outputMicro/"+System.getProperty("analysis") + "-" + this.getClass().getName() +  (Util.aliasing() ? "" : "-noAliasing") + (Util.strongUpdates() ? "" : "-noStrongUpdates") + ".csv";
+		System.setProperty("outputCsvFile", "outputMicro/common.csv");
 		if(System.getProperty("analysis").equalsIgnoreCase("fink-staged")){
 			test.setOption(WholeProgramProperties.Props.CG_KIND.getName(), "ZERO_ONE_CFA");
 			test.selectStagedTypestateSolver(); 

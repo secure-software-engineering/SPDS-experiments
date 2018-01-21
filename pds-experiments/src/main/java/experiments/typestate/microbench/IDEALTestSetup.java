@@ -1,14 +1,24 @@
+
 package experiments.typestate.microbench;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
+import com.beust.jcommander.internal.Sets;
+import com.google.common.collect.Table;
 import com.ibm.safe.properties.CommonProperties;
 import com.ibm.safe.typestate.options.TypestateProperties;
 
+import boomerang.WeightedBoomerang;
 import boomerang.WeightedForwardQuery;
 import boomerang.cfg.ExtendedICFG;
 import boomerang.debugger.Debugger;
@@ -17,6 +27,7 @@ import boomerang.jimple.Val;
 import boomerang.preanalysis.PreparationTransformer;
 import ideal.IDEALAnalysis;
 import ideal.IDEALAnalysisDefinition;
+import ideal.IDEALSeedSolver;
 import soot.G;
 import soot.PackManager;
 import soot.Scene;
@@ -29,6 +40,7 @@ import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
 import soot.options.Options;
 import sync.pds.solver.WeightFunctions;
 import typestate.TransitionFunction;
+import typestate.finiteautomata.ITransition;
 import typestate.finiteautomata.TypeStateMachineWeightFunctions;
 
 public class IDEALTestSetup {
@@ -165,8 +177,53 @@ public class IDEALTestSetup {
 		Transform transform = new Transform("wjtp.ifds", new SceneTransformer() {
 			protected void internalTransform(String phaseName, @SuppressWarnings("rawtypes") Map options) {
 //				System.out.println(Scene.v().getMainMethod().getActiveBody());
-				createAnalysis(test).run();
+				IDEALAnalysis<TransitionFunction> idealSolver = createAnalysis(test);
+				Map<WeightedForwardQuery<TransitionFunction>, IDEALSeedSolver<TransitionFunction>> solvers = idealSolver.run();
+				int totalPropagationCount = 0;
+				Set<SootMethod> totalVisitedMethods = Sets.newHashSet();
+				int errorCount = 0;
+				for(Entry<WeightedForwardQuery<TransitionFunction>, IDEALSeedSolver<TransitionFunction>> e : solvers.entrySet()) {
+//					long elapsed = e.getValue().getAnalysisStopwatch().elapsed(TimeUnit.MICROSECONDS);
+					WeightedBoomerang<TransitionFunction> phase2Solver = e.getValue().getPhase2Solver();
+					totalVisitedMethods.addAll(phase2Solver.getStats().getCallVisitedMethods());
+					totalPropagationCount += phase2Solver.getForwardReachableStates().size();
+					if(isInErrorState(e.getKey(),e.getValue())) {
+						errorCount++;
+					}
+				}
+
+				String output = System.getProperty("outputCsvFile");
+				if (output != null && !output.equals("")) {
+					File file = new File(output);
+					boolean existed = file.exists();
+					FileWriter writer;
+					try {
+						writer = new FileWriter(file, true);
+						if (!existed)
+							writer.write("Method;PropagationCounts;VisitedMethods;Actual Errors;Excepted Errors;Number of Seeds;\n");
+						writer.write(String.format("%s;%s;%s;%s;%s;%s;\n", System.getProperty("method"), totalPropagationCount, totalVisitedMethods.size(), errorCount, System.getProperty("expectedFinding"), solvers.keySet().size()));
+						writer.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 			}
+
+		    private boolean isInErrorState(WeightedForwardQuery<TransitionFunction> key, IDEALSeedSolver<TransitionFunction> solver) {
+		        Table<Statement, Val, TransitionFunction> objectDestructingStatements = solver.getPhase2Solver().getObjectDestructingStatements(key);
+		        for(Table.Cell<Statement,Val,TransitionFunction> c : objectDestructingStatements.cellSet()){
+		            for(ITransition t : c.getValue().values()){
+		                if(t.to() != null){
+		                    if(t.to().isErrorState()){
+		                        return true;
+		                    }
+		                }
+		            }
+
+		        }
+		      return false;
+		    }
 		});
 		PackManager.v().getPack("wjtp").add(transform);
 		PackManager.v().getPack("cg").apply();

@@ -23,9 +23,6 @@ public class SingleTestClassRunner {
 		for(Method m : forName.getDeclaredMethods()){
 			methods.add(new WrappedMethod(m));
 		}
-		if(!new File("outputMicro").exists())
-			new File("outputMicro").mkdirs();
-		String outputFile =  "outputMicro/"+System.getProperty("analysis") + "-" + testClassName +  (Util.aliasing() ? "" : "-noAliasing") + (Util.strongUpdates() ? "" : "-noStrongUpdates") + ".csv";
 		System.out.println(outputFile);
 		for(WrappedMethod m : methods){
 			System.out.println(m.getName());
