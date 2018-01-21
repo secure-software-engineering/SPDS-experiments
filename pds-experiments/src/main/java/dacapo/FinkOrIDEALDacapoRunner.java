@@ -3,6 +3,11 @@ package dacapo;
 import java.io.File;
 import java.util.regex.Pattern;
 
+import com.ibm.safe.core.tests.SafeRegressionDriver;
+import com.ibm.safe.options.WholeProgramProperties;
+import com.ibm.safe.properties.CommonProperties;
+import com.ibm.safe.typestate.tests.TypestateRegressionUnit;
+
 public class FinkOrIDEALDacapoRunner extends SootSceneSetupDacapo {
 	private static String project;
 	private static String benchFolder;
@@ -50,15 +55,15 @@ public class FinkOrIDEALDacapoRunner extends SootSceneSetupDacapo {
 			System.setProperty("dacapo", "true");
 			new IDEALRunner(benchFolder,project).run(outputFile);
 		} else if(analysis.equalsIgnoreCase("fink-apmust")){
-//			TypestateRegressionUnit test = new TypestateRegressionUnit(null, 0);
-//			test.selectTypestateRule(System.getProperty("rule"));
-//			test.setOption(CommonProperties.Props.MODULES.getName(), getModuleNames());
-//			test.setOption(CommonProperties.Props.MAIN_CLASSES.getName(), getMainClass());
-//			test.setOption(CommonProperties.Props.TIMEOUT_SECS.getName(), "60000");
-//			test.setOption(WholeProgramProperties.Props.CG_KIND.getName(), "ZERO_ONE_CFA");
-//
-//			test.selectAPMustMustNotTypestateSolver();
-//			SafeRegressionDriver.run(test);
+			TypestateRegressionUnit test = new TypestateRegressionUnit(null, 0);
+			test.selectTypestateRule(System.getProperty("rule"));
+			test.setOption(CommonProperties.Props.MODULES.getName(), getModuleNames());
+			test.setOption(CommonProperties.Props.MAIN_CLASSES.getName(), getMainClass());
+			test.setOption(CommonProperties.Props.TIMEOUT_SECS.getName(), "60000");
+			test.setOption(WholeProgramProperties.Props.CG_KIND.getName(), "ZERO_ONE_CFA");
+
+			test.selectAPMustMustNotTypestateSolver();
+			SafeRegressionDriver.run(test);
 		}
 
 	}

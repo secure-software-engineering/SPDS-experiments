@@ -22,5 +22,10 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.ibm.safe.typestate"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.ibm.safe.core.tests"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.ibm.safe.typestate.tests"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.ibm.safe"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.ibm.safe.core"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
