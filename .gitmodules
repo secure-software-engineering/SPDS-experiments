@@ -13,3 +13,6 @@
 [submodule "safe"]
 	path = safe
 	url = https://github.com/johspaeth/ideal-safe
+[submodule "ideal"]
+	path = ideal
+	url = https://github.com/johspaeth/ideal
