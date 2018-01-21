@@ -1,5 +1,7 @@
 package microbench;
 
+import typestate.impl.statemachines.VectorStateMachine;
+
 public class Util {
 	public static boolean strongUpdates() {
 		return (System.getProperty("strongUpdates") != null && Boolean.parseBoolean(System.getProperty("strongUpdates")));
@@ -17,7 +19,7 @@ public class Util {
 		case "URLConnection":
 			return typestate.impl.statemachines.URLConnStateMachine.class;
 		case "EmptyVector":
-			return typestate.impl.statemachines.VectorStateMachine.class;
+			return VectorStateMachine.class;
 		case "InputStreamCloseThenRead":
 			return typestate.impl.statemachines.alloc.InputStreamStateMachine.class;
 		case "PipedInputStream":

@@ -1,7 +1,8 @@
-package microbench;
+package experiments;
 
 import java.lang.reflect.InvocationTargetException;
 
+import com.ibm.safe.j2se.typestate.AbstractTestCase;
 import com.ibm.safe.j2se.typestate.IOTest;
 import com.ibm.safe.j2se.typestate.IteratorTest;
 import com.ibm.safe.j2se.typestate.KeyStoreTest;
@@ -9,16 +10,19 @@ import com.ibm.safe.j2se.typestate.SignatureTest;
 import com.ibm.safe.j2se.typestate.URLConnectionTest;
 import com.ibm.safe.j2se.typestate.VectorTest;
 
-public class Main {
-	public static final Class[] TEST_CLASSES = { VectorTest.class, IteratorTest.class, URLConnectionTest.class,
+import microbench.SingleTestClassRunner;
+
+public class IDEALMicroBench {
+	public static final Class[] TEST_CLASSES = { VectorTest.class,
+			IteratorTest.class, URLConnectionTest.class,
 			IOTest.class, KeyStoreTest.class, SignatureTest.class, };
 
 	public static void main(String... args) throws ClassNotFoundException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException, InstantiationException {
 		runIDEALBasedTypestate();
-		runFinkStagedTypestate();
-		runIDEALBasedTypestateNoStrongUpdate();
-		runIDEALBasedTypestateNoAliasing();
+//		runFinkStagedTypestate();
+//		runIDEALBasedTypestateNoStrongUpdate();
+//		runIDEALBasedTypestateNoAliasing();
 	}
 
 	private static void runFinkStagedTypestate() throws ClassNotFoundException, IllegalAccessException,
@@ -26,8 +30,12 @@ public class Main {
 		System.setProperty("analysis", "fink-staged");
 		System.setProperty("aliasing", "true");
 		System.setProperty("strongUpdates", "true");
+		run();
+	}
+
+	private static void run() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
 		for (Class c : TEST_CLASSES)
-			SingleTestClassRunner.main(new String[] { c.getName().toString() });
+			AbstractTestCase.runAllTests(c);
 	}
 
 	private static void runIDEALBasedTypestate() throws ClassNotFoundException, IllegalAccessException,
@@ -35,8 +43,7 @@ public class Main {
 		System.setProperty("analysis", "ideal");
 		System.setProperty("aliasing", "true");
 		System.setProperty("strongUpdates", "true");
-		for (Class c : TEST_CLASSES)
-			SingleTestClassRunner.main(new String[] { c.getName().toString() });
+		run();
 	}
 
 	private static void runIDEALBasedTypestateNoAliasing() throws ClassNotFoundException, IllegalAccessException,
@@ -44,8 +51,7 @@ public class Main {
 		System.setProperty("analysis", "ideal");
 		System.setProperty("aliasing", "false");
 		System.setProperty("strongUpdates", "true");
-		for (Class c : TEST_CLASSES)
-			SingleTestClassRunner.main(new String[] { c.getName().toString() });
+		run();
 	}
 
 	private static void runIDEALBasedTypestateNoStrongUpdate() throws ClassNotFoundException, IllegalAccessException,
@@ -53,7 +59,6 @@ public class Main {
 		System.setProperty("analysis", "ideal");
 		System.setProperty("aliasing", "true");
 		System.setProperty("strongUpdates", "false");
-		for (Class c : TEST_CLASSES)
-			SingleTestClassRunner.main(new String[] { c.getName().toString() });
+		run();
 	}
 }

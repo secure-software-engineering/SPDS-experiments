@@ -2,7 +2,6 @@ package com.ibm.safe.j2se.typestate;
 
 import com.ibm.safe.internal.exceptions.SafeException;
 
-import microbench.AbstractTestCase;
 import microbench.TypestateRegressionUnit;
 
 public class IOTest extends AbstractTestCase {

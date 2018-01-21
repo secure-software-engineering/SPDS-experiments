@@ -13,20 +13,20 @@ import java.util.Set;
 
 import com.google.common.collect.Multimap;
 
-import boomerang.AliasResults;
 import boomerang.accessgraph.AccessGraph;
+import boomerang.ap.AliasResults;
 import boomerang.cfg.ExtendedICFG;
 import heros.solver.PathEdge;
-import ideal.AnalysisSolver;
-import ideal.IFactAtStatement;
+import ideal.ap.AnalysisSolver;
+import ideal.ap.IFactAtStatement;
 import ideal.debug.IDEVizDebugger;
 import ideal.debug.IDebugger;
 import ideal.pointsofaliasing.PointOfAlias;
 import soot.Scene;
 import soot.SootMethod;
 import soot.Unit;
-import typestate.ConcreteState;
-import typestate.TypestateDomainValue;
+import typestate.ap.ConcreteState;
+import typestate.ap.TypestateDomainValue;
 
 public class TestsuiteToFileDebugger implements IDebugger<TypestateDomainValue<ConcreteState>> {
 

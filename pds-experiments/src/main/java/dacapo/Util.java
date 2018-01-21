@@ -1,6 +1,6 @@
 package dacapo;
 
-import typestate.impl.statemachines.HasNextStateMachine;
+import typestate.ap.impl.statemachines.HasNextStateMachine;
 
 public class Util {
 	public static boolean strongUpdates() {
@@ -15,25 +15,25 @@ public class Util {
 		case "IteratorHasNext":
 			return HasNextStateMachine.class;
 		case "KeyStore":
-			return typestate.impl.statemachines.KeyStoreStateMachine.class;
+			return typestate.ap.impl.statemachines.KeyStoreStateMachine.class;
 		case "URLConnection":
-			return typestate.impl.statemachines.URLConnStateMachine.class;
+			return typestate.ap.impl.statemachines.URLConnStateMachine.class;
 		case "EmptyVector":
-			return typestate.impl.statemachines.VectorStateMachine.class;
+			return typestate.ap.impl.statemachines.VectorStateMachine.class;
 		case "InputStreamCloseThenRead":
-			return typestate.impl.statemachines.alloc.InputStreamStateMachine.class;
+			return typestate.ap.impl.statemachines.alloc.InputStreamStateMachine.class;
 		case "PipedInputStream":
-			return typestate.impl.statemachines.PipedInputStreamStateMachine.class;
+			return typestate.ap.impl.statemachines.PipedInputStreamStateMachine.class;
 		case "OutputStreamCloseThenWrite":
-			return typestate.impl.statemachines.alloc.OutputStreamStateMachine.class;
+			return typestate.ap.impl.statemachines.alloc.OutputStreamStateMachine.class;
 		case "PipedOutputStream":
-			return typestate.impl.statemachines.PipedOutputStreamStateMachine.class;
+			return typestate.ap.impl.statemachines.PipedOutputStreamStateMachine.class;
 		case "PrintStream":
-			return typestate.impl.statemachines.alloc.PrintStreamStateMachine.class;
+			return typestate.ap.impl.statemachines.alloc.PrintStreamStateMachine.class;
 		case "PrintWriter":
-			return typestate.impl.statemachines.alloc.PrintWriterStateMachine.class;
+			return typestate.ap.impl.statemachines.alloc.PrintWriterStateMachine.class;
 		case "Signature":
-			return typestate.impl.statemachines.SignatureStateMachine.class;
+			return typestate.ap.impl.statemachines.SignatureStateMachine.class;
 		}
 		throw new RuntimeException("Select an appropriate rule");
 	}

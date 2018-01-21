@@ -27,5 +27,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.ibm.safe.typestate.tests"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.ibm.safe"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.ibm.safe.core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ideal"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/heros"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -1,6 +1,7 @@
 package microbench;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -8,15 +9,14 @@ import java.util.Map;
 import com.ibm.safe.properties.CommonProperties;
 import com.ibm.safe.typestate.options.TypestateProperties;
 
+import boomerang.WeightedForwardQuery;
 import boomerang.cfg.ExtendedICFG;
-import boomerang.cfg.IExtendedICFG;
+import boomerang.debugger.Debugger;
+import boomerang.jimple.Statement;
+import boomerang.jimple.Val;
 import boomerang.preanalysis.PreparationTransformer;
-import ideal.Analysis;
-import ideal.AnalysisSolver;
-import ideal.IFactAtStatement;
-import ideal.ResultReporter;
-import ideal.debug.IDebugger;
-import runner.Util;
+import ideal.IDEALAnalysis;
+import ideal.IDEALAnalysisDefinition;
 import soot.G;
 import soot.PackManager;
 import soot.Scene;
@@ -24,11 +24,12 @@ import soot.SceneTransformer;
 import soot.SootClass;
 import soot.SootMethod;
 import soot.Transform;
+import soot.Unit;
+import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
 import soot.options.Options;
-import typestate.ConcreteState;
-import typestate.TypestateAnalysisProblem;
-import typestate.TypestateChangeFunction;
-import typestate.TypestateDomainValue;
+import sync.pds.solver.WeightFunctions;
+import typestate.TransitionFunction;
+import typestate.finiteautomata.TypeStateMachineWeightFunctions;
 
 public class IDEALTestSetup {
 
@@ -93,7 +94,7 @@ public class IDEALTestSetup {
 		return excl;
 	}
 
-	protected static Analysis createAnalysis(TypestateRegressionUnit test) {
+	protected static IDEALAnalysis<TransitionFunction> createAnalysis(TypestateRegressionUnit test) {
 		String rule = test.getOptions().get(TypestateProperties.Props.SELECT_TYPESTATE_RULES.getName());
 		Class className = Util.selectTypestateMachine(rule);
 		try {
@@ -106,63 +107,42 @@ public class IDEALTestSetup {
 				}
 			}
 			
-			final TypestateChangeFunction genericsType = (TypestateChangeFunction) className.getConstructor()
-					.newInstance();
-			return new Analysis<TypestateDomainValue<ConcreteState>>(new TypestateAnalysisProblem<ConcreteState>() {
-				
-				private IDebugger<TypestateDomainValue<ConcreteState>> debugger;
+			final TypeStateMachineWeightFunctions genericsType = (TypeStateMachineWeightFunctions) className.getConstructor()
+			          .newInstance();
+					
+			return new IDEALAnalysis<TransitionFunction>(new IDEALAnalysisDefinition<TransitionFunction>() {
+
 				@Override
-				public long analysisBudgetInSeconds() {
-					return 30;
-				}
-				@Override
-				public boolean enableNullPointOfAlias() {
-					return true;
+				public Collection<WeightedForwardQuery<TransitionFunction>> generate(SootMethod method, Unit stmt, Collection<SootMethod> calledMethod) {
+					return genericsType.generateSeed(method, stmt, calledMethod);
 				}
 
 				@Override
-				public TypestateChangeFunction<ConcreteState> createTypestateChangeFunction() {
+				public WeightFunctions<Statement, Val, Statement, TransitionFunction> weightFunctions() {
 					return genericsType;
 				}
 
 				@Override
-				public ResultReporter<TypestateDomainValue<ConcreteState>> resultReporter() {
-					return new ResultReporter<TypestateDomainValue<ConcreteState>>() {
-
-						@Override
-						public void onSeedFinished(IFactAtStatement seed,
-								AnalysisSolver<TypestateDomainValue<ConcreteState>> solver) {
-
-						}
-
-						@Override
-						public void onSeedTimeout(IFactAtStatement seed) {
-
-						}
-					};
-				}
-
-				@Override
-				public IExtendedICFG icfg() {
+				public BiDiInterproceduralCFG<Unit, SootMethod> icfg() {
 					return icfg;
 				}
+				@Override
+				public long analysisBudgetInSeconds() {
+					// TODO Auto-generated method stub
+					return 0;
+				}
+
+				public boolean enableStrongUpdates() {
+					// TODO Auto-generated method stub
+					return false;
+				}
 
 				@Override
-				public IDebugger<TypestateDomainValue<ConcreteState>> debugger() {
-					if(debugger == null)
-						debugger = new TestsuiteToFileDebugger(icfg,enableAliasing() && enableStrongUpdates());
-					return debugger;
+				public Debugger<TransitionFunction> debugger() {
+					return new Debugger<>();
 				}
-				
-				@Override
-				public boolean enableAliasing() {
-					return Util.aliasing();
-				}
-				@Override
-				public boolean enableStrongUpdates() {
-					return Util.strongUpdates();
-				}
-			});
+			}){};
+			    	
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
@@ -184,7 +164,7 @@ public class IDEALTestSetup {
 		initializeSoot(targetClass);
 		Transform transform = new Transform("wjtp.ifds", new SceneTransformer() {
 			protected void internalTransform(String phaseName, @SuppressWarnings("rawtypes") Map options) {
-				System.out.println(Scene.v().getMainMethod().getActiveBody());
+//				System.out.println(Scene.v().getMainMethod().getActiveBody());
 				createAnalysis(test).run();
 			}
 		});
