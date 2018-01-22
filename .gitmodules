@@ -10,9 +10,6 @@
 [submodule "wala"]
 	path = wala
 	url = https://github.com/johspaeth/wala-typestate
-[submodule "safe"]
-	path = safe
-	url = https://github.com/johspaeth/ideal-safe
 [submodule "ideal"]
 	path = ideal
 	url = https://github.com/johspaeth/ideal
