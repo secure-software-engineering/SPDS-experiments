@@ -14,11 +14,12 @@ public class IDEALMicroBench {
 	public static final Class[] TEST_CLASSES = { VectorTest.class,
 			IteratorTest.class, URLConnectionTest.class,
 			IOTest.class, KeyStoreTest.class, SignatureTest.class, };
+//	public static final Class[] TEST_CLASSES = { VectorTest.class};
 
 	public static void main(String... args) throws ClassNotFoundException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException, InstantiationException {
-		runIDEALBasedTypestate();
-//		runFinkStagedTypestate();
+//		runIDEALBasedTypestate();
+		runFinkStagedTypestate();
 //		runIDEALBasedTypestateNoStrongUpdate();
 //		runIDEALBasedTypestateNoAliasing();
 	}
@@ -28,6 +29,7 @@ public class IDEALMicroBench {
 		System.setProperty("analysis", "fink-staged");
 		System.setProperty("aliasing", "true");
 		System.setProperty("strongUpdates", "true");
+		System.setProperty("isTestsuite", "true");
 		run();
 	}
 

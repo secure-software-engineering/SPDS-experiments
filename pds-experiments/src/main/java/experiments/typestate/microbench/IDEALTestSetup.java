@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,7 @@ import soot.SootMethod;
 import soot.Transform;
 import soot.Unit;
 import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
+import soot.jimple.toolkits.ide.icfg.JimpleBasedInterproceduralCFG;
 import soot.options.Options;
 import sync.pds.solver.WeightFunctions;
 import typestate.TransitionFunction;
@@ -57,6 +59,7 @@ public class IDEALTestSetup{
 		includeList.add("java.util.*");
 		includeList.add("java.io.*");
 		includeList.add("sun.misc.*");
+		includeList.add("sun.nio.*");
 		includeList.add("java.net.*");
 		includeList.add("javax.servlet.*");
 		includeList.add("javax.crypto.*");
@@ -116,7 +119,7 @@ public class IDEALTestSetup{
 		String rule = test.getOptions().get(TypestateProperties.Props.SELECT_TYPESTATE_RULES.getName());
 		Class className = Util.selectTypestateMachine(rule);
 		try {
-			final ExtendedICFG icfg = new ExtendedICFG(true);
+			final JimpleBasedInterproceduralCFG icfg = new JimpleBasedInterproceduralCFG(true);
 			for (SootClass c : Scene.v().getClasses()) {
 				if (c.toString().contains("j2se.typestate")) {
 					c.setApplicationClass();
@@ -132,6 +135,8 @@ public class IDEALTestSetup{
 
 				@Override
 				public Collection<WeightedForwardQuery<TransitionFunction>> generate(SootMethod method, Unit stmt, Collection<SootMethod> calledMethod) {
+					if(!method.getDeclaringClass().isApplicationClass())
+						return Collections.emptyList();
 					return genericsType.generateSeed(method, stmt, calledMethod);
 				}
 
@@ -205,9 +210,13 @@ public class IDEALTestSetup{
 					FileWriter writer;
 					try {
 						writer = new FileWriter(file, true);
+						int expected = Integer.parseInt(System.getProperty("expectedFinding"));
 						if (!existed)
-							writer.write("Method;PropagationCounts;VisitedMethods;Actual Errors;Excepted Errors;Number of Seeds;\n");
-						writer.write(String.format("%s;%s;%s;%s;%s;%s;\n", System.getProperty("method"), totalPropagationCount, totalVisitedMethods.size(), errorCount, System.getProperty("expectedFinding"), solvers.keySet().size()));
+							writer.write("Method;PropagationCounts;VisitedMethods;Actual Errors;Excepted Errors;Number of Seeds;False Positives;False Negatives\n");
+						int diff = errorCount - expected;
+						int falseNegatives = (diff < 0 ? -diff : 0);
+						int falsePositives = (diff > 0 ? diff : 0);
+						writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;\n", System.getProperty("method"), totalPropagationCount, totalVisitedMethods.size(), errorCount, expected, solvers.keySet().size(), falsePositives, falseNegatives));
 						writer.close();
 					} catch (IOException e) {
 						// TODO Auto-generated catch block

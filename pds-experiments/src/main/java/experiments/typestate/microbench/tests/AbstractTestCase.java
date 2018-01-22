@@ -18,7 +18,7 @@ public class AbstractTestCase extends TestCase{
 
 	public static void runAllTests(Class clz) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
 		for (Method m : clz.getDeclaredMethods()) {
-			System.setProperty("method", m.toString());
+			System.setProperty("method", m.getName().toString());
 			m.invoke(clz.newInstance(), null);
 		}
 	}
@@ -31,7 +31,7 @@ public class AbstractTestCase extends TestCase{
 		String outputFile =  "outputMicro/"+System.getProperty("analysis") + "-" + this.getClass().getName() +  (Util.aliasing() ? "" : "-noAliasing") + (Util.strongUpdates() ? "" : "-noStrongUpdates") + ".csv";
 		System.setProperty("outputCsvFile", "outputMicro/common.csv");
 		if(System.getProperty("analysis").equalsIgnoreCase("fink-staged")){
-			test.setOption(WholeProgramProperties.Props.CG_KIND.getName(), "ZERO_ONE_CFA");
+			test.setOption(WholeProgramProperties.Props.CG_KIND.getName(), "ZERO_ONE_CUSTOM");
 			test.selectStagedTypestateSolver(); 
 			SafeRegressionDriver.run(test);
 		} else if(System.getProperty("analysis").equalsIgnoreCase("ideal")){
