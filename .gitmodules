@@ -7,9 +7,6 @@
 [submodule "PointerBench"]
 	path = PointerBench
 	url = https://github.com/secure-software-engineering/PointerBench.git
-[submodule "wala"]
-	path = wala
-	url = https://github.com/johspaeth/wala-typestate
 [submodule "ideal"]
 	path = ideal
 	url = https://github.com/johspaeth/ideal
