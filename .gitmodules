@@ -16,3 +16,6 @@
 [submodule "heros"]
 	path = heros
 	url = https://github.com/Sable/heros.git
+[submodule "safe"]
+	path = safe
+	url = https://github.com/johspaeth/ideal-safe
