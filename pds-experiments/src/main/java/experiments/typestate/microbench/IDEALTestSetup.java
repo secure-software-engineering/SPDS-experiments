@@ -15,6 +15,8 @@ import java.util.concurrent.TimeUnit;
 
 import com.beust.jcommander.internal.Sets;
 import com.google.common.collect.Table;
+import com.ibm.safe.core.tests.SafeRegressionUnit;
+import com.ibm.safe.internal.exceptions.SafeException;
 import com.ibm.safe.properties.CommonProperties;
 import com.ibm.safe.typestate.options.TypestateProperties;
 
@@ -43,9 +45,8 @@ import typestate.TransitionFunction;
 import typestate.finiteautomata.ITransition;
 import typestate.finiteautomata.TypeStateMachineWeightFunctions;
 
-public class IDEALTestSetup {
+public class IDEALTestSetup{
 
-	static String BIN_PATH = "/Users/johannesspath/Documents/ideal-workspace/safe/com.ibm.safe.typestate.testdata/bin";
 	protected long analysisTime;
 
 	@SuppressWarnings("static-access")
@@ -70,7 +71,7 @@ public class IDEALTestSetup {
 		Options.v().set_include_all(true);
 		Options.v().set_output_format(Options.output_format_none);
 		Options.v().set_exclude(getExclusions());
-		Options.v().set_soot_classpath(BIN_PATH);
+		Options.v().set_soot_classpath(getClassPath());
 		Options.v().set_main_class(targetClass);
 		Scene.v().addBasicClass(targetClass, SootClass.BODIES);
 		Scene.v().loadNecessaryClasses();
@@ -83,6 +84,11 @@ public class IDEALTestSetup {
 		ePoints.add(methodByName);
 		Scene.v().setEntryPoints(ePoints);
 		PackManager.v().getPack("wjtp").add(new Transform("wjtp.preparationTransform", new PreparationTransformer()));
+	}
+
+	private static String getClassPath() {
+		String relativePath = ".." + File.separator + "safe" + File.separator +"com.ibm.safe.typestate.testdata" +File.separator + "bin";
+		return new File(relativePath).getAbsolutePath();
 	}
 
 	private static List<String> getExclusions() {
