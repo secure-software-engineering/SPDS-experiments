@@ -25,6 +25,8 @@ public class SridharanHelper {
 				
 				@Override
 				public void visit(AllocAndContext obj_) {
+					if(obj_.alloc.getMethod() == null)
+						return;
 					if(!obj_.alloc.getMethod().getDeclaringClass().toString().startsWith("java."))
 						flat.add(obj_.alloc);
 				}

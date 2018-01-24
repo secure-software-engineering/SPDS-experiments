@@ -38,8 +38,8 @@ public class PointerBench {
 			String className = relative.replaceAll(".class", "").replaceAll("/",".");
 			if(className.contains("$"))
 				continue;
-			if(!className.contains("ReturnValue3"))
-				continue;
+//			if(!className.contains("Set"))
+//				continue;
 //			if(className.contains("Set"))
 //				continue;
 			
