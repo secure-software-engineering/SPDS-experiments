@@ -2,10 +2,10 @@ package experiments.pointerbench.pointsto;
 
 public class PointerBenchResult {
 	
-	final String className;
-	final int ptsFalsePositives;
-	final int ptsFalseNegatives;
-	final int ptsTruePositives;
+	public final String className;
+	public final int ptsFalsePositives;
+	public final int ptsFalseNegatives;
+	public final int ptsTruePositives;
 
 	public PointerBenchResult(String className, int ptsTruePositives, int ptsFalsePositives, int ptsFalseNegatives) {
 		this.className = className;

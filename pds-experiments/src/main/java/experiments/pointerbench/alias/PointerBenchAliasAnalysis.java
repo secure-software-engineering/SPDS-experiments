@@ -167,6 +167,7 @@ public abstract class PointerBenchAliasAnalysis {
 			} else if(q.alias == true && result == false){
 				falseNegative++;
 			} else if(q.alias == false && result == true){
+				System.out.println(q.stmt);
 				falsePositive++;
 			}
 		}

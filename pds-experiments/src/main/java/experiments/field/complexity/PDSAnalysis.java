@@ -24,8 +24,8 @@ import wpds.impl.Weight.NoWeight;
 
 public class PDSAnalysis extends AbstractAnalysis {
 
-	public PDSAnalysis(String testClass) {
-		super(testClass);
+	public PDSAnalysis(String testClass, int timeoutInMs) {
+		super(testClass,timeoutInMs);
 	}
 
 	@Override
@@ -50,12 +50,18 @@ public class PDSAnalysis extends AbstractAnalysis {
 						return Collections.emptySet();
 					}
 				};
-				Boomerang solver = new Boomerang(new DefaultBoomerangOptions()) {
+				Boomerang solver = new Boomerang(new DefaultBoomerangOptions(){
+					@Override
+					public int analysisTimeoutMS() {
+						return timeoutInMs;
+					}
+				}) {
 					@Override
 					public BiDiInterproceduralCFG<Unit, SootMethod> icfg() {
 						return getOrCreateICFG();
 					}
 
+					
 					@Override
 					public SeedFactory<NoWeight> getSeedFactory() {
 						return seedFactory;

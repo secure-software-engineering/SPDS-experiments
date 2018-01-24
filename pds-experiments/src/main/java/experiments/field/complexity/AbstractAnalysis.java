@@ -27,9 +27,11 @@ public abstract class AbstractAnalysis {
 	protected final String testClass;
 	private JimpleBasedInterproceduralCFG icfg;
 	protected Duration analysisTime;
+	protected int timeoutInMs;
 
-	public AbstractAnalysis(String testClass){
+	public AbstractAnalysis(String testClass, int timeoutInMs){
 		this.testClass = testClass;
+		this.timeoutInMs = timeoutInMs;
 		initializeSootWithEntryPoint();
 	}
 	

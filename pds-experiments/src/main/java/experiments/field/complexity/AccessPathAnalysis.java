@@ -20,8 +20,8 @@ import soot.jimple.Stmt;
 
 public class AccessPathAnalysis extends AbstractAnalysis {
 
-	public AccessPathAnalysis(String testClass) {
-		super(testClass);
+	public AccessPathAnalysis(String testClass, int timeoutInMS) {
+		super(testClass,timeoutInMS);
 	}
 
 	@Override
@@ -30,7 +30,10 @@ public class AccessPathAnalysis extends AbstractAnalysis {
 
 			protected void internalTransform(String phaseName, @SuppressWarnings("rawtypes") Map options) {
 				AliasFinder boomerang = new AliasFinder(new BoomerangOptions() {
-
+					@Override
+					public long getTimeBudget() {
+						return timeoutInMs;
+					}
 					@Override
 					public IExtendedICFG icfg() {
 						return new ExtendedICFG(getOrCreateICFG());

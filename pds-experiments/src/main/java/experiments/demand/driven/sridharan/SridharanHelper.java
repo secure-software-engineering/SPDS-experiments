@@ -25,7 +25,8 @@ public class SridharanHelper {
 				
 				@Override
 				public void visit(AllocAndContext obj_) {
-					flat.add(obj_.alloc);
+					if(!obj_.alloc.getMethod().getDeclaringClass().toString().startsWith("java."))
+						flat.add(obj_.alloc);
 				}
 			});
 			return flat.size();
