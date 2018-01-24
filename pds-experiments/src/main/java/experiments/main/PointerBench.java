@@ -38,7 +38,7 @@ public class PointerBench {
 			String className = relative.replaceAll(".class", "").replaceAll("/",".");
 			if(className.contains("$"))
 				continue;
-//			if(!className.contains("Set"))
+//			if(!className.contains("ContextSensitivity1"))
 //				continue;
 //			if(className.contains("Set"))
 //				continue;
