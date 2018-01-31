@@ -4,12 +4,14 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import boomerang.ap.AliasFinder;
+import boomerang.ap.BoomerangOptions;
 import boomerang.cfg.ExtendedICFG;
 import boomerang.cfg.IExtendedICFG;
 import boomerang.preanalysis.PreparationTransformer;
 import experiments.dacapo.SootSceneSetupDacapo;
 import ideal.ap.Analysis;
 import ideal.ap.AnalysisSolver;
+import ideal.ap.DefaultIDEALAnalysisDefinition;
 import ideal.ap.IFactAtStatement;
 import ideal.ap.ResultReporter;
 import ideal.debug.IDebugger;
@@ -83,6 +85,24 @@ protected Analysis<TypestateDomainValue<ConcreteState>> createAnalysis() {
 			@Override
 			public boolean enableStrongUpdates() {
 				return true;
+			}
+			
+			@Override
+			public BoomerangOptions boomerangOptions() {
+				return new BoomerangOptions(){
+					@Override
+					public long getTimeBudget() {
+						return 30000;
+					}
+					@Override
+					public boolean getTrackStaticFields() {
+						return Analysis.ALIASING_FOR_STATIC_FIELDS;
+					}
+					@Override
+					public IExtendedICFG icfg() {
+						return icfg;
+					}
+				};
 			}
 
 			@Override

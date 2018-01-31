@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -54,6 +55,8 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
 
 			@Override
 			public Collection<WeightedForwardQuery<TransitionFunction>> generate(SootMethod method, Unit stmt, Collection<SootMethod> calledMethod) {
+				if(!method.getDeclaringClass().isApplicationClass())
+					return Collections.emptyList();
 				return genericsType.generateSeed(method, stmt, calledMethod);
 			}
 
