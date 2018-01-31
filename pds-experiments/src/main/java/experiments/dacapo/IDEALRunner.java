@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit;
 
 import com.google.common.collect.Table;
 
+import boomerang.BoomerangOptions;
+import boomerang.DefaultBoomerangOptions;
 import boomerang.WeightedForwardQuery;
 import boomerang.debugger.Debugger;
 import boomerang.jimple.Statement;
@@ -76,6 +78,15 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
 			}
 
 			@Override
+			public BoomerangOptions boomerangOptions() {
+				return new DefaultBoomerangOptions() {
+					@Override
+					public int analysisTimeoutMS() {
+						return 30000;
+					}
+				};
+			}
+			@Override
 			public Debugger<TransitionFunction> debugger() {
 				return new Debugger<>();
 			}
@@ -129,7 +140,7 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
               writer = new FileWriter(file, true);
               if(!fileExisted)
                   writer.write(
-                          "Seed;SeedMethod;SeedClass;AnalysisTimes;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;Is_In_Error;Timedout\n");
+                          "Analysis;Rule;Seed;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;\n");
 
               for (Map.Entry<WeightedForwardQuery<TransitionFunction>, IDEALSeedSolver<TransitionFunction>> entry : seedToAnalysisTime.entrySet()) {
                   writer.write(asCSVLine(entry.getKey(), entry.getValue()));
@@ -173,7 +184,7 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
   }
 
     private String asCSVLine(WeightedForwardQuery<TransitionFunction> key, IDEALSeedSolver<TransitionFunction> solver) {
-        return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n",key,key.stmt().getMethod(),key.stmt().getMethod().getDeclaringClass(),solver.getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase1Solver().getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase2Solver().getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase1Solver().getStats().getCallVisitedMethods().size(), Scene.v().getReachableMethods().size(), isInErrorState(key,solver),solver.isTimedOut());
+        return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n","ideal",	System.getProperty("ruleIdentifier"),key,key.stmt().getMethod(),key.stmt().getMethod().getDeclaringClass(), isInErrorState(key,solver),solver.isTimedOut(),solver.getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase1Solver().getForwardReachableStates().size(),solver.getPhase1Solver().getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase2Solver().getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase1Solver().getStats().getCallVisitedMethods().size(), Scene.v().getReachableMethods().size());
     }
 
     private boolean isInErrorState(WeightedForwardQuery<TransitionFunction> key, IDEALSeedSolver<TransitionFunction> solver) {

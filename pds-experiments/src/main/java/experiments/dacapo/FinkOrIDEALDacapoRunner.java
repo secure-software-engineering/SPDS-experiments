@@ -25,9 +25,8 @@ public class FinkOrIDEALDacapoRunner extends SootSceneSetupDacapo {
 		System.setProperty("rule", args[1]);
 		benchFolder = args[2];
 		project =  args[3];
-		System.setProperty("toCSV", Boolean.toString(true));
-		System.setProperty("aliasing", args[5]);
-		System.setProperty("strongUpdates", args[6]);
+		System.setProperty("aliasing", args[4]);
+		System.setProperty("strongUpdates", args[5]);
 		new FinkOrIDEALDacapoRunner(benchFolder,project).run(args[4]);
 	}
 
@@ -44,12 +43,14 @@ public class FinkOrIDEALDacapoRunner extends SootSceneSetupDacapo {
 		if(Pattern.matches("PipedInputStream|InputStreamCloseThenRead|OutputStreamCloseThenWrite|PipedOutputStream|PrintStream|PrintWriter", rule)){
 			rule = "IO";
 		}
+		System.setProperty("ruleIdentifier",rule);
 		String outputDirectory = "outputDacapo";
 		File outputDir = new File(outputDirectory);
 		if(!outputDir.exists())
 			outputDir.mkdir();
-		String outputFile = outputDirectory+File.separator+getMainClass() +"-"+numberOfRun+ "-"+ analysis+"-" +rule +".csv";
+		String outputFile = outputDirectory+File.separator+getMainClass() +"-"+numberOfRun+".csv";
 		System.setProperty("outputCsvFile", outputFile);
+		
 		System.out.println("Writing output to file " +outputFile);
 		if(analysis.equalsIgnoreCase("ideal")){
 			System.setProperty("rule", Util.selectTypestateMachine(System.getProperty("rule")).getName());
@@ -65,6 +66,16 @@ public class FinkOrIDEALDacapoRunner extends SootSceneSetupDacapo {
 			test.setOption(WholeProgramProperties.Props.CG_KIND.getName(), "ZERO_ONE_CFA");
 
 			test.selectAPMustMustNotTypestateSolver();
+			SafeRegressionDriver.run(test);
+		} else if(analysis.equalsIgnoreCase("fink-unique")){
+			TypestateRegressionUnit test = new TypestateRegressionUnit(null, 0);
+			test.selectTypestateRule(System.getProperty("rule"));
+			test.setOption(CommonProperties.Props.MODULES.getName(), getModuleNames());
+			test.setOption(CommonProperties.Props.MAIN_CLASSES.getName(), getMainClass());
+			test.setOption(CommonProperties.Props.TIMEOUT_SECS.getName(), "60000");
+			test.setOption(WholeProgramProperties.Props.CG_KIND.getName(), "ZERO_ONE_CFA");
+
+			test.selectUniqueTypestateSolver();
 			SafeRegressionDriver.run(test);
 		}
 
