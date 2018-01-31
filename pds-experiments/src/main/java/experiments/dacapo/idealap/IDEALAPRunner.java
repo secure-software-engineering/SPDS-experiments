@@ -1,4 +1,4 @@
-package experiments.dacapo;
+package experiments.dacapo.idealap;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -7,6 +7,7 @@ import boomerang.ap.AliasFinder;
 import boomerang.cfg.ExtendedICFG;
 import boomerang.cfg.IExtendedICFG;
 import boomerang.preanalysis.PreparationTransformer;
+import experiments.dacapo.SootSceneSetupDacapo;
 import ideal.ap.Analysis;
 import ideal.ap.AnalysisSolver;
 import ideal.ap.IFactAtStatement;

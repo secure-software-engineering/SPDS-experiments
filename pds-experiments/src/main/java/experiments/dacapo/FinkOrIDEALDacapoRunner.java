@@ -8,6 +8,7 @@ import com.ibm.safe.options.WholeProgramProperties;
 import com.ibm.safe.properties.CommonProperties;
 import com.ibm.safe.typestate.tests.TypestateRegressionUnit;
 
+import experiments.dacapo.idealap.IDEALAPRunner;
 import experiments.typestate.microbench.Util;
 
 public class FinkOrIDEALDacapoRunner extends SootSceneSetupDacapo {

@@ -1,4 +1,4 @@
-package experiments.dacapo;
+package experiments.dacapo.idealap;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -216,9 +216,6 @@ public class StatsDebugger implements IDebugger<TypestateDomainValue<ConcreteSta
 			if(!fileExisted)
 				 writer.write(
                          "Analysis;Rule;Seed;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;\n");
-
-				writer.write(
-							"Seed;SeedMethod;SeedClass;AnalysisTimes;Phase1Time;Phase2Time;AliasTime;VisitedMethod;ReachableMethods;Is_In_Error;Timedout\n");
 				SootMethod method = icfg.getMethodOf(seed.getStmt());
 			String line = String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n","ideal-ap",	System.getProperty("ruleIdentifier"),seed, method.getName(),method.getDeclaringClass(), error,timedout,totalTime,propagationCount,phase1Time,phase2Time,visitedMethods.size(), Scene.v().getReachableMethods().size());
 			writer.write(line);
