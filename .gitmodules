@@ -19,3 +19,6 @@
 [submodule "wala"]
 	path = wala
 	url = https://github.com/johspaeth/wala-typestate
+[submodule "IDEViz"]
+	path = IDEViz
+	url = https://github.com/johspaeth/IDEViz

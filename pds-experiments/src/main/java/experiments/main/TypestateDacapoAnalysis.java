@@ -9,7 +9,7 @@ public class TypestateDacapoAnalysis {
 
 	static String[] dacapo = new String[] { "antlr", "chart", "eclipse", "hsqldb", "jython", "luindex", "lusearch",
 			"pmd", "xalan", "bloat" };
-	static String[] analyses = new String[] { "ideal","fink-apmust","fink-unique" };
+	static String[] analyses = new String[] { "#ideal","ideal-ap","#fink-apmust","#fink-unique" };
 	static String[] rules = new String[] { 
 	    "EmptyVector",	"IteratorHasNext",
 		    "KeyStore",
@@ -27,6 +27,15 @@ public class TypestateDacapoAnalysis {
 		for(String rule: rules){
 			for (String bench : dacapo) {
 				for(String analysis : analyses){
+					if(ignore(rule)) {
+						continue;
+					}
+					if(ignore(analysis)) {
+						continue;
+					}
+					if(ignore(bench)) {
+						continue;
+					}
 					String javaHome = System.getProperty("java.home");
 			        String javaBin = javaHome +
 			                File.separator + "bin" +
@@ -43,5 +52,9 @@ public class TypestateDacapoAnalysis {
 				}
 			}
 		}
+	}
+
+	private static boolean ignore(String rule) {
+		return rule.startsWith("#");
 	}
 }
