@@ -11,19 +11,21 @@ public class TypestateDacapoAnalysis {
 			"pmd", "xalan", "bloat" };
 	static String[] analyses = new String[] { "ideal","ideal-ap","#fink-apmust","#fink-unique" };
 	static String[] rules = new String[] { 
-	    "#EmptyVector",	"#IteratorHasNext",
-		    "#KeyStore",
-		    "#URLConnection",
-		    "#InputStreamCloseThenRead",
-		    "#PipedInputStream",
-		    "#OutputStreamCloseThenWrite",
-		    "#PipedOutputStream",
-		    "#PrintStream",
-		    "#PrintWriter",
+	    "EmptyVector",	"IteratorHasNext",
+		    "KeyStore",
+		    "URLConnection",
+		    "InputStreamCloseThenRead",
+		    "PipedInputStream",
+		    "OutputStreamCloseThenWrite",
+		    "PipedOutputStream",
+		    "PrintStream",
+		    "PrintWriter",
 		    "Signature" };
-	static String benchmarkFolder = "/Users/johannesspath/Arbeit/Fraunhofer/pointsto-experiments/dacapo/";
 	 
 	public static void main(String... args) {
+		if(args.length < 1) {
+			System.out.println("Please supply path to dacapo benchmark (must end in slash)!");
+		}
 		for(String rule: rules){
 			for (String bench : dacapo) {
 				for(String analysis : analyses){
@@ -40,7 +42,7 @@ public class TypestateDacapoAnalysis {
 			        String javaBin = javaHome +
 			                File.separator + "bin" +
 			                File.separator + "java";
-					ProcessBuilder builder = new ProcessBuilder(new String[] {javaBin, "-Xmx12g","-Xss164m","-cp",  System.getProperty("java.class.path"), FinkOrIDEALDacapoRunner.class.getName(),analysis, rule, benchmarkFolder, bench});
+					ProcessBuilder builder = new ProcessBuilder(new String[] {javaBin, "-Xmx12g","-Xss164m","-cp",  System.getProperty("java.class.path"), FinkOrIDEALDacapoRunner.class.getName(),analysis, rule, args[0], bench});
 					builder.inheritIO();
 					Process process;
 					try {
