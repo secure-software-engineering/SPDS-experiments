@@ -14,6 +14,7 @@ import java.util.Properties;
 import com.google.common.base.Joiner;
 
 import soot.Scene;
+import soot.SootClass;
 import soot.SootMethod;
 import soot.options.Options;
 
@@ -71,6 +72,7 @@ public class SootSceneSetupDacapo {
 		Options.v().setPhaseOption("cg", "implicit-entry:false,trim-clinit:false");
 		Options.v().setPhaseOption("cg.spark", "enabled:true,verbose:true,simulate-natives:false,empties-as-allocs:true,merge-stringbuffer:false,string-constants:true");
 		// readDynamicClasses();
+		Scene.v().addBasicClass("java.security.Signature",SootClass.HIERARCHY);
 		Scene.v().loadNecessaryClasses();
 		LinkedList<SootMethod> entryPoint = new LinkedList<>();
 		entryPoint.add(Scene.v().getMainMethod());

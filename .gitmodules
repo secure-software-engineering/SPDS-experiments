@@ -13,12 +13,6 @@
 [submodule "heros"]
 	path = heros
 	url = https://github.com/Sable/heros.git
-[submodule "safe"]
-	path = safe
-	url = https://github.com/johspaeth/ideal-safe
-[submodule "wala"]
-	path = wala
-	url = https://github.com/johspaeth/wala-typestate
 [submodule "IDEViz"]
 	path = IDEViz
 	url = https://github.com/johspaeth/IDEViz

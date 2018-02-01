@@ -45,9 +45,6 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
     try {
     	final JimpleBasedInterproceduralCFG icfg = new JimpleBasedInterproceduralCFG(false);
     	System.out.println("Reachable Methods" +  Scene.v().getReachableMethods().size());
-//    	Analysis.ALIASING_FOR_STATIC_FIELDS = false;
-//    	Analysis.SEED_IN_APPLICATION_CLASS_METHOD = true;
-//		AliasFinder.HANDLE_EXCEPTION_FLOW = false;
 		final TypeStateMachineWeightFunctions genericsType = (TypeStateMachineWeightFunctions) Class.forName(className).getConstructor()
           .newInstance();
 		
@@ -143,7 +140,7 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
               writer = new FileWriter(file, true);
               if(!fileExisted)
                   writer.write(
-                          "Analysis;Rule;Seed;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;\n");
+                          "Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;\n");
 
               for (Map.Entry<WeightedForwardQuery<TransitionFunction>, IDEALSeedSolver<TransitionFunction>> entry : seedToAnalysisTime.entrySet()) {
                   writer.write(asCSVLine(entry.getKey(), entry.getValue()));
@@ -187,7 +184,7 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
   }
 
     private String asCSVLine(WeightedForwardQuery<TransitionFunction> key, IDEALSeedSolver<TransitionFunction> solver) {
-        return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n","ideal",	System.getProperty("ruleIdentifier"),key,key.stmt().getMethod(),key.stmt().getMethod().getDeclaringClass(), isInErrorState(key,solver),solver.isTimedOut(),solver.getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase1Solver().getForwardReachableStates().size(),solver.getPhase1Solver().getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase2Solver().getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase1Solver().getStats().getCallVisitedMethods().size(), Scene.v().getReachableMethods().size());
+        return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n","ideal",	System.getProperty("ruleIdentifier"),key,key.stmt().getUnit().get(),key.stmt().getMethod(),key.stmt().getMethod().getDeclaringClass(), isInErrorState(key,solver),solver.isTimedOut(),solver.getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase1Solver().getForwardReachableStates().size(),solver.getPhase1Solver().getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase2Solver().getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase1Solver().getStats().getCallVisitedMethods().size(), Scene.v().getReachableMethods().size());
     }
 
     private boolean isInErrorState(WeightedForwardQuery<TransitionFunction> key, IDEALSeedSolver<TransitionFunction> solver) {

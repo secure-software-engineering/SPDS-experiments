@@ -29,7 +29,7 @@ public class AbstractTestCase extends TestCase{
 		if(!new File("outputMicro").exists())
 			new File("outputMicro").mkdirs();
 		String outputFile =  "outputMicro/"+System.getProperty("analysis") + "-" + this.getClass().getName() +  (Util.aliasing() ? "" : "-noAliasing") + (Util.strongUpdates() ? "" : "-noStrongUpdates") + ".csv";
-		System.setProperty("outputCsvFile", "outputMicro/common.csv");
+//		System.setProperty("outputCsvFile", "outputMicro/common.csv");
 		if(System.getProperty("analysis").equalsIgnoreCase("fink-staged")){
 			test.setOption(WholeProgramProperties.Props.CG_KIND.getName(), "ZERO_ONE_CUSTOM");
 			test.selectStagedTypestateSolver(); 

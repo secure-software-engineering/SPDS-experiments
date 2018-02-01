@@ -26,14 +26,12 @@ public class FinkOrIDEALDacapoRunner extends SootSceneSetupDacapo {
 		System.setProperty("rule", args[1]);
 		benchFolder = args[2];
 		project =  args[3];
-		System.setProperty("aliasing", args[4]);
-		System.setProperty("strongUpdates", args[5]);
-		new FinkOrIDEALDacapoRunner(benchFolder,project).run(args[4]);
+		new FinkOrIDEALDacapoRunner(benchFolder,project).run();
 	}
 
 	
 
-	private void run(String numberOfRun) throws Exception {
+	private void run() throws Exception {
 		String analysis = System.getProperty("analysis");
 
 		String library_jar_files = benchProperties.getProperty("application_includes");
@@ -49,7 +47,7 @@ public class FinkOrIDEALDacapoRunner extends SootSceneSetupDacapo {
 		File outputDir = new File(outputDirectory);
 		if(!outputDir.exists())
 			outputDir.mkdir();
-		String outputFile = outputDirectory+File.separator+getMainClass() +"-"+numberOfRun+".csv";
+		String outputFile = outputDirectory+File.separator+getMainClass() +"-"+analysis+"-" + rule+".csv";
 		System.setProperty("outputCsvFile", outputFile);
 		
 		System.out.println("Writing output to file " +outputFile);
