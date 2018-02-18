@@ -215,9 +215,9 @@ public class StatsDebugger implements IDebugger<TypestateDomainValue<ConcreteSta
 			writer = new FileWriter(file, true);
 			if(!fileExisted)
 				 writer.write(
-                         "Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;\n");
+                         "Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;MaxAccessPath\n");
 				SootMethod method = icfg.getMethodOf(seed.getStmt());
-			String line = String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n","ideal-ap",	System.getProperty("ruleIdentifier"),seed, seed.getStmt(),method,method.getDeclaringClass(), error,timedout,totalTime,propagationCount,phase1Time,phase2Time,visitedMethods.size(), Scene.v().getReachableMethods().size());
+			String line = String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n","ideal-ap",	System.getProperty("ruleIdentifier"),seed, seed.getStmt(),method,method.getDeclaringClass(), error,timedout,totalTime,propagationCount,phase1Time,phase2Time,visitedMethods.size(), Scene.v().getReachableMethods().size(), AccessGraph.MAX_ACCESS_GRAPH);
 			writer.write(line);
 			writer.close();
 		} catch (IOException e1) {

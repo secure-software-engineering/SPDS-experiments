@@ -55,7 +55,7 @@ public class SafeRegressionUnit {
 
     if (mainClassName != null) {
         String path = getRootPath();
-        path += "/com.ibm.safe.typestate.testdata/bin";
+        path += "safeMVN/target/classes";
       setOption(CommonProperties.Props.AUTO_SEARCH_IN_DIRS.getName(), path);//"/Users/johannesspath/Documents/ideal-workspace/ideal-experiment/targetsBin");
 //    	String pkgName = mainClassName.replace(".", "/");
 //      setOption(CommonProperties.Props.MODULES.getName(),"/Users/spaeth/Documents/workspace/safe/com.ibm.safe.typestate.testdata/bin/"+ pkgName + ".class");
@@ -90,8 +90,7 @@ public class SafeRegressionUnit {
   protected String createRulesDirsOption(String subdir) throws SafeException {
     final String rootPath = getRootPath();
     final StringBuffer buf = new StringBuffer(rootPath);
-    buf.append("com.ibm.safe.core/nl/en" + subdir + ";").append(rootPath) //$NON-NLS-1$
-        .append("com.ibm.safe.tests/nl/en" + subdir); //$NON-NLS-1$
+    buf.append("safeMVN/rules" );
 
     return buf.toString();
   }
@@ -101,7 +100,7 @@ public class SafeRegressionUnit {
     if (url == null) {
       throw new SafeException("null url for safe.properties");
     }
-    return url.getFile().substring(0, url.getFile().lastIndexOf("com.ibm.safe")); //$NON-NLS-1$
+    return url.getFile().substring(0, url.getFile().lastIndexOf("safeMVN")); //$NON-NLS-1$
   }
 
   protected String getSafeHome() throws SafeException {

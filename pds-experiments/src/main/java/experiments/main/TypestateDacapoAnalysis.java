@@ -7,11 +7,11 @@ import experiments.dacapo.FinkOrIDEALDacapoRunner;
 
 public class TypestateDacapoAnalysis {
 
-	static String[] dacapo = new String[] { "antlr", "chart", "eclipse", "hsqldb", "jython", "luindex", "lusearch",
-			"pmd", "xalan", "bloat" };
-	static String[] analyses = new String[] { "ideal","ideal-ap","#fink-apmust","#fink-unique" };
+	static String[] dacapo = new String[] { "#antlr", "#chart", "eclipse", "hsqldb", "jython", "luindex", "lusearch",
+			"pmd", "fop","xalan", "bloat" };
+	static String[] analyses = new String[] { "ideal","ideal-ap","fink-apmust","fink-unique" };
 	static String[] rules = new String[] { 
-	    "EmptyVector",	"IteratorHasNext",
+	    "IteratorHasNext",
 		    "KeyStore",
 		    "URLConnection",
 		    "InputStreamCloseThenRead",
@@ -20,7 +20,7 @@ public class TypestateDacapoAnalysis {
 		    "PipedOutputStream",
 		    "PrintStream",
 		    "PrintWriter",
-		    "Signature" };
+		    "Signature","EmptyVector",	 };
 	 
 	public static void main(String... args) {
 		if(args.length < 1) {

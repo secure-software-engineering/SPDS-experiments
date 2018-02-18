@@ -21,8 +21,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.swing.event.ListSelectionEvent;
 
 import com.ibm.safe.Factoid;
 import com.ibm.safe.ICFGSupergraph;
@@ -77,6 +81,7 @@ import com.ibm.wala.ssa.SSAInvokeInstruction;
 import com.ibm.wala.ssa.analysis.IExplodedBasicBlock;
 import com.ibm.wala.types.ClassLoaderReference;
 import com.ibm.wala.types.MethodReference;
+import com.ibm.wala.types.TypeReference;
 import com.ibm.wala.util.CancelException;
 import com.ibm.wala.util.Predicate;
 import com.ibm.wala.util.WalaException;
@@ -935,7 +940,7 @@ public abstract class AbstractTypestateSolver extends AbstractWholeProgramSolver
 										if(declaringClass.toString().contains(classPrefix)){
 											add = true;
 											seedDeclaringClass = declaringClass.toString().replace("<Application,L", "").replaceAll(">","").replace("/",".");
-											seedDeclaringMethodName = allocNode.getMethod().getName().toString(); 
+											seedDeclaringMethodName = toSootMethodSignature(allocNode.getMethod()); 
 										}
 									}
 								}
@@ -982,8 +987,8 @@ public abstract class AbstractTypestateSolver extends AbstractWholeProgramSolver
 								FileWriter writer = new FileWriter(file, true);
 								 if(!existed)
 					                  writer.write(
-					                          "Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;\n");
-								 writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n",System.getProperty("analysis"),System.getProperty("ruleIdentifier"),theInstance.toString().replace(";",","),theInstance.getCreationSites(getCallGraph()).toString().replace(";",","),seedDeclaringMethodName,seedDeclaringClass,hasError,timedout, analysisTimes,propagationCounts,0,0,computeVisitedMethods(),this.computeReachableMethods()));
+					                          "Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;MaxAccessPath\n");
+								 writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n",System.getProperty("analysis"),System.getProperty("ruleIdentifier"),theInstance.toString().replace(";",","),theInstance.getCreationSites(getCallGraph()).toString().replace(";",","),seedDeclaringMethodName,seedDeclaringClass,hasError,timedout, analysisTimes,propagationCounts,0,0,computeVisitedMethods(),this.computeReachableMethods(),0));
 								writer.close();
 							}
 						} catch (IOException e) {
@@ -1032,6 +1037,43 @@ public abstract class AbstractTypestateSolver extends AbstractWholeProgramSolver
 		return result;
 	}
 
+
+	private String toSootMethodSignature(IMethod method) {
+		String signature = method.getSignature();
+		String declClassAndMethodName = signature.substring(0, signature.indexOf("("));
+		String declClass = declClassAndMethodName.substring(0,declClassAndMethodName.lastIndexOf("."));
+		String methodName = declClassAndMethodName.substring(declClassAndMethodName.lastIndexOf(".") + 1);
+		String returnType = convert(method.getReturnType().getName().toString());
+		String args = "";
+		for(int i = 0; i < method.getNumberOfParameters(); i++) {
+			if(!method.isStatic() && i == 0) {
+				continue;
+			}
+			String parameterType = convert(method.getParameterType(i).getName().toString());
+			args += parameterType;
+			if(i != method.getNumberOfParameters()-1) {
+				args +=",";
+			}
+		}
+		return "<"+declClass + ": " + returnType +" "+methodName +"("+args+ ")>";
+	}
+
+	private String convert(String conv) {
+		if(conv.startsWith("L")) {
+			conv = conv.substring(1);
+		}
+		String array = "";
+		if(conv.startsWith("[")) {
+			array = "[]";
+		}
+		if(conv.equals("V"))
+			return "void";
+		if(conv.equals("I"))
+			return "int" + array;
+		if(conv.equals("Z"))
+			return "boolean" + array;
+		return conv.replace("/", ".") + array;
+	}
 	private boolean isTestsuite() {
 		String isTestsuite = System.getProperty("isTestsuite");
 		return isTestsuite != null && isTestsuite.equalsIgnoreCase("true");

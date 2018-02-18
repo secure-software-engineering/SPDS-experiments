@@ -1,0 +1,2 @@
+Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;MaxAccessPath
+fink-unique;EmptyVector;SITE_IN_NODE{< Application, Ldacapo/chart/ChartHarness, iterate(Ljava/lang/String,)V >:NEW <Application,Ljava/util/Vector>@9 in Everywhere};com.ibm.wala.util.collections.NonNullSingletonIterator@eded048;<dacapo.chart.ChartHarness: void iterate(java.lang.String)>;dacapo.chart.ChartHarness;false;false;2637;0;0;0;0;4971;0;

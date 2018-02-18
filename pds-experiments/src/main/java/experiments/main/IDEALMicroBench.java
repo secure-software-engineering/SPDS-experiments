@@ -19,9 +19,9 @@ public class IDEALMicroBench {
 	public static void main(String... args) throws ClassNotFoundException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException, InstantiationException {
 		runIDEALBasedTypestate();
-		runFinkStagedTypestate();
-		runIDEALBasedTypestateNoStrongUpdate();
-		runIDEALBasedTypestateNoAliasing();
+//		runFinkStagedTypestate();
+//		runIDEALBasedTypestateNoStrongUpdate();
+//		runIDEALBasedTypestateNoAliasing();
 	}
 
 	private static void runFinkStagedTypestate() throws ClassNotFoundException, IllegalAccessException,

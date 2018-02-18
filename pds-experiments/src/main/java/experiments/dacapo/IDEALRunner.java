@@ -66,11 +66,6 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
 			public BiDiInterproceduralCFG<Unit, SootMethod> icfg() {
 				return icfg;
 			}
-			@Override
-			public long analysisBudgetInSeconds() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
 
 			public boolean enableStrongUpdates() {
 				// TODO Auto-generated method stub
@@ -140,7 +135,7 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
               writer = new FileWriter(file, true);
               if(!fileExisted)
                   writer.write(
-                          "Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;\n");
+                          "Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;MaxAccessPath\n");
 
               for (Map.Entry<WeightedForwardQuery<TransitionFunction>, IDEALSeedSolver<TransitionFunction>> entry : seedToAnalysisTime.entrySet()) {
                   writer.write(asCSVLine(entry.getKey(), entry.getValue()));
@@ -150,29 +145,29 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
               // TODO Auto-generated catch block
               e1.printStackTrace();
           }
-
-          File seedStats = new File(outputFile+"-seedStats");
-
-          try {
-              writer = new FileWriter(seedStats);
-
-              for (Map.Entry<WeightedForwardQuery<TransitionFunction>, IDEALSeedSolver<TransitionFunction>> entry : seedToAnalysisTime.entrySet()) {
-                  IDEALSeedSolver<TransitionFunction> idealSeedSolver = entry.getValue();
-                  writer.write("Seed: "+entry.getKey().toString()+"\n");
-                  if(!idealSeedSolver.isTimedOut()) {
-                      writer.write("Stats Solver 1: "+idealSeedSolver.getPhase1Solver().getStats());
-                      writer.write("Stats Solver 2: "+idealSeedSolver.getPhase2Solver().getStats());
-                  } else{
-                      writer.write("Timedout:" + idealSeedSolver.getTimedoutSolver().getStats());
-
-                  }
-
-              }
-              writer.close();
-          } catch (IOException e1) {
-              // TODO Auto-generated catch block
-              e1.printStackTrace();
-          }
+//
+//          File seedStats = new File(outputFile+"-seedStats");
+//
+//          try {
+//              writer = new FileWriter(seedStats);
+//
+//              for (Map.Entry<WeightedForwardQuery<TransitionFunction>, IDEALSeedSolver<TransitionFunction>> entry : seedToAnalysisTime.entrySet()) {
+//                  IDEALSeedSolver<TransitionFunction> idealSeedSolver = entry.getValue();
+//                  writer.write("Seed: "+entry.getKey().toString()+"\n");
+//                  if(!idealSeedSolver.isTimedOut()) {
+//                      writer.write("Stats Solver 1: "+idealSeedSolver.getPhase1Solver().getStats());
+//                      writer.write("Stats Solver 2: "+idealSeedSolver.getPhase2Solver().getStats());
+//                  } else{
+//                      writer.write("Timedout:" + idealSeedSolver.getTimedoutSolver().getStats());
+//
+//                  }
+//
+//              }
+//              writer.close();
+//          } catch (IOException e1) {
+//              // TODO Auto-generated catch block
+//              e1.printStackTrace();
+//          }
 
       }
     });
@@ -184,7 +179,7 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
   }
 
     private String asCSVLine(WeightedForwardQuery<TransitionFunction> key, IDEALSeedSolver<TransitionFunction> solver) {
-        return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n","ideal",	System.getProperty("ruleIdentifier"),key,key.stmt().getUnit().get(),key.stmt().getMethod(),key.stmt().getMethod().getDeclaringClass(), isInErrorState(key,solver),solver.isTimedOut(),solver.getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase1Solver().getForwardReachableStates().size(),solver.getPhase1Solver().getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase2Solver().getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase1Solver().getStats().getCallVisitedMethods().size(), Scene.v().getReachableMethods().size());
+        return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n","ideal",	System.getProperty("ruleIdentifier"),key,key.stmt().getUnit().get(),key.stmt().getMethod(),key.stmt().getMethod().getDeclaringClass(), isInErrorState(key,solver),solver.isTimedOut(),solver.getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase1Solver().getForwardReachableStates().size(),solver.getPhase1Solver().getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase2Solver().getAnalysisStopwatch().elapsed(TimeUnit.MILLISECONDS),solver.getPhase1Solver().getStats().getCallVisitedMethods().size(), Scene.v().getReachableMethods().size(), 0);
     }
 
     private boolean isInErrorState(WeightedForwardQuery<TransitionFunction> key, IDEALSeedSolver<TransitionFunction> solver) {

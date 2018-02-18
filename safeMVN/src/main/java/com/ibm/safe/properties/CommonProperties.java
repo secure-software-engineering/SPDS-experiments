@@ -47,7 +47,7 @@ public class CommonProperties {
         Type.STRING, "Specifies an Eclipse Java project name to analyze (see 'workspace' option)."), RESULT_FILENAME(
         "result_filename", Type.STRING, "analysis_results.xml",
         "Specifies XML file name where to dump analysis result (default file name in properties file)."), RULES_DIRS("rules_dirs",
-        Type.PATH, "nl/en/rules", "Specifies the root directories where SAFE rules are located."), OUTPUT_DIR("output_dir",
+        Type.PATH, "safeMVN/rules", "Specifies the root directories where SAFE rules are located."), OUTPUT_DIR("output_dir",
         Type.PATH, "results", "Specifies directory where all generated files without absolute path will be located."), SHORT_PROGRAM_NAME(
         "short_program_name", Type.STRING, ""), STRUCTURAL("structural", Type.BOOLEAN,
         "Activates or not structural analysis on code transmitted."), TIMEOUT_SECS("timeout_secs", Type.INT, 60,

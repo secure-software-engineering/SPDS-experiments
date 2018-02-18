@@ -90,7 +90,7 @@ public class IDEALTestSetup{
 	}
 
 	private static String getClassPath() {
-		String relativePath = ".." + File.separator + "safe" + File.separator +"com.ibm.safe.typestate.testdata" +File.separator + "bin";
+		String relativePath = ".." + File.separator + "safeMVN" + File.separator +"target" +File.separator + "classes";
 		return new File(relativePath).getAbsolutePath();
 	}
 
@@ -148,11 +148,6 @@ public class IDEALTestSetup{
 				@Override
 				public BiDiInterproceduralCFG<Unit, SootMethod> icfg() {
 					return icfg;
-				}
-				@Override
-				public long analysisBudgetInSeconds() {
-					// TODO Auto-generated method stub
-					return 0;
 				}
 
 				public boolean enableStrongUpdates() {
