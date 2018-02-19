@@ -26,8 +26,8 @@ public class TypestateDacapoAnalysis {
 		if(args.length < 1) {
 			System.out.println("Please supply path to dacapo benchmark (must end in slash)!");
 		}
-		for(String rule: rules){
-			for (String bench : dacapo) {
+		for (String bench : dacapo) {
+			for(String rule: rules){
 				for(String analysis : analyses){
 					if(ignore(rule)) {
 						continue;
