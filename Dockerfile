@@ -12,21 +12,20 @@ WORKDIR analysis
 
 USER root 
 
-ADD credentials . 
+ADD . . 
 
-RUN eval $(cat credentials) && \
-	echo $GIT_USERNAME && \
-	git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/johspaeth/diss-experiments.git && \
-	cd diss-experiments && \
-	git clone https://github.com/secure-software-engineering/PointerBench.git && \
-	git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/johspaeth/IDEViz.git && \
-	git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/johspaeth/Boomerang.git && \
-	git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/CROSSINGTUD/WPDS.git && \
-	git clone https://github.com/Sable/heros.git && \
-	git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/johspaeth/ideal.git && \
-	git submodule update --init --recursive && \
-	rm ../credentials 
+#RUN eval $(cat credentials) && \
+#	echo $GIT_USERNAME && \
+#	git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/johspaeth/diss-experiments.git && \
+#	cd diss-experiments && \
+#	git clone https://github.com/secure-software-engineering/PointerBench.git && \
+#	git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/johspaeth/IDEViz.git && \
+#	git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/johspaeth/Boomerang.git && \
+#	git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/CROSSINGTUD/WPDS.git && \
+#	git clone https://github.com/Sable/heros.git && \
+#	git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/johspaeth/ideal.git && \
+#	git submodule update --init --recursive && \
+#	rm ../credentials 
 
-RUN cd diss-experiments && \
-	mvn clean package -DskipTests=true
+RUN mvn clean package -DskipTests=true
 
