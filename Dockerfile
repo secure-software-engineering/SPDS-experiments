@@ -27,5 +27,9 @@ ADD . .
 #	git submodule update --init --recursive && \
 #	rm ../credentials 
 
+RUN cp safeMVN/src/main/resources/safe.properties.template safeMVN/src/main/resources/safe.properties && \
+	sed -i -e 's/<JAVA_HOME>/\/docker-java-home\/jre\/lib/g' safeMVN/src/main/resources/safe.properties
+
 RUN mvn clean package -DskipTests=true
 
+#RUN java -cp build/pds-experiments-0.0.1-SNAPSHOT-jar-with-dependencies.jar experiments.main.TypestateDacapoAnalysis /analysis/dacapo/

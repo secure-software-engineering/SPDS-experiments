@@ -2,10 +2,12 @@
 
 import glob, csv, math
 import plotly.graph_objs
+import numpy as np
 
 MAX_ANALYSIS_TIME = 30000;
 MAX_ACCESS_PATH = 0;
-MAX_VISITED_METHODS = 1000;
+MAX_VISITED_METHODS = 0;
+USE_ARITHMEAN = True
 
 def beautifyAnalysisTime(time):
     if int(time) > MAX_ANALYSIS_TIME:
@@ -26,7 +28,10 @@ for fname in glob.glob(path):
             reader = csv.DictReader(csvfile,delimiter = ";")
             for row in reader:
                 timesAP.append(beautifyAnalysisTime(row['AnalysisTimes']))
-                methodAP.append(row['VisitedMethod'])
+                vm = int(row['VisitedMethod'])
+                methodAP.append(vm)
+                if vm > MAX_VISITED_METHODS:
+                    MAX_VISITED_METHODS = int(math.ceil(vm / 100.0)) * 100;
                 ap = computeAccessPathLength(row['MaxAccessPath']) 
                 ap_length.append(ap)
                 if ap > MAX_ACCESS_PATH:
@@ -95,7 +100,7 @@ data = [trace3, trace4]
 
 
 ## Compute Heatmaps
-numberOfBucketsForTimes = 6
+numberOfBucketsForTimes = 5
 
 def plotHeatMapAccessPath(analysisTimes, filename ):
     bucketRange = MAX_ANALYSIS_TIME/numberOfBucketsForTimes
@@ -137,8 +142,6 @@ def plotHeatMapVisitedMethods(analysisTimes, visitedMethods, filename ):
         time = int(t)
         visitedMethodBucket = int(math.floor(int(visitedMethods[xBucketIndex])/bucketRangeMethods))
         yBucketIndex = int(math.floor(time/bucketRange))
-        print yBucketIndex
-        print data[yBucketIndex]
         data[yBucketIndex][visitedMethodBucket] = data[yBucketIndex][visitedMethodBucket]+1
         xBucketIndex += 1
 
@@ -146,5 +149,52 @@ def plotHeatMapVisitedMethods(analysisTimes, visitedMethods, filename ):
     plotly.offline.plot([trace], filename=filename)
 
 
-plotHeatMapVisitedMethods(timesAP,methodAP,"plot-heatmap-visitedMethod-accesspath")
-plotHeatMapVisitedMethods(timesPDS,methodAP,"plot-heatmap-visitedMethod-pds")
+#plotHeatMapVisitedMethods(timesAP,methodAP,"plot-heatmap-visitedMethod-accesspath")
+#plotHeatMapVisitedMethods(timesPDS,methodAP,"plot-heatmap-visitedMethod-pds")
+
+
+
+def mean(iterable):
+    if len(iterable) == 0:
+        return 0;
+    if USE_ARITHMEAN:
+        return np.mean(iterable)
+    a = np.log(iterable)
+    return np.exp(a.sum()/len(a))
+
+def plotHeatMapVisitedMethodsTimes(analysisTimes, visitedMethods, filename ):
+    bucketRangeAccessPath = int(math.floor(MAX_ACCESS_PATH/numberOfBucketsForTimes)) + 1
+    bucketRangeMethods = MAX_VISITED_METHODS/numberOfBucketsForTimes
+    data = []
+    for i in range(0,numberOfBucketsForTimes+1):
+        zero = []
+        for j in range(0,numberOfBucketsForTimes+1):
+            zero.append([])
+        data.append(zero)
+    xBucketIndex = 0
+    for t in analysisTimes:
+        time = int(t)
+        visitedMethodBucket = int(math.floor(int(visitedMethods[xBucketIndex])/bucketRangeMethods))
+        accessPathBucket = int(math.floor(int(ap_length[xBucketIndex])/bucketRangeAccessPath))
+        print accessPathBucket
+        if int(t) != 0:
+            data[visitedMethodBucket][accessPathBucket].append(time)
+        xBucketIndex += 1
+
+    avgData = []
+    textData = []
+    for i in range(0,numberOfBucketsForTimes+1):
+        avgDataRow = []
+        textDataRow = []
+        for j in range(0,numberOfBucketsForTimes+1):
+            avgDataRow.append(mean(data[i][j]))
+            textDataRow.append(len(data[i][j]))
+        avgData.append(avgDataRow)
+        textData.append(textDataRow)
+    print avgData
+    trace = plotly.graph_objs.Heatmap(text=avgData, z=textData)
+    plotly.offline.plot([trace], filename=filename)
+
+plotHeatMapVisitedMethodsTimes(timesAP,methodAP,"plot-heatmap-visitedMethod-accesspath")
+plotHeatMapVisitedMethodsTimes(timesPDS,methodAP,"plot-heatmap-visitedMethod-pds")
+

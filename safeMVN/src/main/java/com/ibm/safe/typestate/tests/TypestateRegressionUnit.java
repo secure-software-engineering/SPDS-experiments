@@ -27,7 +27,7 @@ public class TypestateRegressionUnit extends SafeRegressionUnit {
 
   public TypestateRegressionUnit(String mainClassName, int expectedNumberOfFindings) throws SafeException {
     super(mainClassName, expectedNumberOfFindings);
-    setOption(CommonProperties.Props.MODULES_DIRS.getName(), "../com.ibm.safe.typestate.testdata/jars"); //$NON-NLS-1$
+    //setOption(CommonProperties.Props.MODULES_DIRS.getName(), "../com.ibm.safe.typestate.testdata/jars"); //$NON-NLS-1$
   }
 
   public TypestateRegressionUnit(int expectedNumberOfFindings) throws SafeException {

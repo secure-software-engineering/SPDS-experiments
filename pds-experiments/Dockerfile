@@ -1,33 +1,36 @@
-FROM  phusion/baseimage:0.9.17
+FROM openjdk:8
 
 MAINTAINER  Johannes Spaeth
 
-RUN echo "deb http://archive.ubuntu.com/ubuntu trusty main universe" > /etc/apt/sources.list
-
-RUN apt-get -y update
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -q python-software-properties software-properties-common
-
-ENV JAVA_VER 8
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
-
-RUN echo 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main' >> /etc/apt/sources.list && \
-    echo 'deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main' >> /etc/apt/sources.list && \
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C2518248EEA14886 && \
-    apt-get update && \
-    echo oracle-java${JAVA_VER}-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections && \
-    apt-get install -y --force-yes --no-install-recommends oracle-java${JAVA_VER}-installer oracle-java${JAVA_VER}-set-default && \
-    apt-get clean && \
-    rm -rf /var/cache/oracle-jdk${JAVA_VER}-installer
-
-RUN update-java-alternatives -s java-8-oracle
-
-RUN echo "export JAVA_HOME=/usr/lib/jvm/java-8-oracle" >> ~/.bashrc
-
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get update && \
+	apt-get -y install \
+		ant \
+		maven \
+	&& apt-get clean all
 
 WORKDIR analysis
 
-ADD dacapo/ dacapo/
-ADD scripts/ scripts/
-ADD build/pds-experiments-0.0.1-SNAPSHOT-jar-with-dependencies.jar build/pds-experiments-0.0.1-SNAPSHOT-jar-with-dependencies.jar 
+USER root 
+
+ADD credentials . 
+
+RUN eval $(cat credentials) && \
+	echo $GIT_USERNAME && \
+	git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/CROSSINGTUD/CryptoAnalysis.git && \
+	cd CryptoAnalysis && \
+	git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/CROSSINGTUD/WPDS.git WeightedBoomerang && \
+	git clone https://github.com/johspaeth/soot-infoflow.git && \
+	git clone https://github.com/johspaeth/soot-infoflow-android.git && \
+	git submodule update --init --recursive && \
+	rm ../credentials 
+
+RUN cd CryptoAnalysis && \
+	git checkout caa371373780d8607208c8736e1e19f6d19fd883 && \
+	mvn clean install -DskipTests=true
+
+RUN git clone https://github.com/javaee/glassfish.git && cd glassfish && \
+	export MAVEN_OPTS="-Xmx1024M -Xss128M -XX:MetaspaceSize=512M -XX:MaxMetaspaceSize=1024M -XX:+CMSClassUnloadingEnabled" && \
+	mvn install
+
+RUN mvn de.fraunhofer.iem:cognicrypt-maven-plugin:1.0-SNAPSHOT:check -Dcheck.reportsDirectory="/analysis/CogniCryptReports" -Dcheck.rulesDirectory="/analysis/CryptoAnalysis/CryptoAnalysis/src/test/resources"
+
