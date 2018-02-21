@@ -7,7 +7,8 @@ import numpy as np
 MAX_ANALYSIS_TIME = 30000;
 MAX_ACCESS_PATH = 0;
 MAX_VISITED_METHODS = 0;
-USE_ARITHMEAN = True
+USE_ARITHMEAN = False
+SEEDS = 0
 
 
 ## Compute Heatmaps
@@ -20,6 +21,16 @@ def beautifyAnalysisTime(time):
 def computeAccessPathLength(accessPathString):
     return len(accessPathString.split(","))
 
+def scale(val,valMax,intervalMin,intervalMax):
+    diff = intervalMax-intervalMin
+    return intervalMin + val/(float(valMax))*diff
+
+def printForTikz(data,fillData):
+    print "x,y,r,times,opacity,seeds"
+    for i in range(0,len(data)):
+        for j in range(0,len(data[i])):
+            if data[i][j] != 0:
+                print str(j+1)+","+str(i+1)+","+str(scale(data[i][j],MAX_ANALYSIS_TIME,0.1,0.5))+","+str((data[i][j]/1000).round(1))+","+str(scale(fillData[i][j],SEEDS,0.1,1))+","+str(fillData[i][j])
 
 
 
@@ -78,7 +89,7 @@ for fname in glob.glob(path):
                             timesPDS.append(beautifyAnalysisTime(rowPDS['AnalysisTimes']))
 #                            methodPDS.append(rowPDS['VisitedMethod'])
 #               
-
+SEEDS = len(timesAP)
 
 trace1 = plotly.graph_objs.Scatter3d(
     x = methodAP,
@@ -204,12 +215,10 @@ def plotHeatMapVisitedMethodsTimes(analysisTimes, visitedMethods, filename ):
         time = int(t)
         visitedMethodBucket = int(math.floor(int(visitedMethods[xBucketIndex])/bucketRangeMethods))
         accessPathBucket = int(math.floor(int(ap_length[xBucketIndex])/bucketRangeAccessPath))
-        if visitedMethods[xBucketIndex] > 600:
-            print "HERE"
-            print str(visitedMethods[xBucketIndex]) + " -> " + str(yLabel[visitedMethodBucket])
-            print accessPathBucket
-        if int(t) != 0:
+        if time != 0:
             data[visitedMethodBucket][accessPathBucket].append(time)
+        else:
+            data[visitedMethodBucket][accessPathBucket].append(1)     
         xBucketIndex += 1
 
     avgData = []
@@ -222,7 +231,7 @@ def plotHeatMapVisitedMethodsTimes(analysisTimes, visitedMethods, filename ):
             textDataRow.append(len(data[i][j]))
         avgData.append(avgDataRow)
         textData.append(textDataRow)
-    print avgData
+    printForTikz(avgData,textData)
     trace = plotly.graph_objs.Heatmap(text=textData, z=avgData, x = xLabel, y = yLabel)
     plotly.offline.plot([trace], filename=filename)
 
@@ -234,4 +243,8 @@ trace1 = plotBarChartTimes(timesAP)
 trace2 = plotBarChartTimes(timesPDS)
 
 plotly.offline.plot([trace1,trace2], filename="plot-barchart.html")
+
+print len(timesAP)
+print len(timesPDS)
+
 
