@@ -52,7 +52,7 @@ for fname in glob.glob(path):
         for rowIDEAL_AP in dataIDEAL_AP:
             foundInFINK_UNIQUE = False
             for rowFINK_UNIQUE in dataFINK_UNIQUE:
-                if rowFINK_UNIQUE['SeedMethod'] == rowIDEAL_AP['SeedMethod']:# and int(rowFINK_UNIQUE['VisitedMethod']) != 0:
+                if rowFINK_UNIQUE['SeedMethod'] == rowIDEAL_AP['SeedMethod'] and int(rowFINK_UNIQUE['VisitedMethod']) != 0:
                     if not foundInFINK_UNIQUE:
                         timesFINK_UNIQUE.append(beautifyAnalysisTime(rowFINK_UNIQUE['AnalysisTimes']))
                         timesIDEAL_AP.append(beautifyAnalysisTime(rowIDEAL_AP['AnalysisTimes']))

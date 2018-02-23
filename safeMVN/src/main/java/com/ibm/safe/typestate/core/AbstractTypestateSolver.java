@@ -922,46 +922,35 @@ public abstract class AbstractTypestateSolver extends AbstractWholeProgramSolver
 				for (Iterator<InstanceKey> it = instances.iterator(); it.hasNext();) {
 					InstanceKey theInstance = it.next();
 					Iterator<Pair<CGNode, NewSiteReference>> ite = theInstance.getCreationSites(getCallGraph());
-					boolean add = false;
-					boolean applicationSeed = false;
 					while(ite.hasNext()){
 						Pair<CGNode, NewSiteReference> next = ite.next();
 						CGNode fst = next.fst;
 						if(fst instanceof ExplicitCallGraph.ExplicitNode){
 							ExplicitCallGraph.ExplicitNode allocNode = (ExplicitCallGraph.ExplicitNode) fst;
 							IClass declaringClass = allocNode.getMethod().getDeclaringClass();
-							if(declaringClass.getClassLoader().getName().toString().equals("Application")){
-								applicationSeed |= true;
-								String property = System.getProperty("application_includes");
-								if(property != null){
-									String[] split = property.split(":");
-									for(String s : split){
-										String classPrefix = s.replace("<", "").replace(".", "/");
-										if(declaringClass.toString().contains(classPrefix)){
-											add = true;
-											seedDeclaringClass = declaringClass.toString().replace("<Application,L", "").replaceAll(">","").replace("/",".");
-											seedDeclaringMethodName = toSootMethodSignature(allocNode.getMethod()); 
-										}
-									}
-								}
-							}
+//							if(declaringClass.getClassLoader().getName().toString().equals("Application")){
+								seedDeclaringClass = declaringClass.toString().replace("<Application,L", "").replaceAll(">","").replace("/",".");
+								seedDeclaringMethodName = toSootMethodSignature(allocNode.getMethod()); 
+//							}
 						}
 					}
 					
-					if(!add && !isTestsuite())
-						continue;
 					boolean hasError = false;
 					boolean timedout = false;
 					try{
 						if (!oracle.isBenignInstanceKey(theInstance)) {
 							Set<InstanceKey> oneInstance = Collections.singleton(theInstance);
 							System.err.println("Solve for " + theInstance);
+//							if(theInstance.toString().contains("Ldacapo/parser/ConfigFile, <init>(Ljava/io/InputStream;Ljava/lang/String;)V >:NEW <Application,Ljava/util/Vector>")){
+							
 							initializeDomain(oneInstance);
 							TypeStateResult baseResult = solveForInstances(oneInstance, ac);
 							errors += baseResult.getAcceptingInstances().size();
 							hasError = baseResult.getAcceptingInstances().size() > 0;
 							result.addInstanceResult(theInstance, baseResult);
 							seed++;
+
+//							}
 						} else {
 							result.addSkippedInstance(theInstance);
 							System.err.println("Skipped benign instance " + theInstance);
