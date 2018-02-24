@@ -101,7 +101,7 @@ public class Util {
 
   public static long spgLibMtdsTime;
 	
-	static long aliasStart;
+	public static long aliasStart;
 	
 	public static int traversedNodes;
 	
@@ -185,7 +185,7 @@ public class Util {
 	
 	public static boolean mayAlias(Local l1, SootMethod m1, Local l2, SootMethod m2, MayAliasAnalysis maa) {
 		
-		aliasStart = System.nanoTime();
+		aliasStart = System.currentTimeMillis();
 		boolean res = true;
 		try {
 			res = maa.mayAlias(l1, m1, l2, m2);
@@ -204,10 +204,14 @@ public class Util {
 //		} else {
 //			return (System.nanoTime() - aliasStart) > 1000000 * Util.SUMM_RATIO;	// 1ms
 //		}
-//		return (System.nanoTime() - aliasStart) > 1000000 * Util.TIME_BUDGET;	// 1ms * ratio
+		if ((System.currentTimeMillis() - aliasStart)>  Util.TIME_BUDGET){
+			throw new DacongOutOfBudgetException();
+		}	
+		return false;
+		// 1ms * ratio
 //		return (System.nanoTime() - aliasStart) > 100000;	// 0.1ms
 //		return (System.nanoTime() - aliasStart) > 100000000;	// 100ms
-		return Util.traversedNodes >= Util.SPA_BUDGET_NODES;
+//		return Util.traversedNodes >= Util.SPA_BUDGET_NODES;
 	}
 	
 	public static MayAliasAnalysis getMayAliasAnalysis() {

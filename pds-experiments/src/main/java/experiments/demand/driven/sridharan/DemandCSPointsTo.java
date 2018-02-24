@@ -1470,10 +1470,10 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 
 	protected void incrementNodesTraversed() {
 		numNodesTraversed++;
-		if (numNodesTraversed > maxNodesPerPass) {
+//		if (numNodesTraversed > maxNodesPerPass) {
 			checkTime();
 //			throw new TerminateEarlyException();
-		}
+//		}
 	}
 
 	@SuppressWarnings("unused")

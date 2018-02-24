@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.google.common.base.Joiner;
 
+import soot.G;
 import soot.Scene;
 import soot.SootClass;
 import soot.SootMethod;
@@ -43,6 +44,8 @@ public class SootSceneSetupDacapo {
 	}
 
 	public void setupSoot() {
+		G.v().resetSpark();
+		G.v().reset();
 		String inputJar = benchProperties.getProperty("input_jar_files");
 		String[] split = inputJar.split(":");
 		List<String> path = new LinkedList<>();
