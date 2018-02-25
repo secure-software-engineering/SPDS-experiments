@@ -47,10 +47,10 @@ for fname in glob.glob(path):
         aliasesBoomerang += toInt(row['Boomerang_res'])
         aliasesDacong += toInt(row['Dacong_res'])
         aliasesSridharan += toInt(row['Sridharan_res'])
-            #if toInt(row['Boomerang_timeout']) == 0 and toInt(row['Boomerang_res']) == 1 and toInt(row['Dacong_res']) == 0:
-                #print row['QueryA']
-                #print row['QueryB']
-                #print ""
+        if toInt(row['Boomerang_timeout']) == 0 and toInt(row['Boomerang_res']) == 1 and toInt(row['Sridharan_res']) == 0 and "lu" in fname:
+            print row['QueryA']
+            print row['QueryB']
+            print ""
     #rowCount = len(data)
     #
     #rowIndex;benchmark;total_pairs;boomerang_pairs;boomerang_timeouts;boomerang_improvement;dacong_pairs;dacong_timeouts;dacong_improvement;sridharan_pairs;sridharan_timeouts;sridharan_improvement
@@ -67,6 +67,7 @@ for fname in glob.glob(path):
                 "sridharan_pairs": prunedPairs(aliasesSridharan,rowCount),
                 "sridharan_improvement": improvement(aliasesSridharan,rowCount),
                 "sridharan_timeouts": timeoutsSridharan}
+    
     results[fname.replace("-datarace.csv","")] = entry;
     print fname
     print "Aliases (Total: " + str(rowCount) +")"

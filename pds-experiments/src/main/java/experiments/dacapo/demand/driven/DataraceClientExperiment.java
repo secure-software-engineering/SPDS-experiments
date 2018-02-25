@@ -189,6 +189,9 @@ public class DataraceClientExperiment extends SootSceneSetupDacapo {
 	protected boolean sparkReportsDataRace(AliasQuery q) {
 		Local a = q.getLocalA();
 		Local b = q.getLocalB();
+		if(a.equals(b)) {
+			return false;
+		}
 		return Scene.v().getPointsToAnalysis().reachingObjects(a)
 				.hasNonEmptyIntersection(Scene.v().getPointsToAnalysis().reachingObjects(b));
 	}
