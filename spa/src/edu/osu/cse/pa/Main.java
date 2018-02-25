@@ -950,7 +950,7 @@ public class Main implements MayAliasAnalysis {
 	 *  exhaustive test
 	 */	
 	public boolean mayAlias(Local var1, SootMethod m1, Local var2, SootMethod m2) {
-		if (var1.getName().equals(var2.getName()) && m1.getSignature().equals(m2.getSignature())) {
+		if (var1.equals(var2) && m1.getSignature().equals(m2.getSignature())) {
 			return true;
 		}	
 	

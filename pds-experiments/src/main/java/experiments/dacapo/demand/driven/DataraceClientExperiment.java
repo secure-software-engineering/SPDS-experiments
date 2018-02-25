@@ -3,6 +3,7 @@ package experiments.dacapo.demand.driven;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -119,20 +120,19 @@ public class DataraceClientExperiment extends SootSceneSetupDacapo {
 				
 				int solved = 0;
 				for (AliasQuery q : dataraceQueries) {
-					if(!q.queryA.toString().contains("<dacapo.parser.ConfigFileTokenManager: dacapo.parser.Token getNextToken()> "))
-						continue;
-					if(!q.queryB.toString().contains("<dacapo.parser.ConfigFileTokenManager: dacapo.parser.Token getNextToken()> "))
-						continue;
-					if(!q.queryA.toString().contains("specialToken"))
-						continue;
-					System.out.println(q.queryA);
-					System.out.println(q.queryB);
 					System.out.println(String.format("Status, #Solved queries: %s ", solved));
 					AliasQueryExperimentResult bRes = bSolver.computeQuery(q);
 					AliasQueryExperimentResult dRes = dSolver.computeQuery(q);
 					AliasQueryExperimentResult sRes = sSolver.computeQuery(q);
 					solved++;
-					File f = new File(DataraceClientExperiment.this.getBenchName() + "-datarace.csv");
+					File f = new File("outputDataraceDacapo" + File.separator+ DataraceClientExperiment.this.getBenchName() + "-datarace.csv");
+					if (!f.getParentFile().exists()) {
+						try {
+							Files.createDirectories(f.getParentFile().toPath());
+						} catch (IOException e) {
+							throw new RuntimeException("Was not able to create directories for IDEViz output!");
+						}
+					}
 					FileWriter writer;
 					try {
 						if (!f.exists()) {

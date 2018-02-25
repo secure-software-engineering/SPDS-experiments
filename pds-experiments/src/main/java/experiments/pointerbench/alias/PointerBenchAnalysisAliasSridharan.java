@@ -1,9 +1,10 @@
 package experiments.pointerbench.alias;
 
+import alias.Util;
+import experiments.demand.driven.sridharan.DemandCSPointsTo;
 import soot.Local;
 import soot.PointsToSet;
 import soot.Scene;
-import soot.jimple.spark.ondemand2.DemandCSPointsTo;
 
 public class PointerBenchAnalysisAliasSridharan extends PointerBenchAliasAnalysis {
 

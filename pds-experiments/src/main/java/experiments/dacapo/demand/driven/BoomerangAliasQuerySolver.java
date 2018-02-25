@@ -1,7 +1,9 @@
 package experiments.dacapo.demand.driven;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import com.beust.jcommander.internal.Sets;
 
@@ -10,6 +12,8 @@ import boomerang.Boomerang;
 import boomerang.BoomerangTimeoutException;
 import boomerang.DefaultBoomerangOptions;
 import boomerang.ForwardQuery;
+import boomerang.debugger.Debugger;
+import boomerang.debugger.IDEVizDebugger;
 import boomerang.seedfactory.SeedFactory;
 import soot.SootMethod;
 import soot.Unit;
@@ -18,6 +22,7 @@ import wpds.impl.Weight.NoWeight;
 
 public class BoomerangAliasQuerySolver extends AliasQuerySolver {
 
+	protected static final boolean VISUALIZATION = false;
 	protected final BiDiInterproceduralCFG<Unit, SootMethod> icfg;
 	protected final SeedFactory<NoWeight> seedFactory;
 	private Boomerang solver;
@@ -27,7 +32,6 @@ public class BoomerangAliasQuerySolver extends AliasQuerySolver {
 		super(timeoutMS);
 		this.icfg = icfg;
 		this.seedFactory = seedFactory;		
-		
 	}
 
 	@Override
@@ -35,11 +39,11 @@ public class BoomerangAliasQuerySolver extends AliasQuerySolver {
 		if(q.getLocalA().equals(q.getLocalB()))
 			return true;
 		Set<ForwardQuery> allocsA = getPointsTo(q.queryA);
-		System.out.println(allocsA);
 		if(allocsA.isEmpty())
 			return false;
+//		System.out.println(allocsA);
 		Set<ForwardQuery> allocsB = getPointsTo(q.queryB);
-		System.out.println(allocsB);
+//		System.out.println(allocsB);
 		for(ForwardQuery a : allocsA){
 			if(allocsB.contains(a))
 				return true;
@@ -53,8 +57,9 @@ public class BoomerangAliasQuerySolver extends AliasQuerySolver {
 			if(crashed.contains(q)) {
 				throw new SkipQueryException();
 			}
-			recreateSolver();
+			recreateSolver(q);
 			solver.solve(q);
+			solver.debugOutput();
 		} catch (BoomerangTimeoutException e) {
 			crashed.add(q);
 			throw e;
@@ -62,7 +67,7 @@ public class BoomerangAliasQuerySolver extends AliasQuerySolver {
 		return solver.getAllocationSites(q);
 	}
 
-	private void recreateSolver() {
+	private void recreateSolver(BackwardQuery q) {
 		DefaultBoomerangOptions options = new DefaultBoomerangOptions() {
 			@Override
 			public boolean arrayFlows() {
@@ -84,6 +89,22 @@ public class BoomerangAliasQuerySolver extends AliasQuerySolver {
 				return icfg;
 			}
 
+			@Override
+			public Debugger createDebugger() {
+				if(!VISUALIZATION) {
+					return new Debugger<>();
+				}
+				File ideVizFile = new File(
+						"target/IDEViz/"+q.toString() + ".json");
+				if (!ideVizFile.getParentFile().exists()) {
+					try {
+						Files.createDirectories(ideVizFile.getParentFile().toPath());
+					} catch (IOException e) {
+						throw new RuntimeException("Was not able to create directories for IDEViz output!");
+					}
+				}
+				return new IDEVizDebugger(ideVizFile,icfg);
+			}
 			@Override
 			public SeedFactory<NoWeight> getSeedFactory() {
 				return seedFactory;

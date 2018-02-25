@@ -110,6 +110,8 @@ public class Util {
 	
 	public static HashMap<SootMethod, HashSet<AbstractAllocNode>> escapables =
 		new HashMap<SootMethod, HashSet<AbstractAllocNode>>();
+
+	public static boolean POINTERBENCH;
 	
 //	public static boolean magicDebug = false;
 	
@@ -127,8 +129,8 @@ public class Util {
 		TEST_SUMMARY = !("0".equals(System.getProperty("TestSummary")));
 		TEST_ALIAS = !("0".equals(System.getProperty("TestAlias")));
 		BASELINE_TEST = !("0".equals(System.getProperty("BaselineTest")));
-		USE_CACHE = !("0".equals(System.getProperty("UseCache")));
-		USE_SUMMARY = !("0".equals(System.getProperty("UseSummary")));		
+		USE_CACHE = false;
+		USE_SUMMARY = false;		
 		DUMP_USE_DEF = !("0".equals(System.getProperty("DumpUseDef")));
 		MEASURE_PRECISION = !("0".equals(System.getProperty("MeasurePrecision")));
 		MEASURE_CALLBACK = !("0".equals(System.getProperty("MeasureCallback")));
@@ -369,7 +371,11 @@ public class Util {
 		if (mtds == null) {
 			Collection<MethodOrMethodContext> entryPoints = new ArrayList<MethodOrMethodContext>();
 			entryPoints.add(m);
-			mtds = new ReachableMethods(Scene.v().getCallGraph(), entryPoints);
+			if(Util.POINTERBENCH ) {
+				mtds = new ReachableMethods(Scene.v().getCallGraph(), entryPoints);
+			}else{
+				mtds = new ReachableMethods(Scene.v().getCallGraph(),Scene.v().getEntryPoints());
+			}
 			mtds.update();
 			
 //			CallGraph cg = Scene.v().getCallGraph();

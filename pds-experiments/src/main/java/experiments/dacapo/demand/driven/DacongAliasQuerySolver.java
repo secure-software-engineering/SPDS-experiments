@@ -20,6 +20,6 @@ public class DacongAliasQuerySolver extends AliasQuerySolver {
 
 	protected boolean internalComputeQuery(AliasQuery q) {
 		Util.aliasStart = System.currentTimeMillis();
-		return m.mayAlias(q.getLocalA(), q.queryA.stmt().getMethod(), q.getLocalB(), q.queryA.stmt().getMethod());
+		return m.mayAlias(q.getLocalA(), q.queryA.stmt().getMethod(), q.getLocalB(), q.queryB.stmt().getMethod());
 	}
 }

@@ -2,12 +2,13 @@ package experiments.pointerbench.pointsto;
 
 import java.util.Collection;
 
+import alias.Util;
 import boomerang.Query;
+import experiments.demand.driven.sridharan.DemandCSPointsTo;
 import experiments.demand.driven.sridharan.SridharanHelper;
 import soot.Local;
 import soot.PointsToSet;
 import soot.Scene;
-import soot.jimple.spark.ondemand2.DemandCSPointsTo;
 
 public class PointerBenchAnalysisSridharan extends PointerBenchAnalysis {
 
@@ -32,6 +33,7 @@ public class PointerBenchAnalysisSridharan extends PointerBenchAnalysis {
 
 	private int runQuery() {
 		DemandCSPointsTo pts = DemandCSPointsTo.makeDefault();
+		Util.aliasStart = System.currentTimeMillis();
 		int pointsToSize = 0;
 		for(Query q : queryForCallSites){
 			Local v = (Local) q.asNode().fact().value();
