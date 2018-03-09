@@ -52,17 +52,7 @@ public class PointerBenchAnalysisBoomerang extends PointerBenchAnalysis {
 	private Set<Node<Statement, Val>> runQuery() {
 		final Set<Node<Statement, Val>> results = Sets.newHashSet();
 		for (final Query query : queryForCallSites) {
-			DefaultBoomerangOptions options = new DefaultBoomerangOptions() {
-				@Override
-				public boolean arrayFlows() {
-					return true;
-				}
-				@Override
-				public boolean staticFlows() {
-					return true;
-				}
-			};
-			Boomerang solver = new Boomerang(options) {
+			Boomerang solver = new Boomerang(new PointerBenchBoomerangOptions()) {
 				@Override
 				public BiDiInterproceduralCFG<Unit, SootMethod> icfg() {
 					return icfg;

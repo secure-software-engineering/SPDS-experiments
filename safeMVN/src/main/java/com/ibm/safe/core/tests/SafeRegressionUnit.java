@@ -55,7 +55,8 @@ public class SafeRegressionUnit {
 
     if (mainClassName != null) {
         String path = getRootPath();
-        path += "safeMVN/target/classes";
+        path += "/../safeMVN/target/classes";
+//        path = /Users/johannesspath/Arbeit/Fraunhofer/diss-experiments/pds-experiments../safeMVN/target/classes";
       setOption(CommonProperties.Props.AUTO_SEARCH_IN_DIRS.getName(), path);
 //    	String pkgName = mainClassName.replace(".", "/");
 //      setOption(CommonProperties.Props.MODULES.getName(),"/Users/spaeth/Documents/workspace/safe/com.ibm.safe.typestate.testdata/bin/"+ pkgName + ".class");

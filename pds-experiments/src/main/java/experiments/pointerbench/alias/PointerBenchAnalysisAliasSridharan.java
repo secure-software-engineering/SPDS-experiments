@@ -15,18 +15,22 @@ public class PointerBenchAnalysisAliasSridharan extends PointerBenchAliasAnalysi
 
 	private PointsToSet getPointsTo(Local l){
 		DemandCSPointsTo pts = DemandCSPointsTo.makeDefault();
-		try{
-			return pts.reachingObjects(l);
-		} catch (Exception e){
-			e.printStackTrace();
-		}
-		return Scene.v().getPointsToAnalysis().reachingObjects(l);
+		return pts.reachingObjects(l);
 	}
 
 	@Override
 	protected boolean computeQuery(AliasQuery q) {
-		PointsToSet a = getPointsTo(q.a);
-		PointsToSet b = getPointsTo(q.b);
-		return a.hasNonEmptyIntersection(b);
+		try {
+			PointsToSet a = getPointsTo(q.a);
+			PointsToSet b = getPointsTo(q.b);
+			return a.hasNonEmptyIntersection(b);
+		} catch (Exception e){
+			e.printStackTrace();
+		} catch (StackOverflowError e) {
+			System.out.println("StackoverflowError");
+			//We count this as a false positive
+			return false;
+		}	
+		return true;
 	}
 }

@@ -40,7 +40,8 @@ import soot.jimple.toolkits.ide.icfg.JimpleBasedInterproceduralCFG;
 import wpds.impl.Weight.NoWeight;
 
 public class DataraceClientExperiment extends SootSceneSetupDacapo {
-	
+
+	private boolean DEBUG = true;
 
 	 public static void main(String[] args) {
 		DataraceClientExperiment expr = new DataraceClientExperiment(args[0], args[1]);
@@ -124,6 +125,15 @@ public class DataraceClientExperiment extends SootSceneSetupDacapo {
 					AliasQueryExperimentResult bRes = bSolver.computeQuery(q);
 					AliasQueryExperimentResult dRes = dSolver.computeQuery(q);
 					AliasQueryExperimentResult sRes = sSolver.computeQuery(q);
+					if(DEBUG) {
+						if(bRes.queryResult == false && (sRes.queryResult == true || dRes.queryResult == true)) {
+							BoomerangAliasQuerySolver.VISUALIZATION = true;
+							System.out.println("Re-run boomerang");
+							BoomerangAliasQuerySolver s = new BoomerangAliasQuerySolver(10000,icfg, seedFactory);
+							s.computeQuery(q);
+							BoomerangAliasQuerySolver.VISUALIZATION = false;
+						}
+					}
 					solved++;
 					File f = new File("outputDataraceDacapo" + File.separator+ DataraceClientExperiment.this.getBenchName() + "-datarace.csv");
 					if (!f.getParentFile().exists()) {

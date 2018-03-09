@@ -50,4 +50,9 @@ public class AliasQuery {
 		return (Local) queryB.var().value();
 	}
 	
+	@Override
+	public String toString() {
+		return queryA.toString()+queryB;
+	}
+	
 }

@@ -14,6 +14,7 @@ import boomerang.Query;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
 import boomerang.seedfactory.SeedFactory;
+import experiments.pointerbench.pointsto.PointerBenchBoomerangOptions;
 import soot.SootMethod;
 import soot.Unit;
 import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
@@ -27,17 +28,7 @@ public class PointerBenchAnalysisAliasBoomerang extends PointerBenchAliasAnalysi
 	}
 	
 	private Set<ForwardQuery> getPointsTo(BackwardQuery q){
-		DefaultBoomerangOptions options = new DefaultBoomerangOptions() {
-			@Override
-			public boolean arrayFlows() {
-				return true;
-			}
-			@Override
-			public boolean staticFlows() {
-				return true;
-			}
-		};
-		Boomerang solver = new Boomerang(options) {
+		Boomerang solver = new Boomerang(new PointerBenchBoomerangOptions()) {
 			@Override
 			public BiDiInterproceduralCFG<Unit, SootMethod> icfg() {
 				return icfg;
