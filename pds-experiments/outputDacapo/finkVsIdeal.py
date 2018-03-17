@@ -115,6 +115,7 @@ for fname in glob.glob(path):
           #  file.close() 
 
 header = ["name", "ideal","fink","fink_apmust","seeds","timeouts_fink","timeouts_finkapmust","timeouts_ideal"]
+
 for i in results:
     file = open(i,"w")
     for k in header:
@@ -123,16 +124,12 @@ for i in results:
     index = 1
     inorder = sorted(results[i])
     print i
+    avegareRatiosTime = []
     for j in sorted(results[i]):
         for k in header:
             file.write(str(results[i][j][k]) + ";")
         file.write(str(index)+"\n")
         print str(results[i][j]["seeds"]) + "&"
+        avegareRatiosTime.append(float(results[i][j]["fink_apmust"])/results[i][j]["ideal"])
         index += 1
-
-
-
-
-
-
-
+    print "Ratio Times: IDEAL vs Fink AP Must:" + str(geo_mean(avegareRatiosTime))

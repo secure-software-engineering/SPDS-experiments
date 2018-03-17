@@ -19,14 +19,26 @@ public class IDEALMicroBench {
 	public static void main(String... args) throws ClassNotFoundException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException, InstantiationException {
 		runIDEALBasedTypestate();
-//		runFinkStagedTypestate();
+//		runIDEALAPBasedTypestate();
+//		runFinkUniqueTypestate();
+//		runFinkMustnotTypestate();
 //		runIDEALBasedTypestateNoStrongUpdate();
 //		runIDEALBasedTypestateNoAliasing();
 	}
 
-	private static void runFinkStagedTypestate() throws ClassNotFoundException, IllegalAccessException,
+	private static void runFinkUniqueTypestate() throws ClassNotFoundException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException, InstantiationException {
-		System.setProperty("analysis", "fink-staged");
+		System.setProperty("analysis", "fink-unique");
+		System.setProperty("aliasing", "true");
+		System.setProperty("strongUpdates", "true");
+		System.setProperty("isTestsuite", "true");
+		run();
+	}
+
+
+	private static void runFinkMustnotTypestate() throws ClassNotFoundException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException, InstantiationException {
+		System.setProperty("analysis", "fink-mustnot");
 		System.setProperty("aliasing", "true");
 		System.setProperty("strongUpdates", "true");
 		System.setProperty("isTestsuite", "true");
@@ -34,11 +46,17 @@ public class IDEALMicroBench {
 	}
 
 	private static void run() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
-	
 		for (Class c : TEST_CLASSES)
 			AbstractTestCase.runAllTests(c);
 	}
 
+	private static void runIDEALAPBasedTypestate() throws ClassNotFoundException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException, InstantiationException {
+		System.setProperty("analysis", "ideal-ap");
+		System.setProperty("aliasing", "true");
+		System.setProperty("strongUpdates", "true");
+		run();
+	}
 	private static void runIDEALBasedTypestate() throws ClassNotFoundException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException, InstantiationException {
 		System.setProperty("analysis", "ideal");

@@ -1,0 +1,10 @@
+name;ideal;fink;fink_apmust;seeds;timeouts_fink;timeouts_finkapmust;timeouts_ideal;index
+dacapo.antlr.Main-ideal-ap-IO.csv;0.3;6.4;1.8;15;0;0;0;1
+dacapo.bloat.Main2-ideal-ap-IO.csv;11.9;11.8;3.5;6;0;4;2;2
+dacapo.chart.Main2-ideal-ap-IO.csv;2.1;4.3;7.6;1;0;0;0;3
+dacapo.eclipse.Main2-ideal-ap-IO.csv;0.1;9.8;17.8;4;0;0;0;4
+dacapo.fop.Main2-ideal-ap-IO.csv;0.1;6.8;11.8;1;0;0;0;5
+dacapo.luindex.Main2-ideal-ap-IO.csv;0.7;2.4;4.0;1;0;0;0;6
+dacapo.lusearch.Main2-ideal-ap-IO.csv;0.2;2.6;4.1;1;0;0;0;7
+dacapo.pmd.Main2-ideal-ap-IO.csv;0.4;12.1;13.5;1;0;0;0;8
+dacapo.xalan.Main2-ideal-ap-IO.csv;0.2;2.4;3.9;1;0;0;0;9

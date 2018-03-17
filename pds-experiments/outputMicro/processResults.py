@@ -28,9 +28,9 @@ for fname in glob.glob(path):
     col = ""
     if "ideal" in fname:
         col = "ideal"
-    if "Unique" in fname:
+    if "unique" in fname:
         col = "fink_unique"
-    if "MustNot" in fname:
+    if "mustnot" in fname:
         col = "fink_mustnot"
 
     row = ""
@@ -62,7 +62,7 @@ for fname in glob.glob(path):
                     visitedMethods.append(int(r['VisitedMethods']))
                 falseNegatives += int(r['False Negatives'])
                 falsePositives += int(r['False Positives'])
-                truePositives += (int(r['Excepted Errors']) - int(r['False Negatives']))
+                truePositives += (int(r['Expected Errors']) - int(r['False Negatives']))
                 programs += 1
 
     entry = {}
@@ -79,6 +79,15 @@ for fname in glob.glob(path):
         d[col] = entry
         table[row] = d
 
+def toTex(row, type):
+    val = row[type];
+    if val > 3:
+        return str(val) + "$\\times$\\"+type +" "
+    res = ""
+    for i in range(0,val):
+        res += "\\"+type
+    return res;
+
 analysis = ["ideal", "fink_unique", "fink_mustnot"]
 header = ["property", "idealvisitedmethods","idealtp","idealfp","idealfn","idealprograms","finkuniquevisitedmethods","finkuniquetp","finkuniquefp","finkuniquefn","finkuniqueprograms","finkmustnotvisitedmethods","finkmustnottp","finkmustnotfp","finkmustnotfn","finkmustnotprograms"]
 print(";".join(header) +";")
@@ -86,9 +95,46 @@ for prop in table:
     line = prop + ";"
     for x in analysis:
         line +=  str(int(table[prop][x]["VisitedMethods"]))+ ";"
-        line +=  str(table[prop][x]["TP"])+ ";"
-        line +=  str(table[prop][x]["FP"])+ ";"
-        line +=  str(table[prop][x]["FN"])+ ";"
+        line +=  str(toTex(table[prop][x],"TP"))+ ";"
+        line +=  str(toTex(table[prop][x],"FP"))+ ";"
+        line +=  str(toTex(table[prop][x],"FN"))+ ";"
         line +=  str(table[prop][x]["programs"])+ ";"
     print(line)
+
+def toPrecision(analysis, table):
+    tp = 0
+    fp = 0
+    for prop in table:
+        tp += table[prop][analysis]["TP"]
+        fp += table[prop][analysis]["FP"]
+    prec = tp / (float(fp) + tp)
+    print("Precision: " + str(prec)) 
+
+def toRecall(analysis, table):
+    tp = 0
+    fn = 0
+    for prop in table:
+        tp += table[prop][analysis]["TP"]
+        fn += table[prop][analysis]["FN"]
+    recall = tp / (float(fn) + tp)
+    print("Recall: " + str(recall)) 
+print("IDEAL")
+toPrecision("ideal", table)
+toRecall("ideal", table)
  
+print("Fink Unique")
+toPrecision("fink_unique", table)
+toRecall("fink_unique", table)
+
+print("Fink AP Must not")
+toPrecision("fink_mustnot", table)
+toRecall("fink_mustnot", table)
+
+
+
+visMethodAvg = []
+for prop in table:
+    idealVisMethod = int(table[prop]["ideal"]["VisitedMethods"])
+    finkApMustVisMethod = int(table[prop]["fink_mustnot"]["VisitedMethods"])   
+    visMethodAvg.append(finkApMustVisMethod/float(idealVisMethod))
+print(mean(visMethodAvg))

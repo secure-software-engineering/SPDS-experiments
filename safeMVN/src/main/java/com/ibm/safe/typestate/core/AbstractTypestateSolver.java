@@ -1009,7 +1009,7 @@ public abstract class AbstractTypestateSolver extends AbstractWholeProgramSolver
 				try {
 					writer = new FileWriter(file, true);
 					if (!existed)
-						writer.write("Method;PropagationCounts;VisitedMethods;Actual Errors;Excepted Errors;Number of Seeds;False Positives;False Negatives\n");
+						writer.write("Method;PropagationCounts;VisitedMethods;Actual Errors;Expected Errors;Number of Seeds;False Positives;False Negatives\n");
 					int expected = Integer.parseInt(System.getProperty("expectedFinding"));
 
 					int diff = errorCount - expected;

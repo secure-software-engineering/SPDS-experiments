@@ -2,35 +2,30 @@
 package experiments.typestate.microbench;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
-import com.beust.jcommander.internal.Sets;
 import com.google.common.collect.Table;
-import com.ibm.safe.core.tests.SafeRegressionUnit;
-import com.ibm.safe.internal.exceptions.SafeException;
 import com.ibm.safe.properties.CommonProperties;
 import com.ibm.safe.typestate.options.TypestateProperties;
 
-import boomerang.WeightedBoomerang;
 import boomerang.WeightedForwardQuery;
+import boomerang.ap.AliasFinder;
+import boomerang.ap.BoomerangOptions;
 import boomerang.cfg.ExtendedICFG;
-import boomerang.debugger.Debugger;
+import boomerang.cfg.IExtendedICFG;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
 import boomerang.preanalysis.PreparationTransformer;
-import ideal.IDEALAnalysis;
-import ideal.IDEALAnalysisDefinition;
+import experiments.dacapo.idealap.StatsDebugger;
 import ideal.IDEALSeedSolver;
+import ideal.ap.Analysis;
+import ideal.ap.AnalysisSolver;
+import ideal.ap.IFactAtStatement;
+import ideal.ap.ResultReporter;
+import ideal.debug.IDebugger;
 import soot.G;
 import soot.PackManager;
 import soot.Scene;
@@ -38,17 +33,17 @@ import soot.SceneTransformer;
 import soot.SootClass;
 import soot.SootMethod;
 import soot.Transform;
-import soot.Unit;
-import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
-import soot.jimple.toolkits.ide.icfg.JimpleBasedInterproceduralCFG;
 import soot.options.Options;
-import sync.pds.solver.WeightFunctions;
 import typestate.TransitionFunction;
+import typestate.ap.ConcreteState;
+import typestate.ap.TypestateAnalysisProblem;
+import typestate.ap.TypestateChangeFunction;
+import typestate.ap.TypestateDomainValue;
 import typestate.finiteautomata.ITransition;
-import typestate.finiteautomata.TypeStateMachineWeightFunctions;
 
-public class IDEALTestSetup{
+public class IDEALAPTestSetup{
 
+	private static StatsDebugger debugger;
 	protected long analysisTime;
 
 	@SuppressWarnings("static-access")
@@ -115,11 +110,10 @@ public class IDEALTestSetup{
 		return excl;
 	}
 
-	protected static IDEALAnalysis<TransitionFunction> createAnalysis(TypestateRegressionUnit test) {
+	protected static Analysis<TypestateDomainValue<ConcreteState>> createAnalysis(TypestateRegressionUnit test) {
 		String rule = test.getOptions().get(TypestateProperties.Props.SELECT_TYPESTATE_RULES.getName());
 		Class className = Util.selectTypestateMachine(rule);
 		try {
-			final JimpleBasedInterproceduralCFG icfg = new JimpleBasedInterproceduralCFG(true);
 			for (SootClass c : Scene.v().getClasses()) {
 				if (c.toString().contains("j2se.typestate")) {
 					c.setApplicationClass();
@@ -127,53 +121,96 @@ public class IDEALTestSetup{
 					c.setLibraryClass();
 				}
 			}
-			
-			final TypeStateMachineWeightFunctions genericsType = (TypeStateMachineWeightFunctions) className.getConstructor()
-			          .newInstance();
+
+			String classNameStr = className.getName().replace("typestate.", "typestate.ap.");
+		    	final ExtendedICFG icfg = new ExtendedICFG(false);
+		    	System.out.println("Reachable Methods" +  Scene.v().getReachableMethods().size());
+		    	Analysis.ALIASING_FOR_STATIC_FIELDS = false;
+		    	Analysis.SEED_IN_APPLICATION_CLASS_METHOD = true;
+			AliasFinder.HANDLE_EXCEPTION_FLOW = false;
+			final TypestateChangeFunction genericsType = (TypestateChangeFunction) Class.forName(classNameStr).getConstructor()
+		          .newInstance();
+		    	debugger = new StatsDebugger(icfg);
+		    	return new Analysis<TypestateDomainValue<ConcreteState>>(new TypestateAnalysisProblem<ConcreteState>() {
+
+		    		@Override
+		    		public long analysisBudgetInSeconds() {
+		    			return 30;
+		    		}
+					@Override
+					public TypestateChangeFunction<ConcreteState> createTypestateChangeFunction() {
+						return genericsType;
+					}
+
+					@Override
+					public ResultReporter<TypestateDomainValue<ConcreteState>> resultReporter() {
+						return new ResultReporter<TypestateDomainValue<ConcreteState>>() {
+
+							@Override
+							public void onSeedFinished(IFactAtStatement seed,
+									AnalysisSolver<TypestateDomainValue<ConcreteState>> solver) {
+								
+							}
+
+							@Override
+							public void onSeedTimeout(IFactAtStatement seed) {
+								
+							}
+						};
+					}
+
+					@Override
+					public IExtendedICFG icfg() {
+						return icfg;
+					}
 					
-			return new IDEALAnalysis<TransitionFunction>(new IDEALAnalysisDefinition<TransitionFunction>() {
+					@Override
+					public boolean enableAliasing() {
+						return true;
+					}
+					
+					@Override
+					public boolean enableStrongUpdates() {
+						return true;
+					}
+					
+					@Override
+					public BoomerangOptions boomerangOptions() {
+						return new BoomerangOptions(){
+							@Override
+							public long getTimeBudget() {
+								return 30000;
+							}
+							@Override
+							public boolean getTrackStaticFields() {
+								return Analysis.ALIASING_FOR_STATIC_FIELDS;
+							}
+							@Override
+							public IExtendedICFG icfg() {
+								return icfg;
+							}
+						};
+					}
 
-				@Override
-				public Collection<WeightedForwardQuery<TransitionFunction>> generate(SootMethod method, Unit stmt, Collection<SootMethod> calledMethod) {
-					if(!method.getDeclaringClass().isApplicationClass())
-						return Collections.emptyList();
-					return genericsType.generateSeed(method, stmt, calledMethod);
-				}
-
-				@Override
-				public WeightFunctions<Statement, Val, Statement, TransitionFunction> weightFunctions() {
-					return genericsType;
-				}
-
-				@Override
-				public BiDiInterproceduralCFG<Unit, SootMethod> icfg() {
-					return icfg;
-				}
-
-				public boolean enableStrongUpdates() {
-					// TODO Auto-generated method stub
-					return false;
-				}
-
-				@Override
-				public Debugger<TransitionFunction> debugger() {
-					return new Debugger<>();
-				}
-			}){};
-			    	
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		}
+					@Override
+					public IDebugger<TypestateDomainValue<ConcreteState>> debugger() {
+						return debugger;
+					}});
+		    } catch (InstantiationException e) {
+		      e.printStackTrace();
+		    } catch (IllegalAccessException e) {
+		      e.printStackTrace();
+		    } catch (IllegalArgumentException e) {
+		      e.printStackTrace();
+		    } catch (InvocationTargetException e) {
+		      e.printStackTrace();
+		    } catch (NoSuchMethodException e) {
+		      e.printStackTrace();
+		    } catch (SecurityException e) {
+		      e.printStackTrace();
+		    } catch (ClassNotFoundException e) {
+		      e.printStackTrace();
+		    }
 		return null;
 	}
 
@@ -183,42 +220,29 @@ public class IDEALTestSetup{
 		Transform transform = new Transform("wjtp.ifds", new SceneTransformer() {
 			protected void internalTransform(String phaseName, @SuppressWarnings("rawtypes") Map options) {
 //				System.out.println(Scene.v().getMainMethod().getActiveBody());
-				IDEALAnalysis<TransitionFunction> idealSolver = createAnalysis(test);
-				Map<WeightedForwardQuery<TransitionFunction>, IDEALSeedSolver<TransitionFunction>> solvers = idealSolver.run();
-				int totalPropagationCount = 0;
-				Set<SootMethod> totalVisitedMethods = Sets.newHashSet();
-				int errorCount = 0;
-				for(Entry<WeightedForwardQuery<TransitionFunction>, IDEALSeedSolver<TransitionFunction>> e : solvers.entrySet()) {
-					WeightedBoomerang<TransitionFunction> phase2Solver = e.getValue().getPhase2Solver();
-					totalVisitedMethods.addAll(phase2Solver.getStats().getCallVisitedMethods());
-					totalPropagationCount += phase2Solver.getForwardReachableStates().size();
-					
-					if(isInErrorState(e.getKey(),e.getValue())) {
-						errorCount++;
-					}
-				}
-				System.out.println("Findings: " + errorCount);
+				Analysis<TypestateDomainValue<ConcreteState>> idealSolver = createAnalysis(test);
+				idealSolver.run();
 
 				String output = System.getProperty("outputCsvFile");
-				if (output != null && !output.equals("")) {
-					File file = new File(output);
-					boolean existed = file.exists();
-					FileWriter writer;
-					try {
-						writer = new FileWriter(file, true);
-						int expected = Integer.parseInt(System.getProperty("expectedFinding"));
-						if (!existed)
-							writer.write("Method;PropagationCounts;VisitedMethods;Actual Errors;Expected Errors;Number of Seeds;False Positives;False Negatives\n");
-						int diff = errorCount - expected;
-						int falseNegatives = (diff < 0 ? -diff : 0);
-						int falsePositives = (diff > 0 ? diff : 0);
-						writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;\n", System.getProperty("method"), totalPropagationCount, totalVisitedMethods.size(), errorCount, expected, solvers.keySet().size(), falsePositives, falseNegatives));
-						writer.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
+//				if (output != null && !output.equals("")) {
+//					File file = new File(output);
+//					boolean existed = file.exists();
+//					FileWriter writer;
+//					try {
+//						writer = new FileWriter(file, true);
+//						int expected = Integer.parseInt(System.getProperty("expectedFinding"));
+//						if (!existed)
+//							writer.write("Method;PropagationCounts;VisitedMethods;Actual Errors;Expected Errors;Number of Seeds;False Positives;False Negatives\n");
+//						int diff = errorCount - expected;
+//						int falseNegatives = (diff < 0 ? -diff : 0);
+//						int falsePositives = (diff > 0 ? diff : 0);
+//						writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;\n", System.getProperty("method"), totalPropagationCount, totalVisitedMethods.size(), errorCount, expected, solvers.keySet().size(), falsePositives, falseNegatives));
+//						writer.close();
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}
 			}
 
 		    private boolean isInErrorState(WeightedForwardQuery<TransitionFunction> key, IDEALSeedSolver<TransitionFunction> solver) {

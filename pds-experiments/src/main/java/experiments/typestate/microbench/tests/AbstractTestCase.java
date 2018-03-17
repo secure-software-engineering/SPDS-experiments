@@ -8,6 +8,7 @@ import com.ibm.safe.core.tests.SafeRegressionDriver;
 import com.ibm.safe.internal.exceptions.SafeException;
 import com.ibm.safe.options.WholeProgramProperties;
 
+import experiments.typestate.microbench.IDEALAPTestSetup;
 import experiments.typestate.microbench.IDEALTestSetup;
 import experiments.typestate.microbench.TypestateRegressionUnit;
 import experiments.typestate.microbench.Util;
@@ -30,12 +31,18 @@ public class AbstractTestCase extends TestCase{
 			new File("outputMicro").mkdirs();
 		String outputFile =  "outputMicro/"+System.getProperty("analysis") + "-" + this.getClass().getName() +  (Util.aliasing() ? "" : "-noAliasing") + (Util.strongUpdates() ? "" : "-noStrongUpdates") + ".csv";
 		System.setProperty("outputCsvFile", outputFile);
-		if(System.getProperty("analysis").equalsIgnoreCase("fink-staged")){
+		if(System.getProperty("analysis").equalsIgnoreCase("fink-mustnot")){
 			test.setOption(WholeProgramProperties.Props.CG_KIND.getName(), "ZERO_ONE_CUSTOM");
-			test.selectStagedTypestateSolver(); 
+			test.selectAPMustTypestateSolver(); 
+			SafeRegressionDriver.run(test);
+		} else if(System.getProperty("analysis").equalsIgnoreCase("fink-unique")){
+			test.setOption(WholeProgramProperties.Props.CG_KIND.getName(), "ZERO_ONE_CUSTOM");
+			test.selectUniqueTypestateSolver(); 
 			SafeRegressionDriver.run(test);
 		} else if(System.getProperty("analysis").equalsIgnoreCase("ideal")){
 			IDEALTestSetup.run(test);
+		} else if(System.getProperty("analysis").equalsIgnoreCase("ideal-ap")){
+			IDEALAPTestSetup.run(test);
 		} else
 			throw new RuntimeException("Inappropriate -Danalysis option for JVM!");
 	}

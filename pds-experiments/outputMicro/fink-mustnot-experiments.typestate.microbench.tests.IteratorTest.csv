@@ -1,0 +1,18 @@
+Method;PropagationCounts;VisitedMethods;Actual Errors;Expected Errors;Number of Seeds;False Positives;False Negatives
+testIteratorExample2;1610;53;0;0;1;0;0;
+testIteratorExample3;1610;53;1;1;1;0;0;
+testIteratorExample1;2172;106;0;0;1;0;0;
+testIteratorExample4;181;13;0;0;1;0;0;
+testIteratorExample5;1610;53;1;1;1;0;0;
+testIteratorExample6;326;14;1;1;1;0;0;
+testIteratorExample7;187;15;1;1;1;0;0;
+testIteratorExample8;181;13;1;1;1;0;0;
+testIteratorExample9;181;13;0;0;1;0;0;
+testIteratorExample10;2402;116;0;0;1;0;0;
+testIteratorExample11;25610;542;0;0;3;0;0;
+testIteratorExample12;2177;107;0;0;1;0;0;
+testIteratorExample13;2195;107;0;0;1;0;0;
+testIteratorExample14;4667;116;1;0;1;1;0;
+testIteratorExample15;144;10;0;0;1;0;0;
+testIteratorExample16;359;13;0;1;1;0;1;
+testIteratorExample17;303;12;1;1;1;0;0;

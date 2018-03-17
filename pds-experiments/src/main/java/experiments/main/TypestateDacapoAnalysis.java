@@ -9,7 +9,7 @@ public class TypestateDacapoAnalysis {
 
 	static String[] dacapo = new String[] { "antlr", "chart", "eclipse", "hsqldb", "jython", "luindex", "lusearch",
 			"pmd", "fop","xalan", "bloat" };
-	static String[] analyses = new String[] { "ideal","ideal-ap","fink-apmust","fink-unique" };
+	static String[] analyses = new String[] { "ideal","#ideal-ap","#fink-unique" ,"#fink-apmust"};
 	static String[] rules = new String[] { 
 	    "IteratorHasNext",
 		    "KeyStore",
@@ -26,9 +26,9 @@ public class TypestateDacapoAnalysis {
 		if(args.length < 1) {
 			System.out.println("Please supply path to dacapo benchmark (must end in slash)!");
 		}
-		for (String bench : dacapo) {
-			for(String rule: rules){
-				for(String analysis : analyses){
+		for(String analysis : analyses){
+			for (String bench : dacapo) {
+				for(String rule: rules){
 					if(ignore(rule)) {
 						continue;
 					}

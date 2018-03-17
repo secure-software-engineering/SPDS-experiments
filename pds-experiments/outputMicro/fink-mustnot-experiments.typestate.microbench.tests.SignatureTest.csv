@@ -1,0 +1,7 @@
+Method;PropagationCounts;VisitedMethods;Actual Errors;Expected Errors;Number of Seeds;False Positives;False Negatives
+testSignatureExample1;437768;2830;2;1;2;1;0;
+testSignatureExample2;648094;2834;0;0;2;0;0;
+testSignatureExample3;648186;2834;2;1;2;1;0;
+testSignatureExample4;437860;2830;0;0;2;0;0;
+testSignatureExample5;209564;2790;2;1;2;1;0;
+testSignatureExample6;209666;2790;2;1;2;1;0;
