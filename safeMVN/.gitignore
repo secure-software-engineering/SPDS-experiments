@@ -1,1 +1,8 @@
-/target/
+*.class
+.DS_Store
+*.project
+*.classpath
+*.iml
+.settings/
+bin/
+target/
