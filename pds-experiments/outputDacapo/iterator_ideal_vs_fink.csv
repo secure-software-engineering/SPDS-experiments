@@ -1,0 +1,10 @@
+name;ideal;fink;fink_apmust;seeds;timeouts_fink;timeouts_finkapmust;timeouts_ideal;index
+dacapo.bloat.Main2-ideal-IteratorHasNext.csv;1.1;0.6;0.6;0;5;5;0;1
+dacapo.chart.Main2-ideal-IteratorHasNext.csv;0.1;0.2;0.2;0;0;0;0;2
+dacapo.eclipse.Main2-ideal-IteratorHasNext.csv;0.1;0.1;0.1;0;0;0;0;3
+dacapo.fop.Main2-ideal-IteratorHasNext.csv;0.0;0.0;0.0;0;0;0;0;4
+dacapo.jython.Main2-ideal-IteratorHasNext.csv;0.1;0.1;0.1;0;0;0;0;5
+dacapo.luindex.Main2-ideal-IteratorHasNext.csv;0.1;0.1;0.1;0;0;0;0;6
+dacapo.lusearch.Main2-ideal-IteratorHasNext.csv;0.1;0.1;0.1;0;0;0;0;7
+dacapo.pmd.Main2-ideal-IteratorHasNext.csv;0.0;0.1;0.1;0;0;0;0;8
+dacapo.xalan.Main2-ideal-IteratorHasNext.csv;0.0;0.0;0.0;0;0;0;0;9
