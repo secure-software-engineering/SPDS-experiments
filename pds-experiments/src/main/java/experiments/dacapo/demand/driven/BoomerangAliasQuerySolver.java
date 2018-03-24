@@ -8,7 +8,6 @@ import java.util.Set;
 import com.beust.jcommander.internal.Sets;
 
 import boomerang.Boomerang;
-import boomerang.BoomerangTimeoutException;
 import boomerang.DefaultBoomerangOptions;
 import boomerang.debugger.Debugger;
 import boomerang.debugger.IDEVizDebugger;
