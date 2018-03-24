@@ -7,13 +7,14 @@ import java.util.Set;
 
 import com.beust.jcommander.internal.Sets;
 
-import boomerang.BackwardQuery;
 import boomerang.Boomerang;
 import boomerang.BoomerangTimeoutException;
 import boomerang.DefaultBoomerangOptions;
-import boomerang.ForwardQuery;
 import boomerang.debugger.Debugger;
 import boomerang.debugger.IDEVizDebugger;
+import boomerang.results.BackwardBoomerangResults;
+import boomerang.BackwardQuery;
+import boomerang.ForwardQuery;
 import boomerang.seedfactory.SeedFactory;
 import soot.SootMethod;
 import soot.Unit;
@@ -54,18 +55,16 @@ public class BoomerangAliasQuerySolver extends AliasQuerySolver {
 
 	
 	private Set<ForwardQuery> getPointsTo(BackwardQuery q, AliasQuery aliasQuery){
-		try {
-			if(crashed.contains(q)) {
-				throw new SkipQueryException();
-			}
-			recreateSolver(q,aliasQuery);
-			solver.solve(q);
-			solver.debugOutput();
-		} catch (BoomerangTimeoutException e) {
-			crashed.add(q);
-			throw e;
+		if(crashed.contains(q)) {
+			throw new SkipQueryException();
 		}
-		return solver.getAllocationSites(q);
+		recreateSolver(q,aliasQuery);
+		BackwardBoomerangResults<NoWeight> res = solver.solve(q);
+		solver.debugOutput();
+		if(res.isTimedout()) {
+			crashed.add(q);
+		}
+		return res.getAllocationSites().keySet();
 	}
 
 	private void recreateSolver(BackwardQuery q, AliasQuery aliasQuery) {

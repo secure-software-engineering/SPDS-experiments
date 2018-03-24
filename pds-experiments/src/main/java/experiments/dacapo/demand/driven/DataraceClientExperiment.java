@@ -16,10 +16,10 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
-import boomerang.BackwardQuery;
 import boomerang.Query;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
+import boomerang.BackwardQuery;
 import boomerang.seedfactory.SeedFactory;
 import experiments.dacapo.SootSceneSetupDacapo;
 import heros.solver.Pair;

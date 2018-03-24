@@ -21,13 +21,16 @@ import com.ibm.safe.internal.exceptions.SafeException;
 import com.ibm.safe.properties.CommonProperties;
 import com.ibm.safe.typestate.options.TypestateProperties;
 
+import boomerang.BoomerangOptions;
+import boomerang.DefaultBoomerangOptions;
 import boomerang.WeightedBoomerang;
-import boomerang.WeightedForwardQuery;
 import boomerang.cfg.ExtendedICFG;
 import boomerang.debugger.Debugger;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
 import boomerang.preanalysis.PreparationTransformer;
+import boomerang.results.ForwardBoomerangResults;
+import boomerang.WeightedForwardQuery;
 import ideal.IDEALAnalysis;
 import ideal.IDEALAnalysisDefinition;
 import ideal.IDEALSeedSolver;
@@ -150,14 +153,23 @@ public class IDEALTestSetup{
 					return icfg;
 				}
 
+				@Override
 				public boolean enableStrongUpdates() {
-					// TODO Auto-generated method stub
-					return false;
+					return Util.strongUpdates();
 				}
-
+				
 				@Override
 				public Debugger<TransitionFunction> debugger() {
 					return new Debugger<>();
+				}
+
+				public BoomerangOptions boomerangOptions() {
+					return new DefaultBoomerangOptions() {
+						@Override
+						public boolean aliasing() {
+							return Util.aliasing();
+						}
+					};
 				}
 			}){};
 			    	
@@ -178,20 +190,22 @@ public class IDEALTestSetup{
 	}
 
 	public static void run(final TypestateRegressionUnit test) {
+		System.out.println("Strong updates: " + Util.strongUpdates());
+		System.out.println("Aliasing : " + Util.aliasing());
 		String targetClass = test.getOptions().get(CommonProperties.Props.MAIN_CLASSES.getName());
 		initializeSoot(targetClass);
 		Transform transform = new Transform("wjtp.ifds", new SceneTransformer() {
 			protected void internalTransform(String phaseName, @SuppressWarnings("rawtypes") Map options) {
 //				System.out.println(Scene.v().getMainMethod().getActiveBody());
 				IDEALAnalysis<TransitionFunction> idealSolver = createAnalysis(test);
-				Map<WeightedForwardQuery<TransitionFunction>, IDEALSeedSolver<TransitionFunction>> solvers = idealSolver.run();
+				Map<WeightedForwardQuery<TransitionFunction>, ForwardBoomerangResults<TransitionFunction>> solvers = idealSolver.run();
 				int totalPropagationCount = 0;
 				Set<SootMethod> totalVisitedMethods = Sets.newHashSet();
 				int errorCount = 0;
-				for(Entry<WeightedForwardQuery<TransitionFunction>, IDEALSeedSolver<TransitionFunction>> e : solvers.entrySet()) {
-					WeightedBoomerang<TransitionFunction> phase2Solver = e.getValue().getPhase2Solver();
+				for(Entry<WeightedForwardQuery<TransitionFunction>, ForwardBoomerangResults<TransitionFunction>> e : solvers.entrySet()) {
+					ForwardBoomerangResults<TransitionFunction> phase2Solver = e.getValue();
 					totalVisitedMethods.addAll(phase2Solver.getStats().getCallVisitedMethods());
-					totalPropagationCount += phase2Solver.getForwardReachableStates().size();
+					totalPropagationCount += phase2Solver.getStats().getForwardReachesNodes().size();
 					
 					if(isInErrorState(e.getKey(),e.getValue())) {
 						errorCount++;
@@ -221,8 +235,8 @@ public class IDEALTestSetup{
 				}
 			}
 
-		    private boolean isInErrorState(WeightedForwardQuery<TransitionFunction> key, IDEALSeedSolver<TransitionFunction> solver) {
-		        Table<Statement, Val, TransitionFunction> objectDestructingStatements = solver.getPhase2Solver().getObjectDestructingStatements(key);
+		    private boolean isInErrorState(WeightedForwardQuery<TransitionFunction> key, ForwardBoomerangResults<TransitionFunction> forwardBoomerangResults) {
+		        Table<Statement, Val, TransitionFunction> objectDestructingStatements = forwardBoomerangResults.getObjectDestructingStatements();
 		        for(Table.Cell<Statement,Val,TransitionFunction> c : objectDestructingStatements.cellSet()){
 		            for(ITransition t : c.getValue().values()){
 		                if(t.to() != null){

@@ -6,13 +6,14 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
-import boomerang.BackwardQuery;
 import boomerang.Boomerang;
 import boomerang.DefaultBoomerangOptions;
-import boomerang.ForwardQuery;
 import boomerang.Query;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
+import boomerang.results.BackwardBoomerangResults;
+import boomerang.BackwardQuery;
+import boomerang.ForwardQuery;
 import boomerang.seedfactory.SeedFactory;
 import soot.SootMethod;
 import soot.Unit;
@@ -63,8 +64,8 @@ public class PointerBenchAnalysisBoomerang extends PointerBenchAnalysis {
 					return seedFactory;
 				}
 			};
-			solver.solve(query);
-			for(ForwardQuery q : solver.getAllocationSites((BackwardQuery) query)){
+			BackwardBoomerangResults<NoWeight> res = solver.solve((BackwardQuery) query);
+			for(ForwardQuery q : res.getAllocationSites().keySet()){
 				results.add(q.asNode());
 			}
 		}

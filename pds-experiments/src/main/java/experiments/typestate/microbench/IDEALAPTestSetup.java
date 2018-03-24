@@ -11,7 +11,6 @@ import com.google.common.collect.Table;
 import com.ibm.safe.properties.CommonProperties;
 import com.ibm.safe.typestate.options.TypestateProperties;
 
-import boomerang.WeightedForwardQuery;
 import boomerang.ap.AliasFinder;
 import boomerang.ap.BoomerangOptions;
 import boomerang.cfg.ExtendedICFG;
@@ -19,6 +18,7 @@ import boomerang.cfg.IExtendedICFG;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
 import boomerang.preanalysis.PreparationTransformer;
+import boomerang.WeightedForwardQuery;
 import experiments.dacapo.idealap.StatsDebugger;
 import ideal.IDEALSeedSolver;
 import ideal.ap.Analysis;
@@ -245,20 +245,6 @@ public class IDEALAPTestSetup{
 //				}
 			}
 
-		    private boolean isInErrorState(WeightedForwardQuery<TransitionFunction> key, IDEALSeedSolver<TransitionFunction> solver) {
-		        Table<Statement, Val, TransitionFunction> objectDestructingStatements = solver.getPhase2Solver().getObjectDestructingStatements(key);
-		        for(Table.Cell<Statement,Val,TransitionFunction> c : objectDestructingStatements.cellSet()){
-		            for(ITransition t : c.getValue().values()){
-		                if(t.to() != null){
-		                    if(t.to().isErrorState()){
-		                        return true;
-		                    }
-		                }
-		            }
-
-		        }
-		      return false;
-		    }
 		});
 		PackManager.v().getPack("wjtp").add(transform);
 		PackManager.v().getPack("cg").apply();

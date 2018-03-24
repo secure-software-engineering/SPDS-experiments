@@ -29,7 +29,9 @@ public class AbstractTestCase extends TestCase{
 		System.setProperty("expectedFinding", String.valueOf(test.getExpectedNumberOfFindings()));
 		if(!new File("outputMicro").exists())
 			new File("outputMicro").mkdirs();
-		String outputFile =  "outputMicro/"+System.getProperty("analysis") + "-" + this.getClass().getName() +  (Util.aliasing() ? "" : "-noAliasing") + (Util.strongUpdates() ? "" : "-noStrongUpdates") + ".csv";
+		String outputFile =  "outputMicro"+File.separator +System.getProperty("analysis") + (Util.aliasing() ? "" : "-noAliasing") + (Util.strongUpdates() ? "" : "-noStrongUpdates")+File.separator+ this.getClass().getName() +  ".csv";
+		if(!new File(outputFile).getParentFile().exists())
+			new File(outputFile).getParentFile().mkdirs();
 		System.setProperty("outputCsvFile", outputFile);
 		if(System.getProperty("analysis").equalsIgnoreCase("fink-mustnot")){
 			test.setOption(WholeProgramProperties.Props.CG_KIND.getName(), "ZERO_ONE_CUSTOM");

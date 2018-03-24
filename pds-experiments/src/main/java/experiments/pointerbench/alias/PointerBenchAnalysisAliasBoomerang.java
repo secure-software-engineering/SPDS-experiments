@@ -6,13 +6,14 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
-import boomerang.BackwardQuery;
 import boomerang.Boomerang;
 import boomerang.DefaultBoomerangOptions;
-import boomerang.ForwardQuery;
 import boomerang.Query;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
+import boomerang.results.BackwardBoomerangResults;
+import boomerang.BackwardQuery;
+import boomerang.ForwardQuery;
 import boomerang.seedfactory.SeedFactory;
 import experiments.pointerbench.pointsto.PointerBenchBoomerangOptions;
 import soot.SootMethod;
@@ -39,8 +40,8 @@ public class PointerBenchAnalysisAliasBoomerang extends PointerBenchAliasAnalysi
 				return seedFactory;
 			}
 		};
-		solver.solve(q);
-		return solver.getAllocationSites(q);
+		BackwardBoomerangResults<NoWeight> res = solver.solve(q);
+		return res.getAllocationSites().keySet();
 	}
 	
 	@Override

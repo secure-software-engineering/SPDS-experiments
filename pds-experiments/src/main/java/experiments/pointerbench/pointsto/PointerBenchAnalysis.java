@@ -10,12 +10,12 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
-import boomerang.BackwardQuery;
-import boomerang.ForwardQuery;
 import boomerang.Query;
 import boomerang.jimple.AllocVal;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
+import boomerang.BackwardQuery;
+import boomerang.ForwardQuery;
 import boomerang.seedfactory.SeedFactory;
 import soot.G;
 import soot.Local;

@@ -9,11 +9,11 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
-import boomerang.BackwardQuery;
 import boomerang.Query;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
 import boomerang.preanalysis.AddNopStatementTransformer;
+import boomerang.BackwardQuery;
 import boomerang.seedfactory.SeedFactory;
 import experiments.pointerbench.pointsto.PointerBenchResult;
 import soot.G;

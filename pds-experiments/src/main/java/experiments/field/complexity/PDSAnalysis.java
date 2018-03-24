@@ -6,12 +6,12 @@ import java.util.Map;
 
 import com.google.common.base.Stopwatch;
 
-import boomerang.BackwardQuery;
 import boomerang.Boomerang;
 import boomerang.DefaultBoomerangOptions;
 import boomerang.Query;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
+import boomerang.BackwardQuery;
 import boomerang.seedfactory.SeedFactory;
 import soot.SceneTransformer;
 import soot.SootMethod;
@@ -71,7 +71,7 @@ public class PDSAnalysis extends AbstractAnalysis {
 				Collection<Query> seeds = seedFactory.computeSeeds();
 				Stopwatch watch = Stopwatch.createStarted();
 				for (Query q : seeds) {
-					solver.solve(q);
+					solver.solve((BackwardQuery) q);
 				}
 				analysisTime = watch.elapsed();
 				System.out.println("Test (" + testClass + ") took: " + watch.elapsed());

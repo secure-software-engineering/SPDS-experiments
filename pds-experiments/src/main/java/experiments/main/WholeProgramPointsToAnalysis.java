@@ -3,12 +3,12 @@ package experiments.main;
 import java.util.Map;
 
 import boomerang.DefaultBoomerangOptions;
-import boomerang.ForwardQuery;
 import boomerang.WholeProgramBoomerang;
 import boomerang.debugger.Debugger;
 import boomerang.jimple.Field;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
+import boomerang.ForwardQuery;
 import experiments.dacapo.SootSceneSetupDacapo;
 import soot.G;
 import soot.PackManager;
