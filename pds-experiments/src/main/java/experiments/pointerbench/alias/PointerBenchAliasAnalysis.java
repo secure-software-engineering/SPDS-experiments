@@ -9,11 +9,11 @@ import java.util.Set;
 
 import com.google.common.collect.Sets;
 
+import boomerang.BackwardQuery;
 import boomerang.Query;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
-import boomerang.preanalysis.AddNopStatementTransformer;
-import boomerang.BackwardQuery;
+import boomerang.preanalysis.PreTransformBodies;
 import boomerang.seedfactory.SeedFactory;
 import experiments.pointerbench.pointsto.PointerBenchResult;
 import soot.G;
@@ -53,7 +53,7 @@ public abstract class PointerBenchAliasAnalysis {
 	}
 
 	public PointerBenchResult run() {
-		PackManager.v().getPack("wjtp").add(new Transform("wjtp.prepare", new AddNopStatementTransformer()));
+		PackManager.v().getPack("wjtp").add(new Transform("wjtp.prepare", new PreTransformBodies()));
 		Transform transform = new Transform("wjtp.ifds", createAnalysisTransformer());
 		PackManager.v().getPack("wjtp").add(transform);
 		PackManager.v().getPack("cg").apply();

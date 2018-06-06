@@ -168,7 +168,7 @@ public abstract class PointerBenchAnalysis {
 						Local local = (Local) as.getLeftOp();
 						Statement statement = new Statement(unit, icfg.getMethodOf(unit));
 						ForwardQuery forwardQuery = new ForwardQuery(statement,
-								new AllocVal(local, icfg.getMethodOf(unit), as.getRightOp()));
+								new AllocVal(local, icfg.getMethodOf(unit), as.getRightOp(), statement));
 						return Optional.<Query>of(forwardQuery);
 					}
 				}
