@@ -14,6 +14,7 @@ import com.google.common.collect.Table;
 import boomerang.BoomerangOptions;
 import boomerang.DefaultBoomerangOptions;
 import boomerang.debugger.Debugger;
+import boomerang.debugger.IDEVizDebugger;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
 import boomerang.results.ForwardBoomerangResults;
@@ -79,8 +80,10 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
 				};
 			}
 			@Override
-			public Debugger<TransitionFunction> debugger() {
-				return new Debugger<>();
+			public Debugger<TransitionFunction> debugger(IDEALSeedSolver<TransitionFunction> solver) {
+				File file = new File("idealDebugger/" + solver.getSeed());
+				file.getParentFile().mkdirs();
+				return new IDEVizDebugger<>(new File("idealDebugger/" + solver.getSeed()), icfg);
 			}
 		}){};
     	

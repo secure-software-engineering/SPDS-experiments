@@ -159,7 +159,7 @@ public class IDEALTestSetup{
 				}
 				
 				@Override
-				public Debugger<TransitionFunction> debugger() {
+				public Debugger<TransitionFunction> debugger(IDEALSeedSolver<TransitionFunction> solver) {
 					return new Debugger<>();
 				}
 
