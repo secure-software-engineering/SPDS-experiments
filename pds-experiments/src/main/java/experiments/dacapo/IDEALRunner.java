@@ -30,6 +30,7 @@ import soot.SootClass;
 import soot.SootMethod;
 import soot.Transform;
 import soot.Unit;
+import soot.jimple.Stmt;
 import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
 import soot.jimple.toolkits.ide.icfg.JimpleBasedInterproceduralCFG;
 import sync.pds.solver.WeightFunctions;
@@ -81,9 +82,10 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
 			}
 			@Override
 			public Debugger<TransitionFunction> debugger(IDEALSeedSolver<TransitionFunction> solver) {
-				File file = new File("idealDebugger/" + solver.getSeed());
-				file.getParentFile().mkdirs();
-				return new IDEVizDebugger<>(new File("idealDebugger/" + solver.getSeed()), icfg);
+				return new Debugger<>();
+//				File file = new File("idealDebugger/" + solver.getSeed());
+//				file.getParentFile().mkdirs();
+//				return new IDEVizDebugger<>(new File("idealDebugger/" + solver.getSeed()), icfg);
 			}
 		}){};
     	
@@ -135,8 +137,7 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
               writer = new FileWriter(file, true);
               if(!fileExisted)
                   writer.write(
-                          "Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;VisitedMethod;ReachableMethods;MaxAccessPath\n");
-
+                          "Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;VisitedMethod;ReachableMethods;CallRecursion;FieldLoop;MaxAccessPath\n");
               for (Entry<WeightedForwardQuery<TransitionFunction>, ForwardBoomerangResults<TransitionFunction>> entry : seedToAnalysisTime.entrySet()) {
                   writer.write(asCSVLine(entry.getKey(), entry.getValue()));
               }
@@ -179,7 +180,21 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
   }
 
     private String asCSVLine(WeightedForwardQuery<TransitionFunction> key, ForwardBoomerangResults<TransitionFunction> forwardBoomerangResults) {
-        return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n","ideal",	System.getProperty("ruleIdentifier"),key,key.stmt().getUnit().get(),key.stmt().getMethod(),key.stmt().getMethod().getDeclaringClass(), isInErrorState(key,forwardBoomerangResults),forwardBoomerangResults.isTimedout(),forwardBoomerangResults.getAnalysisWatch().elapsed(TimeUnit.MILLISECONDS),forwardBoomerangResults.getStats().getForwardReachesNodes().size(),forwardBoomerangResults.getStats().getCallVisitedMethods().size(), Scene.v().getReachableMethods().size(), 0);
+    		//("Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;VisitedMethod;ReachableMethods;CallRecursion;FieldLoop;MaxAccessPath\n");
+    		String analysis = "ideal";
+    		String rule = System.getProperty("ruleIdentifier");
+    		Stmt seedStmt = key.stmt().getUnit().get();
+    		SootMethod seedMethod = key.stmt().getMethod();
+    		SootClass seedClass = seedMethod.getDeclaringClass();
+    		boolean isInErrorState = isInErrorState(key,forwardBoomerangResults);
+    		boolean isTimedout = forwardBoomerangResults.isTimedout();
+    		long analysisTime = forwardBoomerangResults.getAnalysisWatch().elapsed(TimeUnit.MILLISECONDS);
+    		int propagationCount = forwardBoomerangResults.getStats().getForwardReachesNodes().size();
+    		int visitedMethods = forwardBoomerangResults.getStats().getCallVisitedMethods().size();
+    		int reachableMethods = Scene.v().getReachableMethods().size();
+    		boolean containsCallLoop = forwardBoomerangResults.containsCallRecursion();
+    		boolean containsFieldLoop = forwardBoomerangResults.containsFieldLoop();
+        return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n",analysis,rule,key,seedStmt,seedMethod,seedClass,isInErrorState,isTimedout,analysisTime,propagationCount,visitedMethods,reachableMethods,containsCallLoop,containsFieldLoop, 0);
     }
 
     private boolean isInErrorState(WeightedForwardQuery<TransitionFunction> key, ForwardBoomerangResults<TransitionFunction> forwardBoomerangResults) {
