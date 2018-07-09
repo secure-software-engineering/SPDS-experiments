@@ -48,7 +48,7 @@ protected Analysis<TypestateDomainValue<ConcreteState>> createAnalysis() {
 
     		@Override
     		public long analysisBudgetInSeconds() {
-    			return 30;
+    			return TimeUnit.MINUTES.toSeconds(10);
     		}
 			@Override
 			public TypestateChangeFunction<ConcreteState> createTypestateChangeFunction() {
@@ -167,7 +167,4 @@ protected Analysis<TypestateDomainValue<ConcreteState>> createAnalysis() {
     return analysis;
   }
   
-  protected long getBudget(){
-	  return TimeUnit.SECONDS.toMillis(30);
-  }
 }

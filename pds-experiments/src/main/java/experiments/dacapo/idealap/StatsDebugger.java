@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.Multimap;
 
+import boomerang.Util;
 import boomerang.accessgraph.AccessGraph;
 import boomerang.ap.AliasResults;
 import boomerang.cfg.ExtendedICFG;
@@ -215,9 +216,10 @@ public class StatsDebugger implements IDebugger<TypestateDomainValue<ConcreteSta
 			writer = new FileWriter(file, true);
 			if(!fileExisted)
 				 writer.write(
-                         "Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;MaxAccessPath\n");
+                         "Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;MaxAccessPath;MaxMemory\n");
 				SootMethod method = icfg.getMethodOf(seed.getStmt());
-			String line = String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n","ideal-ap",	System.getProperty("ruleIdentifier"),seed, seed.getStmt(),method,method.getDeclaringClass(), error,timedout,totalTime,propagationCount,phase1Time,phase2Time,visitedMethods.size(), Scene.v().getReachableMethods().size(), AccessGraph.MAX_ACCESS_GRAPH);
+			long usedMemory = Util.getReallyUsedMemory();
+			String line = String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n","ideal-ap",	System.getProperty("ruleIdentifier"),seed, seed.getStmt(),method,method.getDeclaringClass(), error,timedout,totalTime,propagationCount,phase1Time,phase2Time,visitedMethods.size(), Scene.v().getReachableMethods().size(), AccessGraph.MAX_ACCESS_GRAPH, usedMemory);
 			writer.write(line);
 			writer.close();
 		} catch (IOException e1) {

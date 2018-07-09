@@ -41,7 +41,7 @@ import wpds.impl.Weight.NoWeight;
 
 public class DataraceClientExperiment extends SootSceneSetupDacapo {
 
-	private boolean DEBUG = true;
+	private boolean DEBUG = false;
 
 	 public static void main(String[] args) {
 		DataraceClientExperiment expr = new DataraceClientExperiment(args[0], args[1]);

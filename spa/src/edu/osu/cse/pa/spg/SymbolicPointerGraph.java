@@ -36,6 +36,7 @@ import soot.jimple.CastExpr;
 import soot.jimple.CaughtExceptionRef;
 import soot.jimple.ClassConstant;
 import soot.jimple.DefinitionStmt;
+import soot.jimple.DynamicInvokeExpr;
 import soot.jimple.FieldRef;
 import soot.jimple.GotoStmt;
 import soot.jimple.IdentityRef;
@@ -704,7 +705,7 @@ public class SymbolicPointerGraph {
 
 	@SuppressWarnings("unchecked")
 	public static void resolveCall(InvokeExpr ie, List target_types) {
-		if (ie instanceof StaticInvokeExpr || ie instanceof SpecialInvokeExpr) {
+		if (ie instanceof StaticInvokeExpr || ie instanceof SpecialInvokeExpr || ie instanceof DynamicInvokeExpr) {
 			return;
 		}
 

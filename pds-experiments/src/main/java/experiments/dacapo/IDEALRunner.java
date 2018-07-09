@@ -18,6 +18,7 @@ import boomerang.debugger.IDEVizDebugger;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
 import boomerang.results.ForwardBoomerangResults;
+import experiments.dacapo.idealap.IDEALAPRunner;
 import boomerang.WeightedForwardQuery;
 import ideal.IDEALAnalysis;
 import ideal.IDEALAnalysisDefinition;
@@ -53,6 +54,7 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
           .newInstance();
 		
 		return new IDEALAnalysis<TransitionFunction>(new IDEALAnalysisDefinition<TransitionFunction>() {
+			
 
 			@Override
 			public Collection<WeightedForwardQuery<TransitionFunction>> generate(SootMethod method, Unit stmt, Collection<SootMethod> calledMethod) {
@@ -76,7 +78,11 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
 				return new DefaultBoomerangOptions() {
 					@Override
 					public int analysisTimeoutMS() {
-						return 30000;
+						return (int) IDEALRunner.this.getBudget();
+					}
+					@Override
+					public boolean arrayFlows() {
+						return false;
 					}
 				};
 			}
@@ -137,7 +143,7 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
               writer = new FileWriter(file, true);
               if(!fileExisted)
                   writer.write(
-                          "Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;VisitedMethod;ReachableMethods;CallRecursion;FieldLoop;MaxAccessPath\n");
+                          "Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;VisitedMethod;ReachableMethods;CallRecursion;FieldLoop;MaxAccessPath;MaxMemory\n");
               for (Entry<WeightedForwardQuery<TransitionFunction>, ForwardBoomerangResults<TransitionFunction>> entry : seedToAnalysisTime.entrySet()) {
                   writer.write(asCSVLine(entry.getKey(), entry.getValue()));
               }
@@ -187,14 +193,15 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
     		SootMethod seedMethod = key.stmt().getMethod();
     		SootClass seedClass = seedMethod.getDeclaringClass();
     		boolean isInErrorState = isInErrorState(key,forwardBoomerangResults);
-    		boolean isTimedout = forwardBoomerangResults.isTimedout();
-    		long analysisTime = forwardBoomerangResults.getAnalysisWatch().elapsed(TimeUnit.MILLISECONDS);
+    		boolean isTimedout = getAnalysis().isTimedout(key);
+    		long analysisTime = getAnalysis().getAnalysisTime(key).elapsed(TimeUnit.MILLISECONDS);
     		int propagationCount = forwardBoomerangResults.getStats().getForwardReachesNodes().size();
     		int visitedMethods = forwardBoomerangResults.getStats().getCallVisitedMethods().size();
     		int reachableMethods = Scene.v().getReachableMethods().size();
     		boolean containsCallLoop = forwardBoomerangResults.containsCallRecursion();
     		boolean containsFieldLoop = forwardBoomerangResults.containsFieldLoop();
-        return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n",analysis,rule,key,seedStmt,seedMethod,seedClass,isInErrorState,isTimedout,analysisTime,propagationCount,visitedMethods,reachableMethods,containsCallLoop,containsFieldLoop, 0);
+    		long usedMemory = forwardBoomerangResults.getMaxMemory();
+        return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n",analysis,rule,key,seedStmt,seedMethod,seedClass,isInErrorState,isTimedout,analysisTime,propagationCount,visitedMethods,reachableMethods,containsCallLoop,containsFieldLoop, 0, usedMemory);
     }
 
     private boolean isInErrorState(WeightedForwardQuery<TransitionFunction> key, ForwardBoomerangResults<TransitionFunction> forwardBoomerangResults) {
@@ -220,6 +227,6 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
   }
   
   protected long getBudget(){
-	  return TimeUnit.SECONDS.toMillis(30);
+	  return TimeUnit.MINUTES.toMillis(10);
   }
 }
