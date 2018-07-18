@@ -1,0 +1,8 @@
+Writing output to file outputDacapo/dacapo.pmd.Main2-ideal-IO.csv
+running typestate.impl.statemachines.PipedOutputStreamStateMachine
+/Users/johannesspath/Documents/dacapo/pmd/pmd.jar:/Users/johannesspath/Documents/dacapo/pmd/pmd-deps.jar
+/Users/johannesspath/Documents/dacapo/pmd/pmd.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.pmd.Main2: void main(java.lang.String[])>]
+Application Classes: 554
+Reachable Methods3775
+No seeds found!

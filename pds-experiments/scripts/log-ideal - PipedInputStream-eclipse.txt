@@ -1,0 +1,8 @@
+Writing output to file outputDacapo/dacapo.eclipse.Main2-ideal-IO.csv
+running typestate.impl.statemachines.PipedInputStreamStateMachine
+/Users/johannesspath/Documents/dacapo/eclipse/eclipse.jar:/Users/johannesspath/Documents/dacapo/eclipse/eclipse-deps.jar
+/Users/johannesspath/Documents/dacapo/eclipse/eclipse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.eclipse.Main2: void main(java.lang.String[])>]
+Application Classes: 414
+Reachable Methods3055
+No seeds found!

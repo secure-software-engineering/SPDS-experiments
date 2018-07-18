@@ -1,0 +1,31 @@
+Writing output to file outputDacapo/dacapo.eclipse.Main2-ideal-IO.csv
+running typestate.impl.statemachines.alloc.InputStreamStateMachine
+/Users/johannesspath/Documents/dacapo/eclipse/eclipse.jar:/Users/johannesspath/Documents/dacapo/eclipse/eclipse-deps.jar
+/Users/johannesspath/Documents/dacapo/eclipse/eclipse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.eclipse.Main2: void main(java.lang.String[])>]
+Application Classes: 414
+Reachable Methods3055
+Analysing 11 seeds!
+Analyzing ForwardQuery: (getFileInputStream $r8.<init>(r1),$r8 (SecureAction.getFileInputStream) Value: specialinvoke $r8.<java.io.FileInputStream: void <init>(java.io.File)>(r1))
+ERROR StatusLogger No Log4j 2 configuration file found. Using default configuration (logging only errors to the console), or user programmatically provided configurations. Set system property 'log4j2.debug' to show Log4j 2 internal initialization logging. See https://logging.apache.org/log4j/2.x/manual/configuration.html for instructions on how to configure Log4j 2
+Analyzed (finished,timedout): 	 (1,0) of 11 seeds! 
+Analyzing ForwardQuery: (run $r1.<init>($r2),$r1 (SecureAction$4.run) Value: specialinvoke $r1.<java.io.FileInputStream: void <init>(java.io.File)>($r2))
+Analyzed (finished,timedout): 	 (2,0) of 11 seeds! 
+Analyzing ForwardQuery: (getBinary $r5.<init>(r0),$r5 (FileDigest.getBinary) Value: specialinvoke $r5.<java.io.FileInputStream: void <init>(java.io.File)>(r0))
+Analyzed (finished,timedout): 	 (3,0) of 11 seeds! 
+Analyzing ForwardQuery: (unpackZipFileResource $r4.<init>($r5),$r4 (Benchmark.unpackZipFileResource) Value: specialinvoke $r4.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r5))
+Analyzed (finished,timedout): 	 (4,0) of 11 seeds! 
+Analyzing ForwardQuery: (getBinary $r4.<init>($r5),$r4 (FileDigest.getBinary) Value: specialinvoke $r4.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r5))
+Analyzed (finished,timedout): 	 (5,0) of 11 seeds! 
+Analyzing ForwardQuery: (loadVMProfile $r11.<init>(r1),$r11 (Framework.loadVMProfile) Value: specialinvoke $r11.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>(r1))
+Analyzed (finished,timedout): 	 (6,0) of 11 seeds! 
+Analyzing ForwardQuery: (createProtectionDomain $r13.<init>($r14),$r13 (PermissionAdminImpl.createProtectionDomain) Value: specialinvoke $r13.<java.io.DataInputStream: void <init>(java.io.InputStream)>($r14))
+Analyzed (finished,timedout): 	 (7,0) of 11 seeds! 
+Analyzing ForwardQuery: (unpackZipStream $r8.<init>(r0),$r8 (Benchmark.unpackZipStream) Value: specialinvoke $r8.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>(r0))
+Analyzed (finished,timedout): 	 (8,0) of 11 seeds! 
+Analyzing ForwardQuery: (unpackZipFile $r4.<init>(r0),$r4 (Benchmark.unpackZipFile) Value: specialinvoke $r4.<java.io.FileInputStream: void <init>(java.lang.String)>(r0))
+Analyzed (finished,timedout): 	 (9,0) of 11 seeds! 
+Analyzing ForwardQuery: (computeDefaultUserAreaLocation $r9.<init>(r4),$r9 (LocationManager.computeDefaultUserAreaLocation) Value: specialinvoke $r9.<java.io.FileInputStream: void <init>(java.io.File)>(r4))
+Analyzed (finished,timedout): 	 (10,0) of 11 seeds! 
+Analyzing ForwardQuery: (unpackZipFile $r3.<init>($r4),$r3 (Benchmark.unpackZipFile) Value: specialinvoke $r3.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r4))
+Analyzed (finished,timedout): 	 (11,0) of 11 seeds! 

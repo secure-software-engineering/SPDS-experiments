@@ -5,7 +5,7 @@ import plotly.graph_objs
 import numpy as np
 from sets import Set
 
-MAX_ANALYSIS_TIME = 30000;
+MAX_ANALYSIS_TIME = 600000;
 MAX_ACCESS_PATH = 0;
 MAX_VISITED_METHODS = 1000;
 
@@ -39,6 +39,7 @@ path = "*.csv"
 uniqueSeeds = set()
 for fname in glob.glob(path):
     #if "dacapo.xalan.Main2-ideal-IteratorHasNext" in fname:
+    print fname
     if "ideal" in fname and not "-ap" in fname and not "_vs_" in fname:
         
         timesIDEAL = []
@@ -46,8 +47,11 @@ for fname in glob.glob(path):
         timesFINK_UNIQUE = []
         timesFINK_APMUST = []
         timeoutsIDEAL = 0
+        containsFieldLoop = 0
         timeoutsIDEAL_AP = 0
         timeoutsFINK_UNIQUE = 0
+        maxMemoryIDEAL_AP = 0
+        maxMemoryIDEAL = 0
         timeoutsFINK_APMUST = 0
         errorsIDEAL = 0
         errorsFINK_UNIQUE = 0
@@ -67,18 +71,25 @@ for fname in glob.glob(path):
                         foundInFINK_UNIQUE = True
                         if rowIDEAL_AP['Timedout'] == "true":
                             timeoutsIDEAL += 1
-                            
-                        if rowIDEAL_AP['Timedout'] == "true" or rowFINK_UNIQUE['Timedout'] == "true":
-                            print("ignore")
+                            timesIDEAL.append(MAX_ANALYSIS_TIME)
                         else:
-                            timesIDEAL.append(beautifyAnalysisTime(rowIDEAL_AP['AnalysisTimes']))    
-                            timesFINK_UNIQUE.append(beautifyAnalysisTime(rowFINK_UNIQUE['AnalysisTimes']))
-                            methodsIDEAL.append(int(rowIDEAL_AP['VisitedMethod']))
-                            methodsIDEAL_AP.append(int(rowFINK_UNIQUE['VisitedMethod']))
-                            maxAccessPath.append(computeAccessPathLength(rowFINK_UNIQUE['MaxAccessPath']))
-                        
+                            timesIDEAL.append(beautifyAnalysisTime(rowIDEAL_AP['AnalysisTimes']))
+                            
+
                         if rowFINK_UNIQUE['Timedout'] == "true":
+                            timesFINK_UNIQUE.append(MAX_ANALYSIS_TIME)
                             timeoutsFINK_UNIQUE += 1
+                        else:
+                            timesFINK_UNIQUE.append(beautifyAnalysisTime(rowFINK_UNIQUE['AnalysisTimes']))
+                        maxMemoryIDEAL = max(int(rowIDEAL_AP['MaxMemory']), maxMemoryIDEAL)
+                        maxMemoryIDEAL_AP = max(int(rowFINK_UNIQUE['MaxMemory']), maxMemoryIDEAL_AP)
+                        methodsIDEAL.append(int(rowIDEAL_AP['VisitedMethod']))
+                        methodsIDEAL_AP.append(int(rowFINK_UNIQUE['VisitedMethod']))
+                        maxAccessPath.append(computeAccessPathLength(rowFINK_UNIQUE['MaxAccessPath']))
+                        
+
+                        if rowIDEAL_AP['FieldLoop'] == "true":
+                            containsFieldLoop += 1
 
                         if rowIDEAL_AP['Is_In_Error'] == "true":
                             errorsIDEAL += 1
@@ -116,13 +127,20 @@ for fname in glob.glob(path):
             entry = {"benchmark":  benchmarkName, 
                     "ideal": toSeconds(geo_mean(timesIDEAL)),
                     "ideal_ap": toSeconds(geo_mean(timesFINK_UNIQUE)),
+                    "total_ideal": toSeconds(np.sum(timesIDEAL)),
+                    "total_ideal_ap": toSeconds(np.sum(timesFINK_UNIQUE)),
                     "seeds": len(timesIDEAL),
                     "timeouts_ideal_ap": timeoutsFINK_UNIQUE,
                     "timeouts_ideal": timeoutsIDEAL,
+                    "timeouts_fraction_ideal_ap": round(timeoutsFINK_UNIQUE*100/float(len(timesIDEAL)),1),
+                    "timeouts_fraction_ideal": round(timeoutsIDEAL*100/float(len(timesIDEAL)),1),
                     "errors_ideal_ap": errorsFINK_UNIQUE,
                     "errors_ideal": errorsIDEAL,
-                    "methods_ideal": geo_mean(methodsIDEAL).round(0),
+                    "methods_ideal": int(geo_mean(methodsIDEAL)),
                     "methods_ideal_ap": int(geo_mean(methodsIDEAL_AP)),
+                    "max_memory_ideal_ap": (maxMemoryIDEAL_AP/(1024*1024)),
+                    "max_memory_ideal": (maxMemoryIDEAL/(1024*1024)),
+                    "containsFieldLoop": containsFieldLoop,
                     "maxAccessPath": int(geo_mean(maxAccessPath))}
             d[fname] = entry
             results[outputFileName] = d
@@ -137,7 +155,7 @@ for fname in glob.glob(path):
           #  file.write(fname + ","+ str(num_lines) + ","+str(toSeconds(geo_mean(timesIDEAL)))+","+str(toSeconds(geo_mean(timesFINK_UNIQUE)))+","+str(toSeconds(geo_mean(timesFINK_APMUST)))+"\n")
           #  file.close() 
 
-header = ["benchmark", "ideal","ideal_ap","seeds","timeouts_ideal_ap","timeouts_ideal","errors_ideal_ap","errors_ideal","methods_ideal_ap","methods_ideal", "maxAccessPath"]
+header = ["benchmark", "ideal","ideal_ap","seeds","timeouts_ideal_ap","timeouts_ideal","errors_ideal_ap","errors_ideal","methods_ideal_ap","methods_ideal", "containsFieldLoop","maxAccessPath", "total_ideal", "total_ideal_ap","timeouts_fraction_ideal_ap","timeouts_fraction_ideal","max_memory_ideal_ap","max_memory_ideal"]
 
 for i in results:
     file = open(i,"w")

@@ -1,0 +1,34 @@
+Writing output to file outputDacapo/dacapo.eclipse.Main2-ideal-ap-IO.csv
+running typestate.impl.statemachines.alloc.OutputStreamStateMachine
+/Users/johannesspath/Documents/dacapo/eclipse/eclipse.jar:/Users/johannesspath/Documents/dacapo/eclipse/eclipse-deps.jar
+/Users/johannesspath/Documents/dacapo/eclipse/eclipse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.eclipse.Main2: void main(java.lang.String[])>]
+Application Classes: 414
+Reachable Methods3055
+Analysing 11 seeds!
+Starting with seed in <dacapo.Benchmark: void unpackZipStream(java.io.BufferedInputStream,java.io.File)> $r12 @ specialinvoke $r12.<java.io.FileOutputStream: void <init>(java.io.File)>(r4)€
+Alive tick 00:16:35
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.eclipse.osgi.framework.util.SecureAction$5: java.lang.Object run()> $r1 @ specialinvoke $r1.<java.io.FileOutputStream: void <init>(java.lang.String,boolean)>($r3, $z0)€
+Alive tick 00:26:57
+Starting with seed in <dacapo.Benchmark: void unpackZipStream(java.io.BufferedInputStream,java.io.File)> $r13 @ specialinvoke $r13.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream,int)>(r5, 2048)€
+Alive tick 00:26:59
+Starting with seed in <org.eclipse.osgi.framework.util.SecureAction: java.io.FileOutputStream getFileOutputStream(java.io.File,boolean)> $r8 @ specialinvoke $r8.<java.io.FileOutputStream: void <init>(java.lang.String,boolean)>($r9, z0)€
+Alive tick 00:27:00
+Starting with seed in <dacapo.Benchmark: void <init>(dacapo.parser.Config,java.io.File)> $r12 @ specialinvoke $r12.<dacapo.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)>($r14, $r13)€
+Alive tick 00:27:01
+Starting with seed in <dacapo.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)> $r3 @ specialinvoke $r3.<dacapo.TeeOutputStream: void <init>(java.io.OutputStream,java.io.File)>(r1, r2)€
+Alive tick 00:27:02
+Timeout of IDEAL, Budget:600
+Starting with seed in <dacapo.TeeOutputStream: void newLog()> $r2 @ specialinvoke $r2.<java.io.FileOutputStream: void <init>(java.io.File)>($r3)€
+Alive tick 00:29:42
+Timeout of IDEAL, Budget:600
+Starting with seed in <dacapo.Benchmark: void <init>(dacapo.parser.Config,java.io.File)> $r9 @ specialinvoke $r9.<dacapo.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)>($r11, $r10)€
+Alive tick 00:30:18
+Starting with seed in <dacapo.TeeOutputStream: void <init>(java.io.OutputStream,java.io.File)> r0 @ specialinvoke r0.<java.io.FilterOutputStream: void <init>(java.io.OutputStream)>(r1)€
+Alive tick 00:30:19
+Timeout of IDEAL, Budget:600
+Starting with seed in <dacapo.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)> r0 @ specialinvoke r0.<java.io.PrintStream: void <init>(java.io.OutputStream)>($r3)€
+Alive tick 00:30:52
+Starting with seed in <org.eclipse.core.runtime.internal.adaptor.Locker_JavaNio: boolean lock()> $r3 @ specialinvoke $r3.<java.io.FileOutputStream: void <init>(java.io.File,boolean)>($r4, 1)€
+Alive tick 00:30:53

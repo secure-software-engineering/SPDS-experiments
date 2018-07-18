@@ -1,0 +1,369 @@
+Writing output to file outputDacapo/dacapo.bloat.Main2-ideal-IteratorHasNext.csv
+running typestate.impl.statemachines.HasNextStateMachine
+/Users/johannesspath/Documents/dacapo/bloat/bloat.jar:/Users/johannesspath/Documents/dacapo/bloat/bloat-deps.jar
+/Users/johannesspath/Documents/dacapo/bloat/bloat.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.bloat.Main2: void main(java.lang.String[])>]
+Application Classes: 361
+Reachable Methods4450
+Analysing 288 seeds!
+Analyzing ForwardQuery: (setBlockTypes $r27.iterator(),r54 (FlowGraph.setBlockTypes) Value: interfaceinvoke $r27.<java.util.Set: java.util.Iterator iterator()>())
+ERROR StatusLogger No Log4j 2 configuration file found. Using default configuration (logging only errors to the console), or user programmatically provided configurations. Set system property 'log4j2.debug' to show Log4j 2 internal initialization logging. See https://logging.apache.org/log4j/2.x/manual/configuration.html for instructions on how to configure Log4j 2
+Analyzed (finished,timedout): 	 (1,0) of 288 seeds! 
+Analyzing ForwardQuery: (search $r61.iterator(),r5 (SSAPRE.search) Value: interfaceinvoke $r61.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (2,0) of 288 seeds! 
+Analyzing ForwardQuery: (print $r11.iterator(),r25 (MethodEditor.print) Value: virtualinvoke $r11.<java.util.LinkedList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (3,0) of 288 seeds! 
+Analyzing ForwardQuery: (splitPhiBlocks $r15.iterator(),r4 (FlowGraph.splitPhiBlocks) Value: interfaceinvoke $r15.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (4,0) of 288 seeds! 
+Analyzing ForwardQuery: (placePhis r32.iterator(),r40 (SSAPRE.placePhis) Value: interfaceinvoke r32.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (5,0) of 288 seeds! 
+Analyzing ForwardQuery: (buildLoopTree $r9.iterator(),r36 (FlowGraph.buildLoopTree) Value: interfaceinvoke $r9.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (6,0) of 288 seeds! 
+Analyzing ForwardQuery: (phiRelatedFind r1.iterator(),r2 (SSAPRE.phiRelatedFind) Value: virtualinvoke r1.<java.util.ArrayList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (7,0) of 288 seeds! 
+Analyzing ForwardQuery: (rename r2.iterator(),r5 (SSAPRE.rename) Value: virtualinvoke r2.<java.util.ArrayList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (8,0) of 288 seeds! 
+Analyzing ForwardQuery: (ignoreClass $r5.iterator(),r2 (BloatContext.ignoreClass) Value: interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (9,0) of 288 seeds! 
+Analyzing ForwardQuery: (addHandlerEdges $r14.iterator(),r24 (FlowGraph.addHandlerEdges) Value: interfaceinvoke $r14.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (10,0) of 288 seeds! 
+Analyzing ForwardQuery: (removeBlock $r20.iterator(),r34 (FlowGraph.removeBlock) Value: interfaceinvoke $r20.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (11,0) of 288 seeds! 
+Analyzing ForwardQuery: (postIterationCleanup $r5.iterator(),r2 (Benchmark.postIterationCleanup) Value: interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (12,0) of 288 seeds! 
+Analyzing ForwardQuery: (insertProtectedRegionStores $r16.iterator(),r6 (FlowGraph.insertProtectedRegionStores) Value: interfaceinvoke $r16.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (13,0) of 288 seeds! 
+Analyzing ForwardQuery: (toString $r14.iterator(),r104 (CachingBloatContext.toString) Value: interfaceinvoke $r14.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (14,0) of 288 seeds! 
+Analyzing ForwardQuery: (peelLoops r6.iterator(),r140 (FlowGraph.peelLoops) Value: interfaceinvoke r6.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (15,0) of 288 seeds! 
+Analyzing ForwardQuery: (equals r3.iterator(),r5 (SSAPRE$ExprKey.equals) Value: interfaceinvoke r3.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (16,0) of 288 seeds! 
+Analyzing ForwardQuery: (get_swizzler $r4.iterator(),r1 (InductionVarAnalyzer.get_swizzler) Value: interfaceinvoke $r4.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (17,0) of 288 seeds! 
+Analyzing ForwardQuery: (enqueueParents $r12.iterator(),r5 (SSAPRE.enqueueParents) Value: interfaceinvoke $r12.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (18,0) of 288 seeds! 
+Analyzing ForwardQuery: (rename $r4.iterator(),r41 (SSA.rename) Value: interfaceinvoke $r4.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (19,0) of 288 seeds! 
+Analyzing ForwardQuery: (computeCanBeAvail $r12.iterator(),r5 (SSAPRE.computeCanBeAvail) Value: interfaceinvoke $r12.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (20,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitPhiCatchStmt $r8.iterator(),r3 (CodeGenerator$5.visitPhiCatchStmt) Value: interfaceinvoke $r8.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (21,0) of 288 seeds! 
+Analyzing ForwardQuery: (peelLoops r162.iterator(),r177 (FlowGraph.peelLoops) Value: interfaceinvoke r162.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (22,0) of 288 seeds! 
+Analyzing ForwardQuery: (rename $r17.iterator(),r34 (SSA.rename) Value: interfaceinvoke $r17.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (23,0) of 288 seeds! 
+Analyzing ForwardQuery: (rename r51.iterator(),r58 (SSAPRE.rename) Value: interfaceinvoke r51.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (24,0) of 288 seeds! 
+Analyzing ForwardQuery: (commit $r15.iterator(),r139 (MethodEditor.commit) Value: virtualinvoke $r15.<java.util.LinkedList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (25,0) of 288 seeds! 
+Analyzing ForwardQuery: (propExpr $r11.iterator(),r32 (ExprPropagation.propExpr) Value: interfaceinvoke $r11.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (26,0) of 288 seeds! 
+Analyzing ForwardQuery: (peelLoops $r85.iterator(),r148 (FlowGraph.peelLoops) Value: interfaceinvoke $r85.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (27,0) of 288 seeds! 
+Analyzing ForwardQuery: (collectVars $r4.iterator(),$r5 (SSA.collectVars) Value: interfaceinvoke $r4.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (28,0) of 288 seeds! 
+Analyzing ForwardQuery: (initLocals r1.iterator(),r3 (Tree.initLocals) Value: interfaceinvoke r1.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (29,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitFlowGraph $r5.iterator(),r2 (PrintVisitor.visitFlowGraph) Value: interfaceinvoke $r5.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (30,0) of 288 seeds! 
+Analyzing ForwardQuery: (rename $r25.iterator(),r52 (SSAPRE.rename) Value: interfaceinvoke $r25.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (31,0) of 288 seeds! 
+Analyzing ForwardQuery: (array $r4.iterator(),r27 (CodeArray.array) Value: interfaceinvoke $r4.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (32,0) of 288 seeds! 
+Analyzing ForwardQuery: (transform $r6.iterator(),r2 (CompactArrayInitializer.transform) Value: interfaceinvoke $r6.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (33,0) of 288 seeds! 
+Analyzing ForwardQuery: (removeCriticalEdges r1.iterator(),r26 (FlowGraph.removeCriticalEdges) Value: interfaceinvoke r1.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (34,0) of 288 seeds! 
+Analyzing ForwardQuery: (buildCode $r19.iterator(),r210 (CodeArray.buildCode) Value: interfaceinvoke $r19.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (35,0) of 288 seeds! 
+Analyzing ForwardQuery: (commit $r12.iterator(),r130 (MethodEditor.commit) Value: virtualinvoke $r12.<java.util.LinkedList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (36,0) of 288 seeds! 
+Analyzing ForwardQuery: (buildLoopTree $r14.iterator(),r42 (FlowGraph.buildLoopTree) Value: interfaceinvoke $r14.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (37,0) of 288 seeds! 
+Analyzing ForwardQuery: (downSafety $r11.iterator(),r5 (SSAPRE.downSafety) Value: interfaceinvoke $r11.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (38,0) of 288 seeds! 
+Analyzing ForwardQuery: (leaves $r4.iterator(),r1 (SSAPRE$Phi.leaves) Value: interfaceinvoke $r4.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (39,0) of 288 seeds! 
+Analyzing ForwardQuery: (buildLoopTree $r7.iterator(),r31 (FlowGraph.buildLoopTree) Value: interfaceinvoke $r7.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (40,0) of 288 seeds! 
+Analyzing ForwardQuery: (setValueNumbers $r4.iterator(),r35 (SSAPRE.setValueNumbers) Value: interfaceinvoke $r4.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (41,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitPhiStmt $r6.iterator(),r2 (SSAPRE$1.visitPhiStmt) Value: interfaceinvoke $r6.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (42,0) of 288 seeds! 
+Analyzing ForwardQuery: (placePhiFunctions $r14.iterator(),r30 (SSA.placePhiFunctions) Value: interfaceinvoke $r14.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (43,0) of 288 seeds! 
+Analyzing ForwardQuery: (buildCode $r20.iterator(),r218 (CodeArray.buildCode) Value: interfaceinvoke $r20.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (44,0) of 288 seeds! 
+Analyzing ForwardQuery: (<init> r168.iterator(),r172 (RegisterAllocator.<init>) Value: virtualinvoke r168.<java.util.ArrayList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (45,0) of 288 seeds! 
+Analyzing ForwardQuery: (main $r7.iterator(),r135 (Main.main) Value: interfaceinvoke $r7.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (46,0) of 288 seeds! 
+Analyzing ForwardQuery: (insertEdgesToSinkDFS $r6.iterator(),r5 (DominatorTree.insertEdgesToSinkDFS) Value: interfaceinvoke $r6.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (47,0) of 288 seeds! 
+Analyzing ForwardQuery: (verifyTargets r2.iterator(),r3 (VerifyCFG.verifyTargets) Value: interfaceinvoke r2.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (48,0) of 288 seeds! 
+Analyzing ForwardQuery: (search $r6.iterator(),r13 (PersistentCheckElimination.search) Value: interfaceinvoke $r6.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (49,0) of 288 seeds! 
+Analyzing ForwardQuery: (buildTree $r37.iterator(),$r58 (DominatorTree.buildTree) Value: interfaceinvoke $r37.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (50,0) of 288 seeds! 
+Analyzing ForwardQuery: (codeMotion $r16.iterator(),r61 (SSAPRE.codeMotion) Value: interfaceinvoke $r16.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (51,0) of 288 seeds! 
+Analyzing ForwardQuery: (computeWeight $r23.iterator(),r6 (RegisterAllocator$IGNode.computeWeight) Value: interfaceinvoke $r23.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (52,0) of 288 seeds! 
+Analyzing ForwardQuery: (<init> $r6.iterator(),r154 (RegisterAllocator.<init>) Value: interfaceinvoke $r6.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (53,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitTree $r4.iterator(),r2 (CodeGenerator$4.visitTree) Value: interfaceinvoke $r4.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (54,0) of 288 seeds! 
+Analyzing ForwardQuery: (equals r3.iterator(),r28 (ValueNumbering$Tuple.equals) Value: interfaceinvoke r3.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (55,0) of 288 seeds! 
+Analyzing ForwardQuery: (clear $r4.iterator(),r1 (Graph$EdgeSet.clear) Value: interfaceinvoke $r4.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (56,0) of 288 seeds! 
+Analyzing ForwardQuery: (enqueueParents $r10.iterator(),r3 (SSAPRE.enqueueParents) Value: interfaceinvoke $r10.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (57,0) of 288 seeds! 
+Analyzing ForwardQuery: (<init> r160.iterator(),r166 (RegisterAllocator.<init>) Value: virtualinvoke r160.<java.util.ArrayList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (58,0) of 288 seeds! 
+Analyzing ForwardQuery: (buildCode $r202.iterator(),r208 (CodeArray.buildCode) Value: interfaceinvoke $r202.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (59,0) of 288 seeds! 
+Analyzing ForwardQuery: (removeUnreachable $r9.iterator(),r1 (Graph.removeUnreachable) Value: interfaceinvoke $r9.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (60,0) of 288 seeds! 
+Analyzing ForwardQuery: (liveOut $r31.iterator(),r93 (Liveness.liveOut) Value: interfaceinvoke $r31.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (61,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitRetStmt $r7.iterator(),r3 (VerifyCFG.visitRetStmt) Value: interfaceinvoke $r7.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (62,0) of 288 seeds! 
+Analyzing ForwardQuery: (removeCriticalEdges $r5.iterator(),r2 (FlowGraph.removeCriticalEdges) Value: interfaceinvoke $r5.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (63,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitComponent r1.iterator(),r2 (InductionVarAnalyzer$1.visitComponent) Value: interfaceinvoke r1.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (64,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitTree $r3.iterator(),$r4 (ExprPropagation$1.visitTree) Value: interfaceinvoke $r3.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (65,0) of 288 seeds! 
+Analyzing ForwardQuery: (peelLoops $r89.iterator(),r142 (FlowGraph.peelLoops) Value: interfaceinvoke $r89.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (66,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitBlock $r75.iterator(),r76 (VerifyCFG.visitBlock) Value: interfaceinvoke $r75.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (67,0) of 288 seeds! 
+Analyzing ForwardQuery: (calcFrontier $r4.iterator(),r22 (DominanceFrontier.calcFrontier) Value: interfaceinvoke $r4.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (68,0) of 288 seeds! 
+Analyzing ForwardQuery: (codeMotion $r19.iterator(),r57 (SSAPRE.codeMotion) Value: interfaceinvoke $r19.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (69,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitNode $r13.iterator(),r50 (SSAGraph$5.visitNode) Value: interfaceinvoke $r13.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (70,0) of 288 seeds! 
+Analyzing ForwardQuery: (codeMotion $r12.iterator(),r59 (SSAPRE.codeMotion) Value: interfaceinvoke $r12.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (71,0) of 288 seeds! 
+Analyzing ForwardQuery: (finalizeVisit $r10.iterator(),r37 (SSAPRE.finalizeVisit) Value: interfaceinvoke $r10.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (72,0) of 288 seeds! 
+Analyzing ForwardQuery: (removeUnreachable r1.iterator(),r40 (Peephole.removeUnreachable) Value: interfaceinvoke r1.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (73,0) of 288 seeds! 
+Analyzing ForwardQuery: (equals r4.iterator(),r29 (ValueNumbering$Tuple.equals) Value: interfaceinvoke r4.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (74,0) of 288 seeds! 
+Analyzing ForwardQuery: (peelLoops $r31.iterator(),r156 (FlowGraph.peelLoops) Value: interfaceinvoke $r31.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (75,0) of 288 seeds! 
+Analyzing ForwardQuery: (splitEdge $r21.iterator(),r6 (FlowGraph.splitEdge) Value: interfaceinvoke $r21.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (76,0) of 288 seeds! 
+Analyzing ForwardQuery: (toString $r24.iterator(),r1 (SSAPRE$Phi.toString) Value: interfaceinvoke $r24.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (77,0) of 288 seeds! 
+Analyzing ForwardQuery: (<init> $r8.iterator(),r3 (PhiJoinStmt.<init>) Value: interfaceinvoke $r8.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (78,0) of 288 seeds! 
+Analyzing ForwardQuery: (buildLoopTree $r18.iterator(),r38 (FlowGraph.buildLoopTree) Value: interfaceinvoke $r18.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (79,0) of 288 seeds! 
+Analyzing ForwardQuery: (propExpr $r10.iterator(),r30 (ExprPropagation.propExpr) Value: interfaceinvoke $r10.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (80,0) of 288 seeds! 
+Analyzing ForwardQuery: (insertProtStores $r10.iterator(),r21 (FlowGraph.insertProtStores) Value: interfaceinvoke $r10.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (81,0) of 288 seeds! 
+Analyzing ForwardQuery: (<init> $r2.iterator(),$r3 (ImmutableIterator.<init>) Value: virtualinvoke $r2.<java.util.ArrayList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (82,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitFlowGraph $r20.iterator(),r6 (CodeGenerator.visitFlowGraph) Value: interfaceinvoke $r20.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (83,0) of 288 seeds! 
+Analyzing ForwardQuery: (insertCode $r5.iterator(),r2 (SSA.insertCode) Value: interfaceinvoke $r5.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (84,0) of 288 seeds! 
+Analyzing ForwardQuery: (resetCanBeAvail $r13.iterator(),r6 (SSAPRE.resetCanBeAvail) Value: interfaceinvoke $r13.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (85,0) of 288 seeds! 
+Analyzing ForwardQuery: (resetLater $r13.iterator(),r6 (SSAPRE.resetLater) Value: interfaceinvoke $r13.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (86,0) of 288 seeds! 
+Analyzing ForwardQuery: (buildTree r68.iterator(),r69 (DominatorTree.buildTree) Value: interfaceinvoke r68.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (87,0) of 288 seeds! 
+Analyzing ForwardQuery: (search $r5.iterator(),r43 (SSA.search) Value: interfaceinvoke $r5.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (88,0) of 288 seeds! 
+Analyzing ForwardQuery: (<init> $r13.iterator(),r177 (RegisterAllocator.<init>) Value: interfaceinvoke $r13.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (89,0) of 288 seeds! 
+Analyzing ForwardQuery: (buildTree $r6.iterator(),r74 (DominatorTree.buildTree) Value: interfaceinvoke $r6.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (90,0) of 288 seeds! 
+Analyzing ForwardQuery: (peelLoops $r37.iterator(),r164 (FlowGraph.peelLoops) Value: interfaceinvoke $r37.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (91,0) of 288 seeds! 
+Analyzing ForwardQuery: (setValueNumbers $r14.iterator(),r31 (SSAPRE.setValueNumbers) Value: interfaceinvoke $r14.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (92,0) of 288 seeds! 
+Analyzing ForwardQuery: (commit $r158.iterator(),r159 (MethodEditor.commit) Value: virtualinvoke $r158.<java.util.LinkedList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (93,0) of 288 seeds! 
+Analyzing ForwardQuery: (makeEquiv r4.iterator(),r5 (SSAGraph.makeEquiv) Value: interfaceinvoke r4.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (94,0) of 288 seeds! 
+Analyzing ForwardQuery: (toString $r8.iterator(),r98 (CachingBloatContext.toString) Value: interfaceinvoke $r8.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (95,0) of 288 seeds! 
+Analyzing ForwardQuery: (beginTry $r10.iterator(),r2 (SSAPRE.beginTry) Value: interfaceinvoke $r10.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (96,0) of 288 seeds! 
+Analyzing ForwardQuery: (validate $r5.iterator(),r2 (Benchmark.validate) Value: interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (97,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitForceChildren $r4.iterator(),r2 (PhiJoinStmt.visitForceChildren) Value: interfaceinvoke $r4.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (98,0) of 288 seeds! 
+Analyzing ForwardQuery: (search $r11.iterator(),r73 (SSAPRE.search) Value: interfaceinvoke $r11.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (99,0) of 288 seeds! 
+Analyzing ForwardQuery: (computeLater $r6.iterator(),r14 (SSAPRE.computeLater) Value: interfaceinvoke $r6.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (100,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitPhiJoinStmt $r4.iterator(),r2 (ValueFolder.visitPhiJoinStmt) Value: interfaceinvoke $r4.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (101,0) of 288 seeds! 
+Analyzing ForwardQuery: (<init> $r11.iterator(),r3 (ClassHierarchy.<init>) Value: virtualinvoke $r11.<java.util.ArrayList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (102,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitPhiStmt r2.iterator(),r14 (TypeInferenceVisitor.visitPhiStmt) Value: interfaceinvoke r2.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (103,0) of 288 seeds! 
+Analyzing ForwardQuery: (search $r6.iterator(),r50 (SSA.search) Value: interfaceinvoke $r6.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (104,0) of 288 seeds! 
+Analyzing ForwardQuery: (superclass r3.iterator(),r4 (ClassHierarchy.superclass) Value: interfaceinvoke r3.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (105,0) of 288 seeds! 
+Analyzing ForwardQuery: (computeLater $r8.iterator(),r17 (SSAPRE.computeLater) Value: interfaceinvoke $r8.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (106,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitFlowGraph $r13.iterator(),r2 (CodeGenerator.visitFlowGraph) Value: interfaceinvoke $r13.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (107,0) of 288 seeds! 
+Analyzing ForwardQuery: (commit $r37.iterator(),r154 (MethodEditor.commit) Value: virtualinvoke $r37.<java.util.LinkedList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (108,0) of 288 seeds! 
+Analyzing ForwardQuery: (toString $r4.iterator(),r1 (Graph.toString) Value: interfaceinvoke $r4.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (109,0) of 288 seeds! 
+Analyzing ForwardQuery: (addRetPhis $r4.iterator(),r2 (SSAConstructionInfo.addRetPhis) Value: interfaceinvoke $r4.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (110,0) of 288 seeds! 
+Analyzing ForwardQuery: (insert_aswrange $r7.iterator(),r2 (InductionVarAnalyzer.insert_aswrange) Value: interfaceinvoke $r7.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (111,0) of 288 seeds! 
+Analyzing ForwardQuery: (<init> $r28.iterator(),r175 (RegisterAllocator.<init>) Value: interfaceinvoke $r28.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (112,0) of 288 seeds! 
+Analyzing ForwardQuery: (buildCode $r25.iterator(),r231 (CodeArray.buildCode) Value: interfaceinvoke $r25.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (113,0) of 288 seeds! 
+Analyzing ForwardQuery: (setValueNumbers $r7.iterator(),r38 (SSAPRE.setValueNumbers) Value: interfaceinvoke $r7.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (114,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitPhiJoinStmt $r6.iterator(),r20 (PrintVisitor.visitPhiJoinStmt) Value: interfaceinvoke $r6.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (115,0) of 288 seeds! 
+Analyzing ForwardQuery: (splitPhiBlocks $r12.iterator(),r1 (FlowGraph.splitPhiBlocks) Value: interfaceinvoke $r12.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (116,0) of 288 seeds! 
+Analyzing ForwardQuery: (iterator $r3.iterator(),r1 (Graph$EdgeSet.iterator) Value: interfaceinvoke $r3.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (117,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitNode r2.iterator(),r3 (VerifyCFG.visitNode) Value: virtualinvoke r2.<java.util.ArrayList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (118,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitPhiStmt $r12.iterator(),r4 (RegisterAllocator$1.visitPhiStmt) Value: interfaceinvoke $r12.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (119,0) of 288 seeds! 
+Analyzing ForwardQuery: (placePhis $r25.iterator(),r35 (SSAPRE.placePhis) Value: interfaceinvoke $r25.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (120,0) of 288 seeds! 
+Analyzing ForwardQuery: (removeBlock $r14.iterator(),r30 (FlowGraph.removeBlock) Value: interfaceinvoke $r14.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (121,0) of 288 seeds! 
+Analyzing ForwardQuery: (<init> $r11.iterator(),r169 (RegisterAllocator.<init>) Value: interfaceinvoke $r11.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (122,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitComponent r1.iterator(),r2 (TypeInference$2.visitComponent) Value: interfaceinvoke r1.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (123,0) of 288 seeds! 
+Analyzing ForwardQuery: (release $r20.iterator(),r4 (CachingBloatContext.release) Value: interfaceinvoke $r20.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (124,0) of 288 seeds! 
+Analyzing ForwardQuery: (removeBlock $r16.iterator(),r32 (FlowGraph.removeBlock) Value: interfaceinvoke $r16.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (125,0) of 288 seeds! 
+Analyzing ForwardQuery: (computeLater $r11.iterator(),r2 (SSAPRE.computeLater) Value: interfaceinvoke $r11.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (126,0) of 288 seeds! 
+Analyzing ForwardQuery: (finalizeVisit $r8.iterator(),r34 (SSAPRE.finalizeVisit) Value: interfaceinvoke $r8.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (127,0) of 288 seeds! 
+Analyzing ForwardQuery: (buildLists $r7.iterator(),r17 (Graph.buildLists) Value: interfaceinvoke $r7.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (128,0) of 288 seeds! 
+Analyzing ForwardQuery: (buildTree $r7.iterator(),r76 (DominatorTree.buildTree) Value: interfaceinvoke $r7.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (129,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitNode r57.iterator(),r59 (SSAGraph$5.visitNode) Value: virtualinvoke r57.<java.util.ArrayList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (130,0) of 288 seeds! 
+Analyzing ForwardQuery: (calcFrontier r24.iterator(),r25 (DominanceFrontier.calcFrontier) Value: virtualinvoke r24.<java.util.LinkedList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (131,0) of 288 seeds! 
+Analyzing ForwardQuery: (computeCanBeAvail $r9.iterator(),r2 (SSAPRE.computeCanBeAvail) Value: interfaceinvoke $r9.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (132,0) of 288 seeds! 
+Analyzing ForwardQuery: (get_local $r4.iterator(),r1 (InductionVarAnalyzer.get_local) Value: interfaceinvoke $r4.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (133,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitTree $r4.iterator(),r2 (DeadCodeElimination$5.visitTree) Value: interfaceinvoke $r4.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (134,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitFlowGraph $r6.iterator(),r2 (VerifyCFG.visitFlowGraph) Value: interfaceinvoke $r6.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (135,0) of 288 seeds! 
+Analyzing ForwardQuery: (rename $r29.iterator(),r40 (SSA.rename) Value: interfaceinvoke $r29.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (136,0) of 288 seeds! 
+Analyzing ForwardQuery: (addClasses r1.iterator(),r2 (PersistentBloatContext.addClasses) Value: interfaceinvoke r1.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (137,0) of 288 seeds! 
+Analyzing ForwardQuery: (splitIrreducibleLoops r2.iterator(),r19 (FlowGraph.splitIrreducibleLoops) Value: interfaceinvoke r2.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (138,0) of 288 seeds! 
+Analyzing ForwardQuery: (optimizeCFG r1.iterator(),r2 (StackOptimizer.optimizeCFG) Value: interfaceinvoke r1.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (139,0) of 288 seeds! 
+Analyzing ForwardQuery: (computeIntersections $r18.iterator(),r90 (Liveness.computeIntersections) Value: interfaceinvoke $r18.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (140,0) of 288 seeds! 
+Analyzing ForwardQuery: (splitReducibleLoops $r40.iterator(),r47 (FlowGraph.splitReducibleLoops) Value: interfaceinvoke $r40.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (141,0) of 288 seeds! 
+Analyzing ForwardQuery: (peelLoops $r91.iterator(),r135 (FlowGraph.peelLoops) Value: interfaceinvoke $r91.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (142,0) of 288 seeds! 
+Analyzing ForwardQuery: (number $r7.iterator(),r3 (Graph.number) Value: interfaceinvoke $r7.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (143,0) of 288 seeds! 
+Analyzing ForwardQuery: (toString $r16.iterator(),r106 (CachingBloatContext.toString) Value: interfaceinvoke $r16.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (144,0) of 288 seeds! 
+Analyzing ForwardQuery: (addHandlerEdges $r11.iterator(),r6 (FlowGraph.addHandlerEdges) Value: interfaceinvoke $r11.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (145,0) of 288 seeds! 
+Analyzing ForwardQuery: (peelLoops $r47.iterator(),r175 (FlowGraph.peelLoops) Value: interfaceinvoke $r47.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (146,0) of 288 seeds! 
+Analyzing ForwardQuery: (replaceJoinPhis $r4.iterator(),r2 (CodeGenerator.replaceJoinPhis) Value: interfaceinvoke $r4.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (147,0) of 288 seeds! 
+Analyzing ForwardQuery: (splitPhiBlocks $r69.iterator(),r74 (FlowGraph.splitPhiBlocks) Value: interfaceinvoke $r69.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (148,0) of 288 seeds! 
+Analyzing ForwardQuery: (rename $r15.iterator(),r32 (SSA.rename) Value: interfaceinvoke $r15.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (149,0) of 288 seeds! 
+Analyzing ForwardQuery: (cleanupOnly r1.iterator(),r2 (DefExpr.cleanupOnly) Value: interfaceinvoke r1.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (150,0) of 288 seeds! 
+Analyzing ForwardQuery: (peelLoops $r56.iterator(),r168 (FlowGraph.peelLoops) Value: interfaceinvoke $r56.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (151,0) of 288 seeds! 
+Analyzing ForwardQuery: (iterator r0.iterator(),r1 (Tree$StmtList.iterator) Value: specialinvoke r0.<java.util.LinkedList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (152,0) of 288 seeds! 
+Analyzing ForwardQuery: (toString $r12.iterator(),r102 (CachingBloatContext.toString) Value: interfaceinvoke $r12.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (153,0) of 288 seeds! 
+Analyzing ForwardQuery: (liveOut $r57.iterator(),r11 (Liveness.liveOut) Value: interfaceinvoke $r57.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (154,0) of 288 seeds! 
+Analyzing ForwardQuery: (setValueNumbers $r20.iterator(),r28 (SSAPRE.setValueNumbers) Value: interfaceinvoke $r20.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (155,0) of 288 seeds! 
+Analyzing ForwardQuery: (valnum $r27.iterator(),r3 (ValueNumbering.valnum) Value: interfaceinvoke $r27.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (156,0) of 288 seeds! 
+Analyzing ForwardQuery: (visitTree $r4.iterator(),r2 (SSA$1.visitTree) Value: interfaceinvoke $r4.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (157,0) of 288 seeds! 
+Analyzing ForwardQuery: (printSCCs r2.iterator(),r3 (SSAGraph.printSCCs) Value: interfaceinvoke r2.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (158,0) of 288 seeds! 
+Analyzing ForwardQuery: (removeUnreachable $r12.iterator(),r4 (Peephole.removeUnreachable) Value: interfaceinvoke $r12.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (159,0) of 288 seeds! 
+Analyzing ForwardQuery: (buildTree $r53.iterator(),$r58 (DominatorTree.buildTree) Value: interfaceinvoke $r53.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (160,0) of 288 seeds! 
+Analyzing ForwardQuery: (placePhiFunctions $r6.iterator(),r3 (SSA.placePhiFunctions) Value: interfaceinvoke $r6.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (161,0) of 288 seeds! 
+Analyzing ForwardQuery: (<init> $r3.iterator(),$r4 (SSAPRE$12.<init>) Value: interfaceinvoke $r3.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (162,0) of 288 seeds! 
+Analyzing ForwardQuery: (computeWeight $r12.iterator(),r3 (RegisterAllocator$IGNode.computeWeight) Value: interfaceinvoke $r12.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (163,0) of 288 seeds! 
+Analyzing ForwardQuery: (iterator r0.iterator(),r1 (Graph$NodeList.iterator) Value: specialinvoke r0.<java.util.ArrayList: java.util.Iterator iterator()>())
+Exception in thread "main" java.lang.OutOfMemoryError: GC overhead limit exceeded
+	at java.util.AbstractCollection.toArray(AbstractCollection.java:136)
+	at java.util.ArrayList.<init>(ArrayList.java:177)
+	at com.google.common.collect.Lists.newArrayList(Lists.java:149)
+	at wpds.impl.WeightedPAutomaton.registerListener(WeightedPAutomaton.java:303)
+	at wpds.impl.PostStar$PostStarUpdateListener.onRuleAdded(PostStar.java:51)
+	at wpds.impl.WeightedPushdownSystem.addRule(WeightedPushdownSystem.java:40)
+	at sync.pds.solver.SyncPDSSolver.addCallRule(SyncPDSSolver.java:617)
+	at boomerang.solver.AbstractBoomerangSolver.addCallRule(AbstractBoomerangSolver.java:145)
+	at sync.pds.solver.SyncPDSSolver.processPop(SyncPDSSolver.java:584)
+	at sync.pds.solver.SyncPDSSolver.processNode(SyncPDSSolver.java:445)
+	at boomerang.solver.AbstractBoomerangSolver.access$401(AbstractBoomerangSolver.java:76)
+	at boomerang.solver.AbstractBoomerangSolver$4.run(AbstractBoomerangSolver.java:480)
+	at boomerang.solver.AbstractBoomerangSolver.submit(AbstractBoomerangSolver.java:576)
+	at boomerang.solver.AbstractBoomerangSolver.processNode(AbstractBoomerangSolver.java:477)
+	at sync.pds.solver.SyncPDSSolver.setCallingContextReachable(SyncPDSSolver.java:646)
+	at sync.pds.solver.SyncPDSSolver$CallAutomatonListener.onWeightAdded(SyncPDSSolver.java:404)
+	at wpds.impl.WeightedPAutomaton.addWeightForTransition(WeightedPAutomaton.java:266)
+	at sync.pds.solver.SyncPDSSolver$4.addWeightForTransition(SyncPDSSolver.java:150)
+	at wpds.impl.PostStar.update(PostStar.java:429)
+	at wpds.impl.PostStar.access$100(PostStar.java:24)
+	at wpds.impl.PostStar$HandleNormalListener.onOutTransitionAdded(PostStar.java:249)
+	at wpds.impl.WeightedPAutomaton.registerListener(WeightedPAutomaton.java:301)
+	at wpds.impl.PostStar$PostStarUpdateListener.onRuleAdded(PostStar.java:47)
+	at wpds.impl.WeightedPushdownSystem.addRule(WeightedPushdownSystem.java:40)
+	at sync.pds.solver.SyncPDSSolver.addCallRule(SyncPDSSolver.java:617)
+	at boomerang.solver.AbstractBoomerangSolver.access$201(AbstractBoomerangSolver.java:76)
+	at boomerang.solver.AbstractBoomerangSolver$2.run(AbstractBoomerangSolver.java:150)
+	at boomerang.solver.AbstractBoomerangSolver.submit(AbstractBoomerangSolver.java:576)
+	at boomerang.solver.AbstractBoomerangSolver.addCallRule(AbstractBoomerangSolver.java:147)
+	at sync.pds.solver.SyncPDSSolver.addNormalCallFlow(SyncPDSSolver.java:470)
+	at sync.pds.solver.SyncPDSSolver.processNormal(SyncPDSSolver.java:466)
+	at sync.pds.solver.SyncPDSSolver.processNode(SyncPDSSolver.java:441)

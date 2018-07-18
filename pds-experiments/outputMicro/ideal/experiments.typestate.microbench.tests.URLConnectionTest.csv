@@ -1,0 +1,3 @@
+Method;PropagationCounts;VisitedMethods;Actual Errors;Expected Errors;Number of Seeds;False Positives;False Negatives
+testURLConnectionExample1;0;0;0;0;0;0;0;
+testURLConnectionExample2;82;8;1;1;1;0;0;

@@ -1,0 +1,20 @@
+Writing output to file outputDacapo/dacapo.jython.Main2-ideal-ap-IO.csv
+running typestate.impl.statemachines.alloc.PrintStreamStateMachine
+/Users/johannesspath/Documents/dacapo/jython/jython.jar:/Users/johannesspath/Documents/dacapo/jython/jython-deps.jar
+/Users/johannesspath/Documents/dacapo/jython/jython.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.jython.Main2: void main(java.lang.String[])>]
+Application Classes: 920
+Reachable Methods4247
+Analysing 4 seeds!
+Starting with seed in <dacapo.Benchmark: void <init>(dacapo.parser.Config,java.io.File)> $r12 @ $r12 = new dacapo.TeePrintStream€
+Alive tick 02:18:52
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.core.Py: java.lang.String getStackTrace(java.lang.Throwable)> $r3 @ $r3 = new java.io.PrintStream€
+Alive tick 02:19:30
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.core.PyException: java.lang.String toString()> $r4 @ $r4 = new java.io.PrintStream€
+Alive tick 02:29:55
+Timeout of IDEAL, Budget:600
+Starting with seed in <dacapo.Benchmark: void <init>(dacapo.parser.Config,java.io.File)> $r9 @ $r9 = new dacapo.TeePrintStream€
+Alive tick 02:40:33
+Timeout of IDEAL, Budget:600

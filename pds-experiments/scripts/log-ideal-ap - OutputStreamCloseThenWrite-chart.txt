@@ -1,0 +1,36 @@
+Writing output to file outputDacapo/dacapo.chart.Main2-ideal-ap-IO.csv
+running typestate.impl.statemachines.alloc.OutputStreamStateMachine
+/Users/johannesspath/Documents/dacapo/chart/chart.jar:/Users/johannesspath/Documents/dacapo/chart/chart-deps.jar
+/Users/johannesspath/Documents/dacapo/chart/chart.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.chart.Main2: void main(java.lang.String[])>]
+Application Classes: 516
+Reachable Methods2488
+Analysing 12 seeds!
+Starting with seed in <dacapo.TeeOutputStream: void newLog()> $r2 @ specialinvoke $r2.<java.io.FileOutputStream: void <init>(java.io.File)>($r3)€
+Alive tick 00:14:07
+Timeout of IDEAL, Budget:600
+Starting with seed in <dacapo.Benchmark: void <init>(dacapo.parser.Config,java.io.File)> $r12 @ specialinvoke $r12.<dacapo.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)>($r14, $r13)€
+Alive tick 00:14:29
+Starting with seed in <dacapo.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)> r0 @ specialinvoke r0.<java.io.PrintStream: void <init>(java.io.OutputStream)>($r3)€
+Alive tick 00:14:30
+Starting with seed in <dacapo.Benchmark: void unpackZipStream(java.io.BufferedInputStream,java.io.File)> $r13 @ specialinvoke $r13.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream,int)>(r5, 2048)€
+Alive tick 00:14:31
+Starting with seed in <dacapo.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)> $r3 @ specialinvoke $r3.<dacapo.TeeOutputStream: void <init>(java.io.OutputStream,java.io.File)>(r1, r2)€
+Alive tick 00:14:31
+Timeout of IDEAL, Budget:600
+Starting with seed in <dacapo.Benchmark: void unpackZipStream(java.io.BufferedInputStream,java.io.File)> $r12 @ specialinvoke $r12.<java.io.FileOutputStream: void <init>(java.io.File)>(r4)€
+Alive tick 00:15:19
+Timeout of IDEAL, Budget:600
+Starting with seed in <dacapo.chart.Graph: void plotGraph(java.net.URL,java.lang.String,java.lang.String,int,int,int,int,int,boolean)> $r61 @ specialinvoke $r61.<java.io.FileOutputStream: void <init>(java.lang.String)>(r47)€
+Alive tick 00:15:31
+Starting with seed in <dacapo.Benchmark: void <init>(dacapo.parser.Config,java.io.File)> $r9 @ specialinvoke $r9.<dacapo.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)>($r11, $r10)€
+Alive tick 00:15:31
+Starting with seed in <dacapo.chart.Graph: void plotGraph(java.net.URL,java.lang.String,java.lang.String,int,int,int,int,int,boolean)> $r60 @ specialinvoke $r60.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r61)€
+Alive tick 00:15:31
+Starting with seed in <dacapo.chart.Graph: void plotGraph(java.net.URL,java.lang.String,java.lang.String,int,int,int,int,int,boolean)> $r23 @ specialinvoke $r23.<java.io.FileOutputStream: void <init>(java.lang.String)>(r47)€
+Alive tick 00:15:31
+Starting with seed in <dacapo.chart.Graph: void plotGraph(java.net.URL,java.lang.String,java.lang.String,int,int,int,int,int,boolean)> $r22 @ specialinvoke $r22.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream)>($r23)€
+Alive tick 00:15:32
+Starting with seed in <dacapo.TeeOutputStream: void <init>(java.io.OutputStream,java.io.File)> r0 @ specialinvoke r0.<java.io.FilterOutputStream: void <init>(java.io.OutputStream)>(r1)€
+Alive tick 00:15:32
+Timeout of IDEAL, Budget:600

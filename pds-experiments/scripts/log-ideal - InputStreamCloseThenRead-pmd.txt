@@ -1,0 +1,25 @@
+Writing output to file outputDacapo/dacapo.pmd.Main2-ideal-IO.csv
+running typestate.impl.statemachines.alloc.InputStreamStateMachine
+/Users/johannesspath/Documents/dacapo/pmd/pmd.jar:/Users/johannesspath/Documents/dacapo/pmd/pmd-deps.jar
+/Users/johannesspath/Documents/dacapo/pmd/pmd.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.pmd.Main2: void main(java.lang.String[])>]
+Application Classes: 554
+Reachable Methods3775
+Analysing 8 seeds!
+Analyzing ForwardQuery: (getBinary $r5.<init>(r0),$r5 (FileDigest.getBinary) Value: specialinvoke $r5.<java.io.FileInputStream: void <init>(java.io.File)>(r0))
+ERROR StatusLogger No Log4j 2 configuration file found. Using default configuration (logging only errors to the console), or user programmatically provided configurations. Set system property 'log4j2.debug' to show Log4j 2 internal initialization logging. See https://logging.apache.org/log4j/2.x/manual/configuration.html for instructions on how to configure Log4j 2
+Analyzed (finished,timedout): 	 (1,0) of 8 seeds! 
+Analyzing ForwardQuery: (getBinary $r4.<init>($r5),$r4 (FileDigest.getBinary) Value: specialinvoke $r4.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r5))
+Analyzed (finished,timedout): 	 (2,0) of 8 seeds! 
+Analyzing ForwardQuery: (unpackZipFileResource $r4.<init>($r5),$r4 (Benchmark.unpackZipFileResource) Value: specialinvoke $r4.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r5))
+Analyzed (finished,timedout): 	 (3,0) of 8 seeds! 
+Analyzing ForwardQuery: (unpackZipStream $r8.<init>(r0),$r8 (Benchmark.unpackZipStream) Value: specialinvoke $r8.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>(r0))
+Analyzed (finished,timedout): 	 (4,0) of 8 seeds! 
+Analyzing ForwardQuery: (getInputStream $r1.<init>($r2),$r1 (FileDataSource.getInputStream) Value: specialinvoke $r1.<java.io.FileInputStream: void <init>(java.io.File)>($r2))
+Analyzed (finished,timedout): 	 (5,0) of 8 seeds! 
+Analyzing ForwardQuery: (collectFilesFromFile $r5.<init>(r1),$r5 (PmdHarness.collectFilesFromFile) Value: specialinvoke $r5.<java.io.FileInputStream: void <init>(java.lang.String)>(r1))
+Analyzed (finished,timedout): 	 (6,0) of 8 seeds! 
+Analyzing ForwardQuery: (loadResourceAsStream $r7.<init>(r2),$r7 (ResourceLoader.loadResourceAsStream) Value: specialinvoke $r7.<java.io.FileInputStream: void <init>(java.io.File)>(r2))
+Analyzed (finished,timedout): 	 (7,0) of 8 seeds! 
+Analyzing ForwardQuery: (processFiles $r10.<init>($r11),$r10 (PMD.processFiles) Value: specialinvoke $r10.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r11))
+Analyzed (finished,timedout): 	 (8,0) of 8 seeds! 

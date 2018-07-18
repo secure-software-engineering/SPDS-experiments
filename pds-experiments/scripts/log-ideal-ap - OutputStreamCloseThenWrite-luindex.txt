@@ -1,0 +1,28 @@
+Writing output to file outputDacapo/dacapo.luindex.Main2-ideal-ap-IO.csv
+running typestate.impl.statemachines.alloc.OutputStreamStateMachine
+/Users/johannesspath/Documents/dacapo/luindex/luindex.jar:/Users/johannesspath/Documents/dacapo/luindex/luindex-deps.jar
+/Users/johannesspath/Documents/dacapo/luindex/luindex.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.luindex.Main2: void main(java.lang.String[])>]
+Application Classes: 351
+Reachable Methods2193
+Analysing 9 seeds!
+Starting with seed in <dacapo.Benchmark: void unpackZipStream(java.io.BufferedInputStream,java.io.File)> $r13 @ specialinvoke $r13.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream,int)>(r5, 2048)€
+Alive tick 03:13:40
+Starting with seed in <org.apache.lucene.index.FieldsWriter: byte[] compress(byte[])> $r6 @ specialinvoke $r6.<java.io.ByteArrayOutputStream: void <init>(int)>($i1)€
+Alive tick 03:13:42
+Starting with seed in <dacapo.TeeOutputStream: void <init>(java.io.OutputStream,java.io.File)> r0 @ specialinvoke r0.<java.io.FilterOutputStream: void <init>(java.io.OutputStream)>(r1)€
+Alive tick 03:13:43
+Timeout of IDEAL, Budget:600
+Starting with seed in <dacapo.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)> $r3 @ specialinvoke $r3.<dacapo.TeeOutputStream: void <init>(java.io.OutputStream,java.io.File)>(r1, r2)€
+Alive tick 03:13:51
+Starting with seed in <dacapo.Benchmark: void unpackZipStream(java.io.BufferedInputStream,java.io.File)> $r12 @ specialinvoke $r12.<java.io.FileOutputStream: void <init>(java.io.File)>(r4)€
+Alive tick 03:17:20
+Starting with seed in <dacapo.Benchmark: void <init>(dacapo.parser.Config,java.io.File)> $r12 @ specialinvoke $r12.<dacapo.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)>($r14, $r13)€
+Alive tick 03:25:02
+Starting with seed in <dacapo.Benchmark: void <init>(dacapo.parser.Config,java.io.File)> $r9 @ specialinvoke $r9.<dacapo.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)>($r11, $r10)€
+Alive tick 03:25:02
+Starting with seed in <dacapo.TeeOutputStream: void newLog()> $r2 @ specialinvoke $r2.<java.io.FileOutputStream: void <init>(java.io.File)>($r3)€
+Alive tick 03:25:03
+Timeout of IDEAL, Budget:600
+Starting with seed in <dacapo.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)> r0 @ specialinvoke r0.<java.io.PrintStream: void <init>(java.io.OutputStream)>($r3)€
+Alive tick 03:26:58

@@ -1,0 +1,15 @@
+Method;PropagationCounts;VisitedMethods;Actual Errors;Expected Errors;Number of Seeds;False Positives;False Negatives
+testFileOutputStreamExample1;270;11;1;1;1;0;0;
+testPipedOutputStreamExample1;87;7;1;1;1;0;0;
+testPipedOutputStreamExample2;109;8;1;0;1;1;0;
+testFileOutputStreamExample2;313;11;1;1;1;0;0;
+testFileOutputStreamExample3;354;11;1;1;2;0;0;
+testFileInputStreamExample1;268;11;1;1;1;0;0;
+testPipedInputStreamExample1;173;8;1;1;1;0;0;
+testPipedInputStreamExample2;205;13;1;0;1;1;0;
+testPipedInputStreamExample3;276;12;1;0;1;1;0;
+testFileInputStreamExample2;250;9;1;1;1;0;0;
+testPrintStreamExample1;1562;43;1;1;1;0;0;
+testPrintStreamExample2;1570;43;1;1;1;0;0;
+testPrintWriterExample1;108;10;1;1;1;0;0;
+testPrintWriterExample2;200;16;0;0;1;0;0;

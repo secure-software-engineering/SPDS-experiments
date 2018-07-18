@@ -1,0 +1,19 @@
+Writing output to file outputDacapo/dacapo.eclipse.Main2-ideal-ap-IteratorHasNext.csv
+running typestate.impl.statemachines.HasNextStateMachine
+/Users/johannesspath/Documents/dacapo/eclipse/eclipse.jar:/Users/johannesspath/Documents/dacapo/eclipse/eclipse-deps.jar
+/Users/johannesspath/Documents/dacapo/eclipse/eclipse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.eclipse.Main2: void main(java.lang.String[])>]
+Application Classes: 414
+Reachable Methods3055
+Analysing 5 seeds!
+Starting with seed in <org.eclipse.osgi.framework.internal.core.Framework: java.lang.String[] selectNativeCode(org.osgi.framework.Bundle)> r28 @ r28 = virtualinvoke r4.<java.util.ArrayList: java.util.Iterator iterator()>()€
+Alive tick 18:01:05
+Starting with seed in <dacapo.Benchmark: void postIterationCleanup(java.lang.String)> r2 @ r2 = interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>()€
+Alive tick 18:01:05
+Starting with seed in <org.osgi.framework.AdminPermissionCollection: boolean implies(java.security.Permission)> r3 @ r3 = interfaceinvoke $r5.<java.util.Collection: java.util.Iterator iterator()>()€
+Alive tick 18:01:06
+Starting with seed in <dacapo.Benchmark: boolean validate(java.lang.String)> r2 @ r2 = interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>()€
+Alive tick 18:02:06
+Starting with seed in <org.eclipse.osgi.framework.debug.FrameworkDebugOptions: void loadOptions()> r38 @ r38 = interfaceinvoke $r37.<java.util.Set: java.util.Iterator iterator()>()€
+Alive tick 18:02:07
+Timeout of IDEAL, Budget:600

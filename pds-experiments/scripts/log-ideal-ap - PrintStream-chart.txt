@@ -1,0 +1,13 @@
+Writing output to file outputDacapo/dacapo.chart.Main2-ideal-ap-IO.csv
+running typestate.impl.statemachines.alloc.PrintStreamStateMachine
+/Users/johannesspath/Documents/dacapo/chart/chart.jar:/Users/johannesspath/Documents/dacapo/chart/chart-deps.jar
+/Users/johannesspath/Documents/dacapo/chart/chart.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.chart.Main2: void main(java.lang.String[])>]
+Application Classes: 516
+Reachable Methods2488
+Analysing 2 seeds!
+Starting with seed in <dacapo.Benchmark: void <init>(dacapo.parser.Config,java.io.File)> $r9 @ $r9 = new dacapo.TeePrintStream€
+Alive tick 02:12:51
+Timeout of IDEAL, Budget:600
+Starting with seed in <dacapo.Benchmark: void <init>(dacapo.parser.Config,java.io.File)> $r12 @ $r12 = new dacapo.TeePrintStream€
+Alive tick 02:13:31

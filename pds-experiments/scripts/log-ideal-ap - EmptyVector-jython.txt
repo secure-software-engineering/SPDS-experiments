@@ -1,0 +1,105 @@
+Writing output to file outputDacapo/dacapo.jython.Main2-ideal-ap-EmptyVector.csv
+running typestate.impl.statemachines.VectorStateMachine
+/Users/johannesspath/Documents/dacapo/jython/jython.jar:/Users/johannesspath/Documents/dacapo/jython/jython-deps.jar
+/Users/johannesspath/Documents/dacapo/jython/jython.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.jython.Main2: void main(java.lang.String[])>]
+Application Classes: 920
+Reachable Methods4247
+Analysing 36 seeds!
+Starting with seed in <org.python.util.CommandLineOptions: void <init>()> $r1 @ $r1 = new java.util.Vector€
+Alive tick 05:25:19
+Starting with seed in <org.python.compiler.CodeCompiler: void <init>(org.python.compiler.Module,boolean)> $r14 @ $r14 = new java.util.Stack€
+Alive tick 05:25:26
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.compiler.CodeCompiler: void <init>(org.python.compiler.Module,boolean)> $r12 @ $r12 = new java.util.Stack€
+Alive tick 05:40:10
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.core.MakeProxies: java.lang.Class makeClass(java.lang.Class,java.util.Vector,java.lang.String,java.io.ByteArrayOutputStream)> $r4 @ $r4 = new java.util.Vector€
+Alive tick 05:54:42
+Starting with seed in <org.python.core.PyJavaClass: java.lang.Class[] getAccessibleInterfaces(java.lang.Class)> $r3 @ $r3 = new java.util.Vector€
+Alive tick 05:54:43
+Starting with seed in <dacapo.parser.ConfigFile: void sizeClause(dacapo.parser.Config,java.lang.String)> $r4 @ $r4 = new java.util.Vector€
+Alive tick 05:54:43
+Starting with seed in <dacapo.parser.ConfigFile: void <init>(java.io.InputStream,java.lang.String)> $r4 @ $r4 = new java.util.Vector€
+Alive tick 05:54:43
+Starting with seed in <org.python.compiler.ScopeInfo: void <init>(java.lang.String,org.python.parser.SimpleNode,int,int,int,org.python.compiler.ArgListCompiler)> $r8 @ $r8 = new java.util.Vector€
+Alive tick 05:54:44
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.compiler.CodeCompiler: void <init>(org.python.compiler.Module,boolean)> $r2 @ $r2 = new java.util.Vector€
+Alive tick 06:05:10
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.compiler.ScopeInfo: void <init>(java.lang.String,org.python.parser.SimpleNode,int,int,int,org.python.compiler.ArgListCompiler)> $r9 @ $r9 = new java.util.Vector€
+Alive tick 06:15:26
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.compiler.LineNumberTable: void <init>(org.python.compiler.ConstantPool)> $r2 @ $r2 = new java.util.Vector€
+Alive tick 06:25:39
+Starting with seed in <org.python.compiler.Code: void <init>(java.lang.String,org.python.compiler.ConstantPool,boolean)> $r10 @ $r10 = new java.util.Vector€
+Alive tick 06:29:39
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.compiler.ClassFile: void <init>(java.lang.String,java.lang.String,int)> $r9 @ $r9 = new java.util.Vector€
+Alive tick 06:40:12
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.parser.PythonGrammar: void <init>(org.python.parser.CharStream)> $r6 @ $r6 = new java.util.Vector€
+Alive tick 06:50:44
+Starting with seed in <org.python.compiler.Code: java.util.Vector getActiveLocals()> $r2 @ $r2 = new java.util.Vector€
+Alive tick 06:55:46
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.compiler.Code: void <init>(java.lang.String,org.python.compiler.ConstantPool,boolean)> $r9 @ $r9 = new java.util.Vector€
+Alive tick 06:55:55
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.compiler.ArgListCompiler: void <init>()> $r1 @ $r1 = new java.util.Vector€
+Alive tick 07:06:01
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.compiler.ScopeInfo: void <init>(java.lang.String,org.python.parser.SimpleNode,int,int,int,org.python.compiler.ArgListCompiler)> $r5 @ $r5 = new java.util.Vector€
+Alive tick 07:16:21
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.parser.JJTPythonGrammarState: void <init>()> $r1 @ $r1 = new java.util.Stack€
+Alive tick 07:26:49
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.compiler.CodeCompiler: void <init>(org.python.compiler.Module,boolean)> $r11 @ $r11 = new java.util.Stack€
+Alive tick 07:37:09
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.core.CachedJarsPackageManager: void addZipEntry(java.util.Hashtable,java.util.zip.ZipEntry,java.util.zip.ZipInputStream)> $r11 @ $r11 = new java.util.Vector€
+Alive tick 07:47:11
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.core.CachedJarsPackageManager: void addZipEntry(java.util.Hashtable,java.util.zip.ZipEntry,java.util.zip.ZipInputStream)> $r12 @ $r12 = new java.util.Vector€
+Alive tick 07:47:22
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.compiler.ArgListCompiler: void <init>()> $r3 @ $r3 = new java.util.Vector€
+Alive tick 07:47:31
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.core.PyJavaClass: java.lang.reflect.Field[] getAccessibleFields(java.lang.Class)> $r1 @ $r1 = new java.util.Vector€
+Alive tick 07:57:36
+Starting with seed in <org.python.compiler.ScopeInfo: void cook(org.python.compiler.ScopeInfo,org.python.compiler.CompilationContext)> $r5 @ $r5 = new java.util.Vector€
+Alive tick 07:57:38
+Starting with seed in <org.python.compiler.ClassFile: void <init>(java.lang.String,java.lang.String,int)> $r8 @ $r8 = new java.util.Vector€
+Alive tick 07:57:38
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.compiler.ScopeInfo: void <init>(java.lang.String,org.python.parser.SimpleNode,int,int,int,org.python.compiler.ArgListCompiler)> $r7 @ $r7 = new java.util.Vector€
+Alive tick 08:07:52
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.compiler.ClassFile: void <init>(java.lang.String,java.lang.String,int)> $r7 @ $r7 = new java.util.Vector€
+Alive tick 08:18:27
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.core.BytecodeLoader: java.util.Vector init()> $r1 @ $r1 = new java.util.Vector€
+Alive tick 08:28:43
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.compiler.ScopesCompiler: void <init>(org.python.compiler.CompilationContext,java.util.Hashtable)> $r3 @ $r3 = new java.util.Stack€
+Alive tick 08:29:19
+Timeout of IDEAL, Budget:600
+Starting with seed in <dacapo.TestHarness: java.util.Vector vectorise(java.lang.String[])> $r3 @ $r3 = new java.util.Vector€
+Alive tick 08:39:32
+Starting with seed in <org.python.compiler.Module: void <init>(java.lang.String,java.lang.String,boolean)> $r5 @ $r5 = new java.util.Vector€
+Alive tick 08:39:33
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.compiler.ArgListCompiler: void <init>()> $r2 @ $r2 = new java.util.Vector€
+Alive tick 08:49:56
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.core.PyCompoundCallable: void <init>()> $r1 @ $r1 = new java.util.Vector€
+Alive tick 09:00:01
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.compiler.CodeCompiler: void <init>(org.python.compiler.Module,boolean)> $r13 @ $r13 = new java.util.Stack€
+Alive tick 09:10:13
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.core.ThreadState: void pushInitializingProxy(org.python.core.PyInstance)> $r5 @ $r5 = new java.util.Stack€
+Alive tick 09:20:30

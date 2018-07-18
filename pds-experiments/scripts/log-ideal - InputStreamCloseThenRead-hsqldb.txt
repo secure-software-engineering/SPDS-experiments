@@ -1,0 +1,59 @@
+Writing output to file outputDacapo/org.hsqldb.hsqldbDoopDriver-ideal-IO.csv
+running typestate.impl.statemachines.alloc.InputStreamStateMachine
+/Users/johannesspath/Documents/dacapo/hsqldb/hsqldb.jar:/Users/johannesspath/Documents/dacapo/hsqldb/hsqldb-deps.jar
+/Users/johannesspath/Documents/dacapo/hsqldb/hsqldb.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<org.hsqldb.hsqldbDoopDriver: void main(java.lang.String[])>]
+Application Classes: 417
+Reachable Methods5923
+Analysing 33 seeds!
+Analyzing ForwardQuery: (initBuffers $r1.<init>($r4,$r3,$r2,$z1),$r1 (TextCache.initBuffers) Value: specialinvoke $r1.<org.hsqldb.rowio.RowInputTextQuoted: void <init>(java.lang.String,java.lang.String,java.lang.String,boolean)>($r4, $r3, $r2, $z1))
+ERROR StatusLogger No Log4j 2 configuration file found. Using default configuration (logging only errors to the console), or user programmatically provided configurations. Set system property 'log4j2.debug' to show Log4j 2 internal initialization logging. See https://logging.apache.org/log4j/2.x/manual/configuration.html for instructions on how to configure Log4j 2
+Analyzed (finished,timedout): 	 (0,1) of 33 seeds! 
+Analyzing ForwardQuery: (initBuffers $r3.<init>($r4),$r3 (DataFileCache.initBuffers) Value: specialinvoke $r3.<org.hsqldb.rowio.RowInputBinary: void <init>(byte[])>($r4))
+Analyzed (finished,timedout): 	 (0,2) of 33 seeds! 
+Analyzing ForwardQuery: (deserialize $r4.<init>(r1),$r4 (InOutUtil.deserialize) Value: specialinvoke $r4.<java.io.ObjectInputStream: void <init>(java.io.InputStream)>(r1))
+Analyzed (finished,timedout): 	 (1,2) of 33 seeds! 
+Analyzing ForwardQuery: (readHeartbeat $r14.<init>($r15),$r14 (LockFile.readHeartbeat) Value: specialinvoke $r14.<java.io.DataInputStream: void <init>(java.io.InputStream)>($r15))
+Analyzed (finished,timedout): 	 (2,2) of 33 seeds! 
+Analyzing ForwardQuery: (<init> $r3.<init>($r4),$r3 (ScaledRAFileInJar.<init>) Value: specialinvoke $r3.<org.hsqldb.lib.HsqlByteArrayInputStream: void <init>(byte[])>($r4))
+Analyzed (finished,timedout): 	 (2,3) of 33 seeds! 
+Analyzing ForwardQuery: (<init> $r4.<init>($r5),$r4 (ScaledRAFile.<init>) Value: specialinvoke $r4.<org.hsqldb.lib.HsqlByteArrayInputStream: void <init>(byte[])>($r5))
+Analyzed (finished,timedout): 	 (2,4) of 33 seeds! 
+Analyzing ForwardQuery: (<init> r0.<init>(),r0 (RowInputBinary.<init>) Value: specialinvoke r0.<org.hsqldb.rowio.RowInputBase: void <init>()>())
+Analyzed (finished,timedout): 	 (3,4) of 33 seeds! 
+Analyzing ForwardQuery: (initBuffers $r10.<init>($r13,$r12,$r11,0),$r10 (TextCache.initBuffers) Value: specialinvoke $r10.<org.hsqldb.rowio.RowInputText: void <init>(java.lang.String,java.lang.String,java.lang.String,boolean)>($r13, $r12, $r11, 0))
+Analyzed (finished,timedout): 	 (3,5) of 33 seeds! 
+Analyzing ForwardQuery: (deserialize $r3.<init>(r0),$r3 (InOutUtil.deserialize) Value: specialinvoke $r3.<org.hsqldb.lib.HsqlByteArrayInputStream: void <init>(byte[])>(r0))
+Exception in thread "main" java.lang.OutOfMemoryError: GC overhead limit exceeded
+	at java.util.HashMap.newNode(HashMap.java:1742)
+	at java.util.HashMap.putVal(HashMap.java:641)
+	at java.util.HashMap.put(HashMap.java:611)
+	at java.util.HashSet.add(HashSet.java:219)
+	at com.google.common.collect.AbstractMapBasedMultimap.put(AbstractMapBasedMultimap.java:202)
+	at com.google.common.collect.AbstractSetMultimap.put(AbstractSetMultimap.java:131)
+	at com.google.common.collect.HashMultimap.put(HashMultimap.java:48)
+	at wpds.impl.WeightedPAutomaton.registerListener(WeightedPAutomaton.java:297)
+	at wpds.impl.PostStar$PostStarUpdateListener.onRuleAdded(PostStar.java:47)
+	at wpds.impl.WeightedPushdownSystem.addRule(WeightedPushdownSystem.java:40)
+	at sync.pds.solver.SyncPDSSolver.addFieldRule(SyncPDSSolver.java:621)
+	at boomerang.solver.AbstractBoomerangSolver.access$301(AbstractBoomerangSolver.java:76)
+	at boomerang.solver.AbstractBoomerangSolver$3.run(AbstractBoomerangSolver.java:164)
+	at boomerang.solver.AbstractBoomerangSolver.submit(AbstractBoomerangSolver.java:576)
+	at boomerang.solver.AbstractBoomerangSolver.addFieldRule(AbstractBoomerangSolver.java:161)
+	at sync.pds.solver.SyncPDSSolver.addNormalFieldFlow(SyncPDSSolver.java:554)
+	at sync.pds.solver.SyncPDSSolver.processPop(SyncPDSSolver.java:582)
+	at sync.pds.solver.SyncPDSSolver.processNode(SyncPDSSolver.java:445)
+	at boomerang.solver.AbstractBoomerangSolver.access$401(AbstractBoomerangSolver.java:76)
+	at boomerang.solver.AbstractBoomerangSolver$4.run(AbstractBoomerangSolver.java:480)
+	at boomerang.solver.AbstractBoomerangSolver.submit(AbstractBoomerangSolver.java:576)
+	at boomerang.solver.AbstractBoomerangSolver.processNode(AbstractBoomerangSolver.java:477)
+	at sync.pds.solver.SyncPDSSolver.setCallingContextReachable(SyncPDSSolver.java:646)
+	at sync.pds.solver.SyncPDSSolver$CallAutomatonListener.onWeightAdded(SyncPDSSolver.java:404)
+	at wpds.impl.WeightedPAutomaton.addWeightForTransition(WeightedPAutomaton.java:266)
+	at sync.pds.solver.SyncPDSSolver$4.addWeightForTransition(SyncPDSSolver.java:150)
+	at wpds.impl.PostStar.update(PostStar.java:429)
+	at wpds.impl.PostStar.access$100(PostStar.java:24)
+	at wpds.impl.PostStar$HandleNormalListener.onOutTransitionAdded(PostStar.java:249)
+	at wpds.impl.WeightedPAutomaton.registerListener(WeightedPAutomaton.java:301)
+	at wpds.impl.PostStar$PostStarUpdateListener.onRuleAdded(PostStar.java:47)
+	at wpds.impl.WeightedPushdownSystem.addRule(WeightedPushdownSystem.java:40)

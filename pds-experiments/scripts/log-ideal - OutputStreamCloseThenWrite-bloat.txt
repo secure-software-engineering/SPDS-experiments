@@ -1,0 +1,35 @@
+Writing output to file outputDacapo/dacapo.bloat.Main2-ideal-IO.csv
+running typestate.impl.statemachines.alloc.OutputStreamStateMachine
+/Users/johannesspath/Documents/dacapo/bloat/bloat.jar:/Users/johannesspath/Documents/dacapo/bloat/bloat-deps.jar
+/Users/johannesspath/Documents/dacapo/bloat/bloat.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.bloat.Main2: void main(java.lang.String[])>]
+Application Classes: 361
+Reachable Methods4450
+Analysing 13 seeds!
+Analyzing ForwardQuery: (commitOnly $r5.<init>(r7),$r5 (ClassFile.commitOnly) Value: specialinvoke $r5.<java.io.DataOutputStream: void <init>(java.io.OutputStream)>(r7))
+ERROR StatusLogger No Log4j 2 configuration file found. Using default configuration (logging only errors to the console), or user programmatically provided configurations. Set system property 'log4j2.debug' to show Log4j 2 internal initialization logging. See https://logging.apache.org/log4j/2.x/manual/configuration.html for instructions on how to configure Log4j 2
+Analyzed (finished,timedout): 	 (1,0) of 13 seeds! 
+Analyzing ForwardQuery: (printGraph $r1.<init>($r2),$r1 (FlowGraph.printGraph) Value: specialinvoke $r1.<java.io.PrintStream: void <init>(java.io.OutputStream)>($r2))
+Analyzed (finished,timedout): 	 (2,0) of 13 seeds! 
+Analyzing ForwardQuery: (<init> $r3.<init>(r1,r2),$r3 (TeePrintStream.<init>) Value: specialinvoke $r3.<dacapo.TeeOutputStream: void <init>(java.io.OutputStream,java.io.File)>(r1, r2))
+Analyzed (finished,timedout): 	 (3,0) of 13 seeds! 
+Analyzing ForwardQuery: (editClass $r14.<init>(r117),$r14 (Main.editClass) Value: specialinvoke $r14.<java.io.FileOutputStream: void <init>(java.io.File)>(r117))
+Analyzed (finished,timedout): 	 (4,0) of 13 seeds! 
+Analyzing ForwardQuery: (outputStreamFor $r7.<init>(r1),$r7 (ClassFileLoader.outputStreamFor) Value: specialinvoke $r7.<java.io.FileOutputStream: void <init>(java.io.File)>(r1))
+Analyzed (finished,timedout): 	 (5,0) of 13 seeds! 
+Analyzing ForwardQuery: (printGraph $r2.<init>($r10),$r2 (FlowGraph.printGraph) Value: specialinvoke $r2.<java.io.FileOutputStream: void <init>(java.lang.String)>($r10))
+Analyzed (finished,timedout): 	 (6,0) of 13 seeds! 
+Analyzing ForwardQuery: (<init> $r12.<init>($r14,$r13),$r12 (Benchmark.<init>) Value: specialinvoke $r12.<dacapo.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)>($r14, $r13))
+Analyzed (finished,timedout): 	 (6,1) of 13 seeds! 
+Analyzing ForwardQuery: (editClass $r15.<init>(r119),$r15 (Main.editClass) Value: specialinvoke $r15.<java.io.PrintStream: void <init>(java.io.OutputStream)>(r119))
+Analyzed (finished,timedout): 	 (7,1) of 13 seeds! 
+Analyzing ForwardQuery: (<init> r0.<init>(r1),r0 (TeeOutputStream.<init>) Value: specialinvoke r0.<java.io.FilterOutputStream: void <init>(java.io.OutputStream)>(r1))
+Analyzed (finished,timedout): 	 (7,2) of 13 seeds! 
+Analyzing ForwardQuery: (newLog $r2.<init>($r3),$r2 (TeeOutputStream.newLog) Value: specialinvoke $r2.<java.io.FileOutputStream: void <init>(java.io.File)>($r3))
+Analyzed (finished,timedout): 	 (7,3) of 13 seeds! 
+Analyzing ForwardQuery: (<init> $r9.<init>($r11,$r10),$r9 (Benchmark.<init>) Value: specialinvoke $r9.<dacapo.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)>($r11, $r10))
+Analyzed (finished,timedout): 	 (7,4) of 13 seeds! 
+Analyzing ForwardQuery: (<init> r0.<init>($r3),r0 (TeePrintStream.<init>) Value: specialinvoke r0.<java.io.PrintStream: void <init>(java.io.OutputStream)>($r3))
+Analyzed (finished,timedout): 	 (7,5) of 13 seeds! 
+Analyzing ForwardQuery: (editClass $r13.<init>($r14),$r13 (Main.editClass) Value: specialinvoke $r13.<java.io.DataOutputStream: void <init>(java.io.OutputStream)>($r14))
+Analyzed (finished,timedout): 	 (8,5) of 13 seeds! 

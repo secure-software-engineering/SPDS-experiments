@@ -1,0 +1,8 @@
+Writing output to file outputDacapo/dacapo.bloat.Main2-ideal-IO.csv
+running typestate.impl.statemachines.PipedOutputStreamStateMachine
+/Users/johannesspath/Documents/dacapo/bloat/bloat.jar:/Users/johannesspath/Documents/dacapo/bloat/bloat-deps.jar
+/Users/johannesspath/Documents/dacapo/bloat/bloat.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.bloat.Main2: void main(java.lang.String[])>]
+Application Classes: 361
+Reachable Methods4450
+No seeds found!

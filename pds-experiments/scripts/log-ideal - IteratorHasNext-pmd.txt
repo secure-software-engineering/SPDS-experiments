@@ -1,0 +1,117 @@
+Writing output to file outputDacapo/dacapo.pmd.Main2-ideal-IteratorHasNext.csv
+running typestate.impl.statemachines.HasNextStateMachine
+/Users/johannesspath/Documents/dacapo/pmd/pmd.jar:/Users/johannesspath/Documents/dacapo/pmd/pmd-deps.jar
+/Users/johannesspath/Documents/dacapo/pmd/pmd.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.pmd.Main2: void main(java.lang.String[])>]
+Application Classes: 554
+Reachable Methods3775
+Analysing 54 seeds!
+Analyzing ForwardQuery: (validate $r5.iterator(),r2 (Benchmark.validate) Value: interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>())
+ERROR StatusLogger No Log4j 2 configuration file found. Using default configuration (logging only errors to the console), or user programmatically provided configurations. Set system property 'log4j2.debug' to show Log4j 2 internal initialization logging. See https://logging.apache.org/log4j/2.x/manual/configuration.html for instructions on how to configure Log4j 2
+Analyzed (finished,timedout): 	 (1,0) of 54 seeds! 
+Analyzing ForwardQuery: (toString $r4.iterator(),$r5 (LocalScope.toString) Value: interfaceinvoke $r4.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (2,0) of 54 seeds! 
+Analyzing ForwardQuery: (toString $r21.iterator(),r1 (ClassScope.toString) Value: interfaceinvoke $r21.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (3,0) of 54 seeds! 
+Analyzing ForwardQuery: (parseInternallyDefinedRuleNode $r23.iterator(),r8 (RuleSetFactory.parseInternallyDefinedRuleNode) Value: interfaceinvoke $r23.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (4,0) of 54 seeds! 
+Analyzing ForwardQuery: (errors $r1.iterator(),$r2 (Report.errors) Value: interfaceinvoke $r1.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (5,0) of 54 seeds! 
+Analyzing ForwardQuery: (getCountSummary $r7.iterator(),r2 (Report.getCountSummary) Value: virtualinvoke $r7.<net.sourceforge.pmd.dfa.report.ReportTree: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (6,0) of 54 seeds! 
+Analyzing ForwardQuery: (commaSeparate r0.iterator(),r1 (PmdHarness.commaSeparate) Value: interfaceinvoke r0.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (7,0) of 54 seeds! 
+Analyzing ForwardQuery: (usesDFA $r3.iterator(),r1 (RuleSet.usesDFA) Value: interfaceinvoke $r3.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (8,0) of 54 seeds! 
+Analyzing ForwardQuery: (parseRuleNodeWithExclude $r11.iterator(),r6 (RuleSetFactory.parseRuleNodeWithExclude) Value: interfaceinvoke $r11.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (9,0) of 54 seeds! 
+Analyzing ForwardQuery: (findVariableHere $r29.iterator(),r33 (ClassScope.findVariableHere) Value: interfaceinvoke $r29.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (10,0) of 54 seeds! 
+Analyzing ForwardQuery: (toString $r15.iterator(),$r16 (ClassScope.toString) Value: interfaceinvoke $r15.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (11,0) of 54 seeds! 
+Analyzing ForwardQuery: (markUsages $r11.iterator(),r6 (VariableAccessVisitor.markUsages) Value: interfaceinvoke $r11.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (12,0) of 54 seeds! 
+Analyzing ForwardQuery: (apply $r5.iterator(),r3 (RuleSet.apply) Value: interfaceinvoke $r5.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (13,0) of 54 seeds! 
+Analyzing ForwardQuery: (getVariableDeclarations $r5.iterator(),$r6 (MethodScope.getVariableDeclarations) Value: interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (14,0) of 54 seeds! 
+Analyzing ForwardQuery: (apply $r6.iterator(),r4 (RuleSets.apply) Value: interfaceinvoke $r6.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (15,0) of 54 seeds! 
+Analyzing ForwardQuery: (toString $r4.iterator(),$r5 (MethodScope.toString) Value: interfaceinvoke $r4.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (16,0) of 54 seeds! 
+Analyzing ForwardQuery: (usesDFA $r4.iterator(),r2 (RuleSets.usesDFA) Value: interfaceinvoke $r4.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (17,0) of 54 seeds! 
+Analyzing ForwardQuery: (iterator $r1.iterator(),$r2 (Report.iterator) Value: interfaceinvoke $r1.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (18,0) of 54 seeds! 
+Analyzing ForwardQuery: (glomSuppressions $r6.iterator(),r3 (HTMLRenderer.glomSuppressions) Value: interfaceinvoke $r6.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (19,0) of 54 seeds! 
+Analyzing ForwardQuery: (getSummary $r5.iterator(),r2 (Report.getSummary) Value: interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (20,0) of 54 seeds! 
+Analyzing ForwardQuery: (getVariableDeclarations $r5.iterator(),$r6 (LocalScope.getVariableDeclarations) Value: interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (21,0) of 54 seeds! 
+Analyzing ForwardQuery: (processFiles r1.iterator(),r6 (PMD.processFiles) Value: interfaceinvoke r1.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (22,0) of 54 seeds! 
+Analyzing ForwardQuery: (render r1.iterator(),r42 (TextRenderer.render) Value: virtualinvoke r1.<net.sourceforge.pmd.Report: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (23,0) of 54 seeds! 
+Analyzing ForwardQuery: (getRuleByName $r4.iterator(),r2 (RuleSet.getRuleByName) Value: interfaceinvoke $r4.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (24,0) of 54 seeds! 
+Analyzing ForwardQuery: (render $r20.iterator(),r94 (XMLRenderer.render) Value: interfaceinvoke $r20.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (25,0) of 54 seeds! 
+Analyzing ForwardQuery: (isEmpty $r1.iterator(),$r2 (Report.isEmpty) Value: interfaceinvoke $r1.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (26,0) of 54 seeds! 
+Analyzing ForwardQuery: (addSuppressed $r5.iterator(),r3 (TextRenderer.addSuppressed) Value: interfaceinvoke $r5.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (27,0) of 54 seeds! 
+Analyzing ForwardQuery: (collect r37.iterator(),r38 (PMD.collect) Value: interfaceinvoke r37.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (28,0) of 54 seeds! 
+Analyzing ForwardQuery: (findVariableHere $r23.iterator(),$r24 (ClassScope.findVariableHere) Value: interfaceinvoke $r23.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (29,0) of 54 seeds! 
+Analyzing ForwardQuery: (getVariableDeclarations $r5.iterator(),$r6 (ClassScope.getVariableDeclarations) Value: interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (30,0) of 54 seeds! 
+Analyzing ForwardQuery: (clipPath $r4.iterator(),r2 (IDEAJRenderer$SourcePath.clipPath) Value: interfaceinvoke $r4.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (31,0) of 54 seeds! 
+Analyzing ForwardQuery: (render r1.iterator(),r5 (IDEAJRenderer.render) Value: virtualinvoke r1.<net.sourceforge.pmd.Report: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (32,0) of 54 seeds! 
+Analyzing ForwardQuery: (findVariableHere $r6.iterator(),$r7 (SourceFileScope.findVariableHere) Value: interfaceinvoke $r6.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (33,0) of 54 seeds! 
+Analyzing ForwardQuery: (glomIRuleViolations r1.iterator(),r3 (HTMLRenderer.glomIRuleViolations) Value: virtualinvoke r1.<net.sourceforge.pmd.Report: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (34,0) of 54 seeds! 
+Analyzing ForwardQuery: (markUsages r3.iterator(),r4 (VariableAccessVisitor.markUsages) Value: interfaceinvoke r3.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (35,0) of 54 seeds! 
+Analyzing ForwardQuery: (findVariableHere $r10.iterator(),$r11 (ClassScope.findVariableHere) Value: interfaceinvoke $r10.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (36,0) of 54 seeds! 
+Analyzing ForwardQuery: (findVariableHere $r6.iterator(),$r7 (LocalScope.findVariableHere) Value: interfaceinvoke $r6.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (37,0) of 54 seeds! 
+Analyzing ForwardQuery: (render r1.iterator(),r3 (CSVRenderer.render) Value: virtualinvoke r1.<net.sourceforge.pmd.Report: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (38,0) of 54 seeds! 
+Analyzing ForwardQuery: (findVariableHere $r6.iterator(),$r7 (MethodScope.findVariableHere) Value: interfaceinvoke $r6.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (39,0) of 54 seeds! 
+Analyzing ForwardQuery: (toString $r4.iterator(),$r5 (SourceFileScope.toString) Value: interfaceinvoke $r4.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (40,0) of 54 seeds! 
+Analyzing ForwardQuery: (findVariableHere $r5.iterator(),$r6 (ClassScope.findVariableHere) Value: interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (41,0) of 54 seeds! 
+Analyzing ForwardQuery: (printRuleNamesInDebug $r3.iterator(),r1 (PMD.printRuleNamesInDebug) Value: interfaceinvoke $r3.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (42,0) of 54 seeds! 
+Analyzing ForwardQuery: (render r1.iterator(),r74 (XMLRenderer.render) Value: virtualinvoke r1.<net.sourceforge.pmd.Report: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (43,0) of 54 seeds! 
+Analyzing ForwardQuery: (visit r4.iterator(),r5 (OccurrenceFinder.visit) Value: interfaceinvoke r4.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (44,0) of 54 seeds! 
+Analyzing ForwardQuery: (render r1.iterator(),r5 (IDEAJRenderer.render) Value: virtualinvoke r1.<net.sourceforge.pmd.Report: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (45,0) of 54 seeds! 
+Analyzing ForwardQuery: (render r1.iterator(),r187 (PapariTextRenderer.render) Value: virtualinvoke r1.<net.sourceforge.pmd.Report: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (46,0) of 54 seeds! 
+Analyzing ForwardQuery: (toString $r45.iterator(),$r46 (ClassScope.toString) Value: interfaceinvoke $r45.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (47,0) of 54 seeds! 
+Analyzing ForwardQuery: (getAllRules $r4.iterator(),r2 (RuleSets.getAllRules) Value: interfaceinvoke $r4.<java.util.Collection: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (48,0) of 54 seeds! 
+Analyzing ForwardQuery: (render $r20.iterator(),r191 (PapariTextRenderer.render) Value: interfaceinvoke $r20.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (49,0) of 54 seeds! 
+Analyzing ForwardQuery: (postIterationCleanup $r5.iterator(),r2 (Benchmark.postIterationCleanup) Value: interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (50,0) of 54 seeds! 
+Analyzing ForwardQuery: (markUsages $r20.iterator(),r8 (VariableAccessVisitor.markUsages) Value: interfaceinvoke $r20.<java.util.List: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (51,0) of 54 seeds! 
+Analyzing ForwardQuery: (render r1.iterator(),r3 (EmacsRenderer.render) Value: virtualinvoke r1.<net.sourceforge.pmd.Report: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (52,0) of 54 seeds! 
+Analyzing ForwardQuery: (renderSummary $r11.iterator(),r4 (SummaryHTMLRenderer.renderSummary) Value: interfaceinvoke $r11.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (53,0) of 54 seeds! 
+Analyzing ForwardQuery: (render r1.iterator(),r47 (VBHTMLRenderer.render) Value: virtualinvoke r1.<net.sourceforge.pmd.Report: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (54,0) of 54 seeds! 

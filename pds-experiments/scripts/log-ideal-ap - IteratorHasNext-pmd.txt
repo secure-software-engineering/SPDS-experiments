@@ -1,0 +1,19 @@
+Writing output to file outputDacapo/dacapo.pmd.Main2-ideal-ap-IteratorHasNext.csv
+running typestate.impl.statemachines.HasNextStateMachine
+/Users/johannesspath/Documents/dacapo/pmd/pmd.jar:/Users/johannesspath/Documents/dacapo/pmd/pmd-deps.jar
+/Users/johannesspath/Documents/dacapo/pmd/pmd.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.pmd.Main2: void main(java.lang.String[])>]
+Application Classes: 554
+Reachable Methods3775
+Analysing 54 seeds!
+Starting with seed in <net.sourceforge.pmd.PMD: void processFiles(java.util.List,net.sourceforge.pmd.RuleContext,net.sourceforge.pmd.RuleSets,boolean,boolean,java.lang.String,java.lang.String)> r6 @ r6 = interfaceinvoke r1.<java.util.List: java.util.Iterator iterator()>()€
+Alive tick 18:24:22
+Starting with seed in <net.sourceforge.pmd.symboltable.ClassScope: java.lang.String toString()> $r16 @ $r16 = interfaceinvoke $r15.<java.util.Set: java.util.Iterator iterator()>()€
+Alive tick 18:24:23
+Timeout of IDEAL, Budget:600
+Starting with seed in <net.sourceforge.pmd.Report: java.util.Iterator errors()> $r2 @ $r2 = interfaceinvoke $r1.<java.util.List: java.util.Iterator iterator()>()€
+Alive tick 18:24:25
+Starting with seed in <net.sourceforge.pmd.RuleSets: void apply(java.util.List,net.sourceforge.pmd.RuleContext,net.sourceforge.pmd.Language)> r4 @ r4 = interfaceinvoke $r6.<java.util.Collection: java.util.Iterator iterator()>()€
+Alive tick 18:24:25
+Starting with seed in <net.sourceforge.pmd.symboltable.MethodScope: net.sourceforge.pmd.symboltable.NameDeclaration findVariableHere(net.sourceforge.pmd.symboltable.NameOccurrence)> $r7 @ $r7 = interfaceinvoke $r6.<java.util.Set: java.util.Iterator iterator()>()€
+Alive tick 18:24:26

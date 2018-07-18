@@ -1,0 +1,12 @@
+Writing output to file outputDacapo/dacapo.xalan.Main2-ideal-ap-IteratorHasNext.csv
+running typestate.impl.statemachines.HasNextStateMachine
+/Users/johannesspath/Documents/dacapo/xalan/xalan.jar:/Users/johannesspath/Documents/dacapo/xalan/xalan-deps.jar
+/Users/johannesspath/Documents/dacapo/xalan/xalan.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.xalan.Main2: void main(java.lang.String[])>]
+Application Classes: 567
+Reachable Methods1725
+Analysing 2 seeds!
+Starting with seed in <dacapo.Benchmark: void postIterationCleanup(java.lang.String)> r2 @ r2 = interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>()€
+Alive tick 18:26:50
+Starting with seed in <dacapo.Benchmark: boolean validate(java.lang.String)> r2 @ r2 = interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>()€
+Alive tick 18:27:23

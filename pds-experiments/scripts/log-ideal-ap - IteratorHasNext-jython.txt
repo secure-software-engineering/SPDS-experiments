@@ -1,0 +1,21 @@
+Writing output to file outputDacapo/dacapo.jython.Main2-ideal-ap-IteratorHasNext.csv
+running typestate.impl.statemachines.HasNextStateMachine
+/Users/johannesspath/Documents/dacapo/jython/jython.jar:/Users/johannesspath/Documents/dacapo/jython/jython-deps.jar
+/Users/johannesspath/Documents/dacapo/jython/jython.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.jython.Main2: void main(java.lang.String[])>]
+Application Classes: 920
+Reachable Methods4247
+Analysing 5 seeds!
+Starting with seed in <dacapo.Benchmark: boolean validate(java.lang.String)> r2 @ r2 = interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>()€
+Alive tick 18:15:02
+Starting with seed in <org.python.core.PyType: void fillFromClass(org.python.core.PyType,java.lang.String,java.lang.Class,java.lang.Class,boolean,java.lang.reflect.Method,java.lang.String[])> r111 @ r111 = interfaceinvoke $r14.<java.util.Set: java.util.Iterator iterator()>()€
+Alive tick 18:15:04
+Timeout of IDEAL, Budget:600
+Starting with seed in <dacapo.Benchmark: void postIterationCleanup(java.lang.String)> r2 @ r2 = interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>()€
+Alive tick 18:15:30
+Starting with seed in <org.python.core.PyTuple$2: void <init>(org.python.core.PyTuple)> $r4 @ $r4 = virtualinvoke $r3.<org.python.core.PyObjectList: java.util.Iterator iterator()>()€
+Alive tick 18:15:30
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.python.core.PySequenceList: java.util.Iterator iterator()> $r2 @ $r2 = virtualinvoke $r1.<org.python.core.PyObjectList: java.util.Iterator iterator()>()€
+Alive tick 18:15:37
+Timeout of IDEAL, Budget:600

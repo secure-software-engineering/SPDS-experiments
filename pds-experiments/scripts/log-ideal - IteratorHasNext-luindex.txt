@@ -1,0 +1,21 @@
+Writing output to file outputDacapo/dacapo.luindex.Main2-ideal-IteratorHasNext.csv
+running typestate.impl.statemachines.HasNextStateMachine
+/Users/johannesspath/Documents/dacapo/luindex/luindex.jar:/Users/johannesspath/Documents/dacapo/luindex/luindex-deps.jar
+/Users/johannesspath/Documents/dacapo/luindex/luindex.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.luindex.Main2: void main(java.lang.String[])>]
+Application Classes: 351
+Reachable Methods2193
+Analysing 6 seeds!
+Analyzing ForwardQuery: (sortArray r2.iterator(),r3 (Benchmark.sortArray) Value: interfaceinvoke r2.<java.util.List: java.util.Iterator iterator()>())
+ERROR StatusLogger No Log4j 2 configuration file found. Using default configuration (logging only errors to the console), or user programmatically provided configurations. Set system property 'log4j2.debug' to show Log4j 2 internal initialization logging. See https://logging.apache.org/log4j/2.x/manual/configuration.html for instructions on how to configure Log4j 2
+Analyzed (finished,timedout): 	 (1,0) of 6 seeds! 
+Analyzing ForwardQuery: (validate $r5.iterator(),r2 (Benchmark.validate) Value: interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (2,0) of 6 seeds! 
+Analyzing ForwardQuery: (close $r8.iterator(),r24 (CompoundFileWriter.close) Value: virtualinvoke $r8.<java.util.LinkedList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (3,0) of 6 seeds! 
+Analyzing ForwardQuery: (close $r7.iterator(),r22 (CompoundFileWriter.close) Value: virtualinvoke $r7.<java.util.LinkedList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (4,0) of 6 seeds! 
+Analyzing ForwardQuery: (createCompoundFile r3.iterator(),r39 (SegmentMerger.createCompoundFile) Value: virtualinvoke r3.<java.util.Vector: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (5,0) of 6 seeds! 
+Analyzing ForwardQuery: (close $r6.iterator(),r19 (CompoundFileWriter.close) Value: virtualinvoke $r6.<java.util.LinkedList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (6,0) of 6 seeds! 

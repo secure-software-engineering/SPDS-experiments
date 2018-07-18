@@ -1,0 +1,61 @@
+Writing output to file outputDacapo/dacapo.chart.Main2-ideal-ap-IteratorHasNext.csv
+running typestate.impl.statemachines.HasNextStateMachine
+/Users/johannesspath/Documents/dacapo/chart/chart.jar:/Users/johannesspath/Documents/dacapo/chart/chart-deps.jar
+/Users/johannesspath/Documents/dacapo/chart/chart.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.chart.Main2: void main(java.lang.String[])>]
+Application Classes: 516
+Reachable Methods2488
+Analysing 21 seeds!
+Starting with seed in <org.jfree.chart.plot.XYPlot: java.util.Map drawAxes(java.awt.Graphics2D,java.awt.geom.Rectangle2D,java.awt.geom.Rectangle2D,org.jfree.chart.plot.PlotRenderingInfo)> r39 @ r39 = interfaceinvoke $r11.<java.util.List: java.util.Iterator iterator()>()€
+Alive tick 17:58:26
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.jfree.chart.plot.XYPlot: java.util.Map drawAxes(java.awt.Graphics2D,java.awt.geom.Rectangle2D,java.awt.geom.Rectangle2D,org.jfree.chart.plot.PlotRenderingInfo)> r45 @ r45 = interfaceinvoke $r15.<java.util.List: java.util.Iterator iterator()>()€
+Alive tick 17:58:27
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.jfree.chart.plot.CategoryPlot: void drawDomainMarkers(java.awt.Graphics2D,java.awt.geom.Rectangle2D,int,org.jfree.ui.Layer)> r7 @ r7 = interfaceinvoke r5.<java.util.Collection: java.util.Iterator iterator()>()€
+Alive tick 17:58:28
+Starting with seed in <org.jfree.chart.JFreeChart: void draw(java.awt.Graphics2D,java.awt.geom.Rectangle2D,java.awt.geom.Point2D,org.jfree.chart.ChartRenderingInfo)> r40 @ r40 = interfaceinvoke $r39.<java.util.List: java.util.Iterator iterator()>()€
+Alive tick 17:58:29
+Starting with seed in <org.jfree.data.DefaultKeyedValues: int getIndex(java.lang.Comparable)> r2 @ r2 = interfaceinvoke $r4.<java.util.List: java.util.Iterator iterator()>()€
+Alive tick 17:58:29
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.jfree.chart.plot.XYPlot: org.jfree.data.Range getDataRange(org.jfree.chart.axis.ValueAxis)> r3 @ r3 = interfaceinvoke r2.<java.util.List: java.util.Iterator iterator()>()€
+Alive tick 17:58:31
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.jfree.chart.plot.CategoryPlot: java.util.Map drawAxes(java.awt.Graphics2D,java.awt.geom.Rectangle2D,java.awt.geom.Rectangle2D,org.jfree.chart.plot.PlotRenderingInfo)> r45 @ r45 = interfaceinvoke $r15.<java.util.List: java.util.Iterator iterator()>()€
+Alive tick 17:58:33
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.jfree.chart.plot.CategoryPlot: java.util.Map drawAxes(java.awt.Graphics2D,java.awt.geom.Rectangle2D,java.awt.geom.Rectangle2D,org.jfree.chart.plot.PlotRenderingInfo)> r42 @ r42 = interfaceinvoke $r13.<java.util.List: java.util.Iterator iterator()>()€
+Alive tick 17:58:34
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.jfree.chart.plot.CategoryPlot: void drawAnnotations(java.awt.Graphics2D,java.awt.geom.Rectangle2D)> r3 @ r3 = interfaceinvoke $r6.<java.util.List: java.util.Iterator iterator()>()€
+Alive tick 17:58:35
+Starting with seed in <org.jfree.chart.plot.XYPlot: void drawRangeMarkers(java.awt.Graphics2D,java.awt.geom.Rectangle2D,int,org.jfree.ui.Layer)> r7 @ r7 = interfaceinvoke r5.<java.util.Collection: java.util.Iterator iterator()>()€
+Alive tick 17:58:35
+Starting with seed in <org.jfree.chart.plot.XYPlot: java.util.Map drawAxes(java.awt.Graphics2D,java.awt.geom.Rectangle2D,java.awt.geom.Rectangle2D,org.jfree.chart.plot.PlotRenderingInfo)> r48 @ r48 = interfaceinvoke $r17.<java.util.List: java.util.Iterator iterator()>()€
+Alive tick 17:58:35
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.jfree.chart.plot.CategoryPlot: java.util.Map drawAxes(java.awt.Graphics2D,java.awt.geom.Rectangle2D,java.awt.geom.Rectangle2D,org.jfree.chart.plot.PlotRenderingInfo)> r48 @ r48 = interfaceinvoke $r17.<java.util.List: java.util.Iterator iterator()>()€
+Alive tick 17:58:36
+Timeout of IDEAL, Budget:600
+Starting with seed in <dacapo.Benchmark: boolean validate(java.lang.String)> r2 @ r2 = interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>()€
+Alive tick 17:58:38
+Starting with seed in <org.jfree.chart.plot.XYPlot: void drawAnnotations(java.awt.Graphics2D,java.awt.geom.Rectangle2D,org.jfree.chart.plot.PlotRenderingInfo)> r4 @ r4 = interfaceinvoke $r8.<java.util.List: java.util.Iterator iterator()>()€
+Alive tick 17:58:38
+Starting with seed in <org.jfree.chart.block.BlockContainer: java.lang.Object draw(java.awt.Graphics2D,java.awt.geom.Rectangle2D,java.lang.Object)> r5 @ r5 = interfaceinvoke $r20.<java.util.List: java.util.Iterator iterator()>()€
+Alive tick 17:58:38
+Starting with seed in <org.jfree.chart.plot.XYPlot: void drawDomainMarkers(java.awt.Graphics2D,java.awt.geom.Rectangle2D,int,org.jfree.ui.Layer)> r7 @ r7 = interfaceinvoke r5.<java.util.Collection: java.util.Iterator iterator()>()€
+Alive tick 17:58:39
+Starting with seed in <org.jfree.chart.plot.CategoryPlot: org.jfree.data.Range getDataRange(org.jfree.chart.axis.ValueAxis)> r3 @ r3 = interfaceinvoke r2.<java.util.List: java.util.Iterator iterator()>()€
+Alive tick 17:58:39
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.jfree.chart.plot.XYPlot: java.util.Map drawAxes(java.awt.Graphics2D,java.awt.geom.Rectangle2D,java.awt.geom.Rectangle2D,org.jfree.chart.plot.PlotRenderingInfo)> r42 @ r42 = interfaceinvoke $r13.<java.util.List: java.util.Iterator iterator()>()€
+Alive tick 17:58:40
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.jfree.chart.plot.CategoryPlot: java.util.Map drawAxes(java.awt.Graphics2D,java.awt.geom.Rectangle2D,java.awt.geom.Rectangle2D,org.jfree.chart.plot.PlotRenderingInfo)> r39 @ r39 = interfaceinvoke $r11.<java.util.List: java.util.Iterator iterator()>()€
+Alive tick 17:58:41
+Timeout of IDEAL, Budget:600
+Starting with seed in <org.jfree.chart.plot.CategoryPlot: void drawRangeMarkers(java.awt.Graphics2D,java.awt.geom.Rectangle2D,int,org.jfree.ui.Layer)> r7 @ r7 = interfaceinvoke r5.<java.util.Collection: java.util.Iterator iterator()>()€
+Alive tick 17:58:43
+Starting with seed in <dacapo.Benchmark: void postIterationCleanup(java.lang.String)> r2 @ r2 = interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>()€
+Alive tick 17:58:43

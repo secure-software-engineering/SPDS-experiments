@@ -1,0 +1,24 @@
+Writing output to file outputDacapo/dacapo.bloat.Main2-ideal-ap-IO.csv
+running typestate.impl.statemachines.alloc.InputStreamStateMachine
+/Users/johannesspath/Documents/dacapo/bloat/bloat.jar:/Users/johannesspath/Documents/dacapo/bloat/bloat-deps.jar
+/Users/johannesspath/Documents/dacapo/bloat/bloat.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.bloat.Main2: void main(java.lang.String[])>]
+Application Classes: 361
+Reachable Methods4450
+Analysing 6 seeds!
+Starting with seed in <dacapo.FileDigest: byte[] getBinary(java.io.File)> $r5 @ specialinvoke $r5.<java.io.FileInputStream: void <init>(java.io.File)>(r0)€
+Alive tick 23:44:07
+Timeout of IDEAL, Budget:600
+Starting with seed in <EDU.purdue.cs.bloat.file.ClassFileLoader: EDU.purdue.cs.bloat.reflect.ClassInfo loadClass(java.lang.String)> $r47 @ specialinvoke $r47.<java.io.FileInputStream: void <init>(java.io.File)>(r99)€
+Alive tick 23:44:14
+Timeout of IDEAL, Budget:600
+Starting with seed in <dacapo.FileDigest: byte[] getBinary(java.io.File)> $r4 @ specialinvoke $r4.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r5)€
+Alive tick 23:54:57
+Starting with seed in <EDU.purdue.cs.bloat.file.ClassFileLoader: EDU.purdue.cs.bloat.reflect.ClassInfo loadClass(java.lang.String)> $r21 @ specialinvoke $r21.<java.io.FileInputStream: void <init>(java.io.File)>(r104)€
+Alive tick 23:54:58
+Timeout of IDEAL, Budget:600
+Starting with seed in <EDU.purdue.cs.bloat.file.ClassFileLoader: EDU.purdue.cs.bloat.reflect.ClassInfo loadClassFromFile(java.io.File)> $r4 @ specialinvoke $r4.<java.io.FileInputStream: void <init>(java.io.File)>(r1)€
+Alive tick 23:56:13
+Timeout of IDEAL, Budget:600
+Starting with seed in <EDU.purdue.cs.bloat.file.ClassFileLoader: EDU.purdue.cs.bloat.reflect.ClassInfo loadClassFromStream(java.io.File,java.io.InputStream)> $r5 @ specialinvoke $r5.<java.io.DataInputStream: void <init>(java.io.InputStream)>(r2)€
+Alive tick 23:57:42

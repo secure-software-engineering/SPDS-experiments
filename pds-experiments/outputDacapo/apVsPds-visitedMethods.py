@@ -4,7 +4,7 @@ import glob, csv, math
 import plotly.graph_objs
 import numpy as np
 
-MAX_ANALYSIS_TIME = 30000;
+MAX_ANALYSIS_TIME = 600000;
 MAX_ACCESS_PATH = 0;
 MAX_VISITED_METHODS = 0;
 USE_ARITHMEAN = True
@@ -25,12 +25,12 @@ def scale(val,valMax,intervalMin,intervalMax):
     diff = intervalMax-intervalMin
     return intervalMin + val/(float(valMax))*diff
 
-def printForTikz(data,fillData):
-    print "x,y,r,times,opacity,seeds"
+def printForTikz(data,fillData,timeoutData):
+    print "x,y,r,times,opacity,seeds,timeouts"
     for i in range(0,len(data)):
         for j in range(0,len(data[i])):
             if data[i][j] != 0:
-                print str(j+1)+","+str(i+1)+","+str(scale(data[i][j],MAX_ANALYSIS_TIME,0.1,0.5))+","+str((data[i][j]/1000).round(1))+","+str(scale(fillData[i][j],SEEDS,0.1,1))+","+str(fillData[i][j])
+                print str(j+1)+","+str(i+1)+","+str(scale(data[i][j],MAX_ANALYSIS_TIME,0.1,0.5))+","+str((data[i][j]/1000).round(1))+","+str(scale(fillData[i][j],SEEDS,0.1,1))+","+str(fillData[i][j])+","+str(timeoutData[i][j])
 
 
 
@@ -72,21 +72,27 @@ for fname in glob.glob(path):
         with open(fname) as csvfile:
             reader = csv.DictReader(csvfile,delimiter = ";")
             for row in reader:
-                timesAP.append(beautifyAnalysisTime(row['AnalysisTimes']))
-                vm = int(row['VisitedMethod'])
-                methodAP.append(vm)
-                if vm > MAX_VISITED_METHODS:
-                    print vm
-                    MAX_VISITED_METHODS = int(math.ceil(vm / 100.0)) * 100;
-                ap = computeAccessPathLength(row['MaxAccessPath']) 
-                ap_length.append(ap)
-                if ap > MAX_ACCESS_PATH:
-                    MAX_ACCESS_PATH = ap
                 with open(fname.replace("ideal-ap","ideal")) as csvfilePDS:
                     readerPDS = csv.DictReader(csvfilePDS,delimiter = ";")
                     for rowPDS in readerPDS:
                         if rowPDS['SeedClass'] == row['SeedClass'] and rowPDS['SeedMethod'] == row['SeedMethod'] and row['SeedStatement'] == rowPDS['SeedStatement']:
-                            timesPDS.append(beautifyAnalysisTime(rowPDS['AnalysisTimes']))
+                            if(rowPDS['Timedout'] == "true"):
+                                timesPDS.append(MAX_ANALYSIS_TIME)
+                            else:
+                                timesPDS.append(beautifyAnalysisTime(rowPDS['AnalysisTimes']))
+                            if(row['Timedout'] == "true"):
+                                timesAP.append(MAX_ANALYSIS_TIME)
+                            else:
+                                timesAP.append(beautifyAnalysisTime(row['AnalysisTimes']))
+                            
+                            ap = computeAccessPathLength(row['MaxAccessPath']) 
+                            ap_length.append(ap)
+                            vm = int(rowPDS['VisitedMethod'])
+                            methodAP.append(vm)
+                            if vm > MAX_VISITED_METHODS:
+                                MAX_VISITED_METHODS = int(math.ceil(vm / 100.0)) * 100;
+                            if ap > MAX_ACCESS_PATH:
+                                MAX_ACCESS_PATH = ap
 #                            methodPDS.append(rowPDS['VisitedMethod'])
 #               
 SEEDS = len(timesAP)
@@ -198,17 +204,21 @@ def plotHeatMapVisitedMethodsTimes(analysisTimes, visitedMethods, filename ):
     bucketRangeMethods = MAX_VISITED_METHODS/numberOfBucketsForTimes
     print MAX_ACCESS_PATH
     data = []
+    timeoutData = []
     xLabel = []
     yLabel = []
     for i in range(0,numberOfBucketsForTimes):
         yLabel.append("["+str(i*bucketRangeMethods) +"-"+str((i+1)*bucketRangeMethods)+"]")
         zero = []
+        zeroTime = []
         for j in range(0,numberOfBucketsForTimes):
             if j == numberOfBucketsForTimes - 1:
                 xLabel.append("["+str(j*bucketRangeAccessPath) +"-"+str(MAX_ACCESS_PATH)+"]")
             else:
                 xLabel.append("["+str(j*bucketRangeAccessPath) +"-"+str((j+1)*bucketRangeAccessPath)+"]")
             zero.append([])
+            zeroTime.append(0)
+        timeoutData.append(zeroTime)
         data.append(zero)
     xBucketIndex = 0
     for t in analysisTimes:
@@ -219,6 +229,8 @@ def plotHeatMapVisitedMethodsTimes(analysisTimes, visitedMethods, filename ):
             data[visitedMethodBucket][accessPathBucket].append(time)
         else:
             data[visitedMethodBucket][accessPathBucket].append(1)     
+        if time == MAX_ANALYSIS_TIME:
+            timeoutData[visitedMethodBucket][accessPathBucket] = timeoutData[visitedMethodBucket][accessPathBucket] + 1
         xBucketIndex += 1
 
     avgData = []
@@ -231,9 +243,10 @@ def plotHeatMapVisitedMethodsTimes(analysisTimes, visitedMethods, filename ):
             textDataRow.append(len(data[i][j]))
         avgData.append(avgDataRow)
         textData.append(textDataRow)
-    printForTikz(avgData,textData)
+    print(filename)
+    printForTikz(avgData,textData,timeoutData )
     trace = plotly.graph_objs.Heatmap(text=textData, z=avgData, x = xLabel, y = yLabel)
-    plotly.offline.plot([trace], filename=filename)
+    #plotly.offline.plot([trace], filename=filename)
 
 plotHeatMapVisitedMethodsTimes(timesAP,methodAP,"plot-heatmap-visitedMethod-accesspath")
 plotHeatMapVisitedMethodsTimes(timesPDS,methodAP,"plot-heatmap-visitedMethod-pds")

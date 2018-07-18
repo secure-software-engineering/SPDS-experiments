@@ -1,0 +1,34 @@
+Writing output to file outputDacapo/dacapo.pmd.Main2-ideal-EmptyVector.csv
+running typestate.impl.statemachines.VectorStateMachine
+/Users/johannesspath/Documents/dacapo/pmd/pmd.jar:/Users/johannesspath/Documents/dacapo/pmd/pmd-deps.jar
+/Users/johannesspath/Documents/dacapo/pmd/pmd.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.pmd.Main2: void main(java.lang.String[])>]
+Application Classes: 554
+Reachable Methods3775
+Analysing 13 seeds!
+Analyzing ForwardQuery: (<init> $r2 = new Stack,$r2 (JJTJavaParserState.<init>) Value: new java.util.Stack)
+ERROR StatusLogger No Log4j 2 configuration file found. Using default configuration (logging only errors to the console), or user programmatically provided configurations. Set system property 'log4j2.debug' to show Log4j 2 internal initialization logging. See https://logging.apache.org/log4j/2.x/manual/configuration.html for instructions on how to configure Log4j 2
+Analyzed (finished,timedout): 	 (1,0) of 13 seeds! 
+Analyzing ForwardQuery: (<init> $r3 = new Stack,$r3 (Structure.<init>) Value: new java.util.Stack)
+Analyzed (finished,timedout): 	 (2,0) of 13 seeds! 
+Analyzing ForwardQuery: (addVariableAccess $r6 = new Vector,$r6 (VariableAccessVisitor.addVariableAccess) Value: new java.util.Vector)
+Analyzed (finished,timedout): 	 (2,1) of 13 seeds! 
+Analyzing ForwardQuery: (<init> $r4 = new Vector,$r4 (ConfigFile.<init>) Value: new java.util.Vector)
+Analyzed (finished,timedout): 	 (3,1) of 13 seeds! 
+Analyzing ForwardQuery: (<init> $r6 = new Vector,$r6 (JspParser.<init>) Value: new java.util.Vector)
+Analyzed (finished,timedout): 	 (3,2) of 13 seeds! 
+Analyzing ForwardQuery: (sizeClause $r4 = new Vector,$r4 (ConfigFile.sizeClause) Value: new java.util.Vector)
+Analyzed (finished,timedout): 	 (3,3) of 13 seeds! 
+Analyzing ForwardQuery: (<init> $r1 = new Stack,$r1 (JJTJspParserState.<init>) Value: new java.util.Stack)
+Analyzed (finished,timedout): 	 (3,4) of 13 seeds! 
+Analyzing ForwardQuery: (<init> $r6 = new Vector,$r6 (JavaParser.<init>) Value: new java.util.Vector)
+Analyzed (finished,timedout): 	 (3,5) of 13 seeds! 
+Analyzing ForwardQuery: (<init> $r1 = new Stack,$r1 (JJTJavaParserState.<init>) Value: new java.util.Stack)
+Analyzed (finished,timedout): 	 (3,6) of 13 seeds! 
+Analyzing ForwardQuery: (<init> $r1 = new Stack,$r1 (ScopeAndDeclarationFinder.<init>) Value: new java.util.Stack)
+Analyzed (finished,timedout): 	 (3,7) of 13 seeds! 
+Analyzing ForwardQuery: (<init> $r2 = new Stack,$r2 (JJTJspParserState.<init>) Value: new java.util.Stack)
+Analyzed (finished,timedout): 	 (3,8) of 13 seeds! 
+Analyzing ForwardQuery: (vectorise $r3 = new Vector,$r3 (TestHarness.vectorise) Value: new java.util.Vector)
+Analyzed (finished,timedout): 	 (3,9) of 13 seeds! 
+Analyzing ForwardQuery: (<init> $r2 = new Stack,$r2 (Structure.<init>) Value: new java.util.Stack)

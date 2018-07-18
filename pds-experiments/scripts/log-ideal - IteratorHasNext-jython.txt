@@ -1,0 +1,19 @@
+Writing output to file outputDacapo/dacapo.jython.Main2-ideal-IteratorHasNext.csv
+running typestate.impl.statemachines.HasNextStateMachine
+/Users/johannesspath/Documents/dacapo/jython/jython.jar:/Users/johannesspath/Documents/dacapo/jython/jython-deps.jar
+/Users/johannesspath/Documents/dacapo/jython/jython.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.jython.Main2: void main(java.lang.String[])>]
+Application Classes: 920
+Reachable Methods4247
+Analysing 5 seeds!
+Analyzing ForwardQuery: (postIterationCleanup $r5.iterator(),r2 (Benchmark.postIterationCleanup) Value: interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>())
+ERROR StatusLogger No Log4j 2 configuration file found. Using default configuration (logging only errors to the console), or user programmatically provided configurations. Set system property 'log4j2.debug' to show Log4j 2 internal initialization logging. See https://logging.apache.org/log4j/2.x/manual/configuration.html for instructions on how to configure Log4j 2
+Analyzed (finished,timedout): 	 (1,0) of 5 seeds! 
+Analyzing ForwardQuery: (iterator $r1.iterator(),$r2 (PySequenceList.iterator) Value: virtualinvoke $r1.<org.python.core.PyObjectList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (2,0) of 5 seeds! 
+Analyzing ForwardQuery: (fillFromClass $r14.iterator(),r111 (PyType.fillFromClass) Value: interfaceinvoke $r14.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (3,0) of 5 seeds! 
+Analyzing ForwardQuery: (<init> $r3.iterator(),$r4 (PyTuple$2.<init>) Value: virtualinvoke $r3.<org.python.core.PyObjectList: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (4,0) of 5 seeds! 
+Analyzing ForwardQuery: (validate $r5.iterator(),r2 (Benchmark.validate) Value: interfaceinvoke $r5.<java.util.Set: java.util.Iterator iterator()>())
+Analyzed (finished,timedout): 	 (5,0) of 5 seeds! 

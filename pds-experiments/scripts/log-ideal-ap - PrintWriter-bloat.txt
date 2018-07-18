@@ -1,0 +1,46 @@
+Writing output to file outputDacapo/dacapo.bloat.Main2-ideal-ap-IO.csv
+running typestate.impl.statemachines.alloc.PrintWriterStateMachine
+/Users/johannesspath/Documents/dacapo/bloat/bloat.jar:/Users/johannesspath/Documents/dacapo/bloat/bloat-deps.jar
+/Users/johannesspath/Documents/dacapo/bloat/bloat.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.bloat.Main2: void main(java.lang.String[])>]
+Application Classes: 361
+Reachable Methods4450
+Analysing 13 seeds!
+Starting with seed in <EDU.purdue.cs.bloat.trans.ValueNumbering: void transform(EDU.purdue.cs.bloat.cfg.FlowGraph)> $r32 @ $r32 = new java.io.PrintWriter€
+Alive tick 03:30:19
+Timeout of IDEAL, Budget:600
+Starting with seed in <EDU.purdue.cs.bloat.context.CachingBloatContext: java.lang.String toString()> $r4 @ $r4 = new java.io.PrintWriter€
+Alive tick 03:32:01
+Timeout of IDEAL, Budget:600
+Starting with seed in <EDU.purdue.cs.bloat.trans.ValueNumbering: void transform(EDU.purdue.cs.bloat.cfg.FlowGraph)> $r22 @ $r22 = new java.io.PrintWriter€
+Alive tick 03:32:14
+Timeout of IDEAL, Budget:600
+Starting with seed in <EDU.purdue.cs.bloat.trans.ValueFolding: void transform(EDU.purdue.cs.bloat.cfg.FlowGraph)> $r11 @ $r11 = new java.io.PrintWriter€
+Alive tick 03:44:57
+Timeout of IDEAL, Budget:600
+Starting with seed in <dacapo.Benchmark: void enableValidationReport(java.lang.String)> $r2 @ $r2 = new java.io.PrintWriter€
+Alive tick 04:01:01
+Starting with seed in <EDU.purdue.cs.bloat.trans.ValueFolding: void transform(EDU.purdue.cs.bloat.cfg.FlowGraph)> $r13 @ $r13 = new java.io.PrintWriter€
+Alive tick 04:02:02
+Timeout of IDEAL, Budget:600
+Starting with seed in <EDU.purdue.cs.bloat.trans.ValueNumbering: void <init>()> $r1 @ $r1 = new java.io.PrintWriter€
+Alive tick 04:16:24
+Timeout of IDEAL, Budget:600
+Starting with seed in <EDU.purdue.cs.bloat.cfg.FlowGraph: void print(java.io.PrintStream)> $r2 @ $r2 = new java.io.PrintWriter€
+Alive tick 04:27:00
+Timeout of IDEAL, Budget:600
+Starting with seed in <EDU.purdue.cs.bloat.tree.PrintVisitor: void <init>(java.io.Writer)> $r2 @ $r2 = new java.io.PrintWriter€
+Alive tick 04:37:03
+Timeout of IDEAL, Budget:600
+Starting with seed in <EDU.purdue.cs.bloat.tree.PrintVisitor: void <init>(java.io.PrintStream)> $r2 @ $r2 = new java.io.PrintWriter€
+Alive tick 04:47:17
+Timeout of IDEAL, Budget:600
+Starting with seed in <EDU.purdue.cs.bloat.trans.ValueNumbering: void transform(EDU.purdue.cs.bloat.cfg.FlowGraph)> $r19 @ $r19 = new java.io.PrintWriter€
+Alive tick 04:57:52
+Timeout of IDEAL, Budget:600
+Starting with seed in <EDU.purdue.cs.bloat.file.ClassFile: void print(java.io.PrintStream)> $r2 @ $r2 = new java.io.PrintWriter€
+Alive tick 05:08:09
+Timeout of IDEAL, Budget:600
+Starting with seed in <EDU.purdue.cs.bloat.cfg.FlowGraph: void printGraph(java.io.PrintStream)> $r2 @ $r2 = new java.io.PrintWriter€
+Alive tick 05:18:53
+Timeout of IDEAL, Budget:600

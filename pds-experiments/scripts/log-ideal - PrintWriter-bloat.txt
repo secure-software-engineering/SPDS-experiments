@@ -1,0 +1,52 @@
+Writing output to file outputDacapo/dacapo.bloat.Main2-ideal-IO.csv
+running typestate.impl.statemachines.alloc.PrintWriterStateMachine
+/Users/johannesspath/Documents/dacapo/bloat/bloat.jar:/Users/johannesspath/Documents/dacapo/bloat/bloat-deps.jar
+/Users/johannesspath/Documents/dacapo/bloat/bloat.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.bloat.Main2: void main(java.lang.String[])>]
+Application Classes: 361
+Reachable Methods4450
+Analysing 13 seeds!
+Analyzing ForwardQuery: (transform $r19 = new PrintWriter,$r19 (ValueNumbering.transform) Value: new java.io.PrintWriter)
+ERROR StatusLogger No Log4j 2 configuration file found. Using default configuration (logging only errors to the console), or user programmatically provided configurations. Set system property 'log4j2.debug' to show Log4j 2 internal initialization logging. See https://logging.apache.org/log4j/2.x/manual/configuration.html for instructions on how to configure Log4j 2
+Analyzed (finished,timedout): 	 (0,1) of 13 seeds! 
+Analyzing ForwardQuery: (<init> $r1 = new PrintWriter,$r1 (ValueNumbering.<init>) Value: new java.io.PrintWriter)
+Analyzed (finished,timedout): 	 (0,2) of 13 seeds! 
+Analyzing ForwardQuery: (transform $r11 = new PrintWriter,$r11 (ValueFolding.transform) Value: new java.io.PrintWriter)
+Analyzed (finished,timedout): 	 (0,3) of 13 seeds! 
+Analyzing ForwardQuery: (<init> $r2 = new PrintWriter,$r2 (PrintVisitor.<init>) Value: new java.io.PrintWriter)
+Analyzed (finished,timedout): 	 (0,4) of 13 seeds! 
+Analyzing ForwardQuery: (enableValidationReport $r2 = new PrintWriter,$r2 (Benchmark.enableValidationReport) Value: new java.io.PrintWriter)
+Analyzed (finished,timedout): 	 (0,5) of 13 seeds! 
+Analyzing ForwardQuery: (print $r2 = new PrintWriter,$r2 (ClassFile.print) Value: new java.io.PrintWriter)
+Analyzed (finished,timedout): 	 (1,5) of 13 seeds! 
+Analyzing ForwardQuery: (transform $r22 = new PrintWriter,$r22 (ValueNumbering.transform) Value: new java.io.PrintWriter)
+Analyzed (finished,timedout): 	 (1,6) of 13 seeds! 
+Analyzing ForwardQuery: (toString $r4 = new PrintWriter,$r4 (CachingBloatContext.toString) Value: new java.io.PrintWriter)
+Analyzed (finished,timedout): 	 (1,7) of 13 seeds! 
+Analyzing ForwardQuery: (printGraph $r2 = new PrintWriter,$r2 (FlowGraph.printGraph) Value: new java.io.PrintWriter)
+Analyzed (finished,timedout): 	 (1,8) of 13 seeds! 
+Analyzing ForwardQuery: (print $r2 = new PrintWriter,$r2 (FlowGraph.print) Value: new java.io.PrintWriter)
+Analyzed (finished,timedout): 	 (1,9) of 13 seeds! 
+Analyzing ForwardQuery: (transform $r13 = new PrintWriter,$r13 (ValueFolding.transform) Value: new java.io.PrintWriter)
+Analyzed (finished,timedout): 	 (1,10) of 13 seeds! 
+Analyzing ForwardQuery: (<init> $r2 = new PrintWriter,$r2 (PrintVisitor.<init>) Value: new java.io.PrintWriter)
+Analyzed (finished,timedout): 	 (1,11) of 13 seeds! 
+Analyzing ForwardQuery: (transform $r32 = new PrintWriter,$r32 (ValueNumbering.transform) Value: new java.io.PrintWriter)
+Analyzed (finished,timedout): 	 (1,12) of 13 seeds! 
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+	at java.util.HashMap.resize(HashMap.java:703)
+	at java.util.HashMap.putVal(HashMap.java:662)
+	at java.util.HashMap.put(HashMap.java:611)
+	at java.util.HashSet.add(HashSet.java:219)
+	at sync.pds.solver.SyncPDSSolver.getReachedStates(SyncPDSSolver.java:726)
+	at boomerang.stats.SimpleBoomerangStats.getForwardReachesNodes(SimpleBoomerangStats.java:106)
+	at experiments.dacapo.IDEALRunner.asCSVLine(IDEALRunner.java:198)
+	at experiments.dacapo.IDEALRunner.access$000(IDEALRunner.java:42)
+	at experiments.dacapo.IDEALRunner$3.internalTransform(IDEALRunner.java:148)
+	at soot.SceneTransformer.transform(SceneTransformer.java:39)
+	at soot.Transform.apply(Transform.java:93)
+	at soot.ScenePack.internalApply(ScenePack.java:40)
+	at soot.Pack.apply(Pack.java:118)
+	at experiments.dacapo.IDEALRunner.run(IDEALRunner.java:185)
+	at experiments.dacapo.FinkOrIDEALDacapoRunner.run(FinkOrIDEALDacapoRunner.java:58)
+	at experiments.dacapo.FinkOrIDEALDacapoRunner.main(FinkOrIDEALDacapoRunner.java:29)

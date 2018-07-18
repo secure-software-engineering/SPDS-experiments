@@ -1,0 +1,18 @@
+Writing output to file outputDacapo/dacapo.fop.Main2-ideal-ap-IO.csv
+running typestate.impl.statemachines.alloc.InputStreamStateMachine
+/Users/johannesspath/Documents/dacapo/fop/fop.jar:/Users/johannesspath/Documents/dacapo/fop/fop-deps.jar
+/Users/johannesspath/Documents/dacapo/fop/fop.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.fop.Main2: void main(java.lang.String[])>]
+Application Classes: 999
+Reachable Methods2931
+Analysing 4 seeds!
+Starting with seed in <dacapo.FileDigest: byte[] getBinary(java.io.File)> $r5 @ specialinvoke $r5.<java.io.FileInputStream: void <init>(java.io.File)>(r0)€
+Alive tick 23:23:45
+Timeout of IDEAL, Budget:600
+Starting with seed in <dacapo.Benchmark: void unpackZipFileResource(java.lang.String,java.io.File)> $r4 @ specialinvoke $r4.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r5)€
+Alive tick 23:33:49
+Timeout of IDEAL, Budget:600
+Starting with seed in <dacapo.FileDigest: byte[] getBinary(java.io.File)> $r4 @ specialinvoke $r4.<java.io.BufferedInputStream: void <init>(java.io.InputStream)>($r5)€
+Alive tick 23:37:11
+Starting with seed in <dacapo.Benchmark: void unpackZipStream(java.io.BufferedInputStream,java.io.File)> $r8 @ specialinvoke $r8.<java.util.zip.ZipInputStream: void <init>(java.io.InputStream)>(r0)€
+Alive tick 23:37:13

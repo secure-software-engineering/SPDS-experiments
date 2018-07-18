@@ -1,0 +1,31 @@
+Writing output to file outputDacapo/dacapo.eclipse.Main2-ideal-IO.csv
+running typestate.impl.statemachines.alloc.OutputStreamStateMachine
+/Users/johannesspath/Documents/dacapo/eclipse/eclipse.jar:/Users/johannesspath/Documents/dacapo/eclipse/eclipse-deps.jar
+/Users/johannesspath/Documents/dacapo/eclipse/eclipse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.eclipse.Main2: void main(java.lang.String[])>]
+Application Classes: 414
+Reachable Methods3055
+Analysing 11 seeds!
+Analyzing ForwardQuery: (getFileOutputStream $r8.<init>($r9,z0),$r8 (SecureAction.getFileOutputStream) Value: specialinvoke $r8.<java.io.FileOutputStream: void <init>(java.lang.String,boolean)>($r9, z0))
+ERROR StatusLogger No Log4j 2 configuration file found. Using default configuration (logging only errors to the console), or user programmatically provided configurations. Set system property 'log4j2.debug' to show Log4j 2 internal initialization logging. See https://logging.apache.org/log4j/2.x/manual/configuration.html for instructions on how to configure Log4j 2
+Analyzed (finished,timedout): 	 (1,0) of 11 seeds! 
+Analyzing ForwardQuery: (<init> $r12.<init>($r14,$r13),$r12 (Benchmark.<init>) Value: specialinvoke $r12.<dacapo.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)>($r14, $r13))
+Analyzed (finished,timedout): 	 (2,0) of 11 seeds! 
+Analyzing ForwardQuery: (<init> $r9.<init>($r11,$r10),$r9 (Benchmark.<init>) Value: specialinvoke $r9.<dacapo.TeePrintStream: void <init>(java.io.OutputStream,java.io.File)>($r11, $r10))
+Analyzed (finished,timedout): 	 (3,0) of 11 seeds! 
+Analyzing ForwardQuery: (unpackZipStream $r13.<init>(r5,2048),$r13 (Benchmark.unpackZipStream) Value: specialinvoke $r13.<java.io.BufferedOutputStream: void <init>(java.io.OutputStream,int)>(r5, 2048))
+Analyzed (finished,timedout): 	 (4,0) of 11 seeds! 
+Analyzing ForwardQuery: (run $r1.<init>($r3,$z0),$r1 (SecureAction$5.run) Value: specialinvoke $r1.<java.io.FileOutputStream: void <init>(java.lang.String,boolean)>($r3, $z0))
+Analyzed (finished,timedout): 	 (5,0) of 11 seeds! 
+Analyzing ForwardQuery: (newLog $r2.<init>($r3),$r2 (TeeOutputStream.newLog) Value: specialinvoke $r2.<java.io.FileOutputStream: void <init>(java.io.File)>($r3))
+Analyzed (finished,timedout): 	 (6,0) of 11 seeds! 
+Analyzing ForwardQuery: (<init> r0.<init>($r3),r0 (TeePrintStream.<init>) Value: specialinvoke r0.<java.io.PrintStream: void <init>(java.io.OutputStream)>($r3))
+Analyzed (finished,timedout): 	 (7,0) of 11 seeds! 
+Analyzing ForwardQuery: (<init> r0.<init>(r1),r0 (TeeOutputStream.<init>) Value: specialinvoke r0.<java.io.FilterOutputStream: void <init>(java.io.OutputStream)>(r1))
+Analyzed (finished,timedout): 	 (8,0) of 11 seeds! 
+Analyzing ForwardQuery: (lock $r3.<init>($r4,1),$r3 (Locker_JavaNio.lock) Value: specialinvoke $r3.<java.io.FileOutputStream: void <init>(java.io.File,boolean)>($r4, 1))
+Analyzed (finished,timedout): 	 (8,1) of 11 seeds! 
+Analyzing ForwardQuery: (<init> $r3.<init>(r1,r2),$r3 (TeePrintStream.<init>) Value: specialinvoke $r3.<dacapo.TeeOutputStream: void <init>(java.io.OutputStream,java.io.File)>(r1, r2))
+Analyzed (finished,timedout): 	 (9,1) of 11 seeds! 
+Analyzing ForwardQuery: (unpackZipStream $r12.<init>(r4),$r12 (Benchmark.unpackZipStream) Value: specialinvoke $r12.<java.io.FileOutputStream: void <init>(java.io.File)>(r4))
+Analyzed (finished,timedout): 	 (10,1) of 11 seeds! 

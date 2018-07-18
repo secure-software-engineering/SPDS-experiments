@@ -1,0 +1,65 @@
+Writing output to file outputDacapo/dacapo.lusearch.Main2-ideal-EmptyVector.csv
+running typestate.impl.statemachines.VectorStateMachine
+/Users/johannesspath/Documents/dacapo/lusearch/lusearch.jar:/Users/johannesspath/Documents/dacapo/lusearch/lusearch-deps.jar
+/Users/johannesspath/Documents/dacapo/lusearch/lusearch.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.lusearch.Main2: void main(java.lang.String[])>]
+Application Classes: 351
+Reachable Methods2492
+Analysing 14 seeds!
+Analyzing ForwardQuery: (doBody $r3 = new SegmentInfos,$r3 (IndexReader$1.doBody) Value: new org.apache.lucene.index.SegmentInfos)
+ERROR StatusLogger No Log4j 2 configuration file found. Using default configuration (logging only errors to the console), or user programmatically provided configurations. Set system property 'log4j2.debug' to show Log4j 2 internal initialization logging. See https://logging.apache.org/log4j/2.x/manual/configuration.html for instructions on how to configure Log4j 2
+Analyzed (finished,timedout): 	 (1,0) of 14 seeds! 
+Analyzing ForwardQuery: (<init> $r1 = new Vector,$r1 (BooleanQuery.<init>) Value: new java.util.Vector)
+Analyzed (finished,timedout): 	 (1,1) of 14 seeds! 
+Analyzing ForwardQuery: (<init> $r3 = new Vector,$r3 (StandardTokenizer.<init>) Value: new java.util.Vector)
+Analyzed (finished,timedout): 	 (2,1) of 14 seeds! 
+Analyzing ForwardQuery: (<init> $r4 = new Vector,$r4 (ConfigFile.<init>) Value: new java.util.Vector)
+Analyzed (finished,timedout): 	 (3,1) of 14 seeds! 
+Analyzing ForwardQuery: (<init> $r1 = new Vector,$r1 (PhraseQuery.<init>) Value: new java.util.Vector)
+Analyzed (finished,timedout): 	 (3,2) of 14 seeds! 
+Analyzing ForwardQuery: (<init> $r2 = new Vector,$r2 (MultiPhraseQuery.<init>) Value: new java.util.Vector)
+Analyzed (finished,timedout): 	 (3,3) of 14 seeds! 
+Analyzing ForwardQuery: (sizeClause $r4 = new Vector,$r4 (ConfigFile.sizeClause) Value: new java.util.Vector)
+Analyzed (finished,timedout): 	 (4,3) of 14 seeds! 
+Analyzing ForwardQuery: (<init> $r7 = new Vector,$r7 (QueryParser.<init>) Value: new java.util.Vector)
+Analyzed (finished,timedout): 	 (5,3) of 14 seeds! 
+Analyzing ForwardQuery: (<init> $r4 = new Vector,$r4 (Hits.<init>) Value: new java.util.Vector)
+Analyzed (finished,timedout): 	 (6,3) of 14 seeds! 
+Analyzing ForwardQuery: (getFieldQuery $r7 = new Vector,$r7 (QueryParser.getFieldQuery) Value: new java.util.Vector)
+Analyzed (finished,timedout): 	 (7,3) of 14 seeds! 
+Analyzing ForwardQuery: (<init> $r2 = new Vector,$r2 (PhraseQuery.<init>) Value: new java.util.Vector)
+Analyzed (finished,timedout): 	 (7,4) of 14 seeds! 
+Analyzing ForwardQuery: (<init> $r4 = new Vector,$r4 (BooleanQuery$BooleanWeight.<init>) Value: new java.util.Vector)
+Exception in thread "main" java.lang.OutOfMemoryError: GC overhead limit exceeded
+	at sync.pds.solver.SyncPDSSolver.addNormalFieldFlow(SyncPDSSolver.java:554)
+	at sync.pds.solver.SyncPDSSolver.processPop(SyncPDSSolver.java:582)
+	at sync.pds.solver.SyncPDSSolver.processNode(SyncPDSSolver.java:445)
+	at boomerang.solver.AbstractBoomerangSolver.access$401(AbstractBoomerangSolver.java:76)
+	at boomerang.solver.AbstractBoomerangSolver$4.run(AbstractBoomerangSolver.java:480)
+	at boomerang.solver.AbstractBoomerangSolver.submit(AbstractBoomerangSolver.java:576)
+	at boomerang.solver.AbstractBoomerangSolver.processNode(AbstractBoomerangSolver.java:477)
+	at sync.pds.solver.SyncPDSSolver.setCallingContextReachable(SyncPDSSolver.java:646)
+	at sync.pds.solver.SyncPDSSolver$CallAutomatonListener.onWeightAdded(SyncPDSSolver.java:404)
+	at wpds.impl.WeightedPAutomaton.addWeightForTransition(WeightedPAutomaton.java:266)
+	at sync.pds.solver.SyncPDSSolver$4.addWeightForTransition(SyncPDSSolver.java:150)
+	at wpds.impl.PostStar.update(PostStar.java:429)
+	at wpds.impl.PostStar.access$100(PostStar.java:24)
+	at wpds.impl.PostStar$HandleNormalListener.onOutTransitionAdded(PostStar.java:249)
+	at wpds.impl.WeightedPAutomaton.registerListener(WeightedPAutomaton.java:301)
+	at wpds.impl.PostStar$PostStarUpdateListener.onRuleAdded(PostStar.java:47)
+	at wpds.impl.WeightedPushdownSystem.addRule(WeightedPushdownSystem.java:40)
+	at sync.pds.solver.SyncPDSSolver.addCallRule(SyncPDSSolver.java:617)
+	at boomerang.solver.AbstractBoomerangSolver.access$201(AbstractBoomerangSolver.java:76)
+	at boomerang.solver.AbstractBoomerangSolver$2.run(AbstractBoomerangSolver.java:150)
+	at boomerang.solver.AbstractBoomerangSolver.submit(AbstractBoomerangSolver.java:576)
+	at boomerang.solver.AbstractBoomerangSolver.addCallRule(AbstractBoomerangSolver.java:147)
+	at sync.pds.solver.SyncPDSSolver.addNormalCallFlow(SyncPDSSolver.java:470)
+	at sync.pds.solver.SyncPDSSolver.processNormal(SyncPDSSolver.java:466)
+	at sync.pds.solver.SyncPDSSolver.processNode(SyncPDSSolver.java:441)
+	at boomerang.solver.AbstractBoomerangSolver.access$401(AbstractBoomerangSolver.java:76)
+	at boomerang.solver.AbstractBoomerangSolver$4.run(AbstractBoomerangSolver.java:480)
+	at boomerang.solver.AbstractBoomerangSolver.submit(AbstractBoomerangSolver.java:576)
+	at boomerang.solver.AbstractBoomerangSolver.processNode(AbstractBoomerangSolver.java:477)
+	at sync.pds.solver.SyncPDSSolver.setCallingContextReachable(SyncPDSSolver.java:646)
+	at sync.pds.solver.SyncPDSSolver$CallAutomatonListener.onWeightAdded(SyncPDSSolver.java:404)
+	at wpds.impl.WeightedPAutomaton.addWeightForTransition(WeightedPAutomaton.java:266)

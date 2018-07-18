@@ -1,0 +1,13 @@
+Writing output to file outputDacapo/dacapo.lusearch.Main2-ideal-IO.csv
+running typestate.impl.statemachines.alloc.PrintWriterStateMachine
+/Users/johannesspath/Documents/dacapo/lusearch/lusearch.jar:/Users/johannesspath/Documents/dacapo/lusearch/lusearch-deps.jar
+/Users/johannesspath/Documents/dacapo/lusearch/lusearch.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.lusearch.Main2: void main(java.lang.String[])>]
+Application Classes: 351
+Reachable Methods2492
+Analysing 2 seeds!
+Analyzing ForwardQuery: (enableValidationReport $r2 = new PrintWriter,$r2 (Benchmark.enableValidationReport) Value: new java.io.PrintWriter)
+ERROR StatusLogger No Log4j 2 configuration file found. Using default configuration (logging only errors to the console), or user programmatically provided configurations. Set system property 'log4j2.debug' to show Log4j 2 internal initialization logging. See https://logging.apache.org/log4j/2.x/manual/configuration.html for instructions on how to configure Log4j 2
+Analyzed (finished,timedout): 	 (1,0) of 2 seeds! 
+Analyzing ForwardQuery: (<init> $r19 = new PrintWriter,$r19 (LusearchHarness$QueryThread.<init>) Value: new java.io.PrintWriter)
+Analyzed (finished,timedout): 	 (2,0) of 2 seeds! 

@@ -1,0 +1,12 @@
+Writing output to file outputDacapo/dacapo.lusearch.Main2-ideal-ap-IO.csv
+running typestate.impl.statemachines.alloc.PrintWriterStateMachine
+/Users/johannesspath/Documents/dacapo/lusearch/lusearch.jar:/Users/johannesspath/Documents/dacapo/lusearch/lusearch-deps.jar
+/Users/johannesspath/Documents/dacapo/lusearch/lusearch.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
+[<dacapo.lusearch.Main2: void main(java.lang.String[])>]
+Application Classes: 351
+Reachable Methods2492
+Analysing 2 seeds!
+Starting with seed in <dacapo.Benchmark: void enableValidationReport(java.lang.String)> $r2 @ $r2 = new java.io.PrintWriter€
+Alive tick 03:23:51
+Starting with seed in <dacapo.lusearch.LusearchHarness$QueryThread: void <init>(dacapo.lusearch.LusearchHarness,java.lang.String,int,java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,int,boolean,dacapo.lusearch.LusearchHarness)> $r19 @ $r19 = new java.io.PrintWriter€
+Alive tick 03:23:55
