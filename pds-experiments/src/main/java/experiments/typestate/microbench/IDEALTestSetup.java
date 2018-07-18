@@ -33,7 +33,9 @@ import boomerang.results.ForwardBoomerangResults;
 import boomerang.WeightedForwardQuery;
 import ideal.IDEALAnalysis;
 import ideal.IDEALAnalysisDefinition;
+import ideal.IDEALResultHandler;
 import ideal.IDEALSeedSolver;
+import ideal.StoreIDEALResultHandler;
 import soot.G;
 import soot.PackManager;
 import soot.Scene;
@@ -118,7 +120,7 @@ public class IDEALTestSetup{
 		return excl;
 	}
 
-	protected static IDEALAnalysis<TransitionFunction> createAnalysis(TypestateRegressionUnit test) {
+	protected static IDEALAnalysis<TransitionFunction> createAnalysis(TypestateRegressionUnit test, StoreIDEALResultHandler<TransitionFunction> resultHandler) {
 		String rule = test.getOptions().get(TypestateProperties.Props.SELECT_TYPESTATE_RULES.getName());
 		Class className = Util.selectTypestateMachine(rule);
 		try {
@@ -162,6 +164,11 @@ public class IDEALTestSetup{
 				public Debugger<TransitionFunction> debugger(IDEALSeedSolver<TransitionFunction> solver) {
 					return new Debugger<>();
 				}
+				
+				@Override
+				public IDEALResultHandler<TransitionFunction> getResultHandler() {
+					return resultHandler;
+				}
 
 				public BoomerangOptions boomerangOptions() {
 					return new DefaultBoomerangOptions() {
@@ -197,8 +204,10 @@ public class IDEALTestSetup{
 		Transform transform = new Transform("wjtp.ifds", new SceneTransformer() {
 			protected void internalTransform(String phaseName, @SuppressWarnings("rawtypes") Map options) {
 //				System.out.println(Scene.v().getMainMethod().getActiveBody());
-				IDEALAnalysis<TransitionFunction> idealSolver = createAnalysis(test);
-				Map<WeightedForwardQuery<TransitionFunction>, ForwardBoomerangResults<TransitionFunction>> solvers = idealSolver.run();
+				StoreIDEALResultHandler<TransitionFunction> resultHandler = new StoreIDEALResultHandler<>();
+				IDEALAnalysis<TransitionFunction> idealSolver = createAnalysis(test,resultHandler);
+				idealSolver.run();
+				Map<WeightedForwardQuery<TransitionFunction>, ForwardBoomerangResults<TransitionFunction>> solvers = resultHandler.getResults();  
 				int totalPropagationCount = 0;
 				Set<SootMethod> totalVisitedMethods = Sets.newHashSet();
 				int errorCount = 0;

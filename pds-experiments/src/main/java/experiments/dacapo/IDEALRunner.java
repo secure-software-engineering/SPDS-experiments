@@ -13,15 +13,14 @@ import com.google.common.collect.Table;
 
 import boomerang.BoomerangOptions;
 import boomerang.DefaultBoomerangOptions;
+import boomerang.WeightedForwardQuery;
 import boomerang.debugger.Debugger;
-import boomerang.debugger.IDEVizDebugger;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
 import boomerang.results.ForwardBoomerangResults;
-import experiments.dacapo.idealap.IDEALAPRunner;
-import boomerang.WeightedForwardQuery;
 import ideal.IDEALAnalysis;
 import ideal.IDEALAnalysisDefinition;
+import ideal.IDEALResultHandler;
 import ideal.IDEALSeedSolver;
 import soot.G;
 import soot.PackManager;
@@ -72,6 +71,7 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
 			public BiDiInterproceduralCFG<Unit, SootMethod> icfg() {
 				return icfg;
 			}
+			
 
 			@Override
 			public BoomerangOptions boomerangOptions() {
@@ -84,6 +84,7 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
 					public boolean arrayFlows() {
 						return false;
 					}
+					
 				};
 			}
 			@Override
@@ -92,6 +93,32 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
 //				File file = new File("idealDebugger/" + solver.getSeed());
 //				file.getParentFile().mkdirs();
 //				return new IDEVizDebugger<>(new File("idealDebugger/" + solver.getSeed()), icfg);
+			}
+			
+			@Override
+			public IDEALResultHandler<TransitionFunction> getResultHandler() {
+				return new IDEALResultHandler<TransitionFunction>() {
+					@Override
+					public void report(WeightedForwardQuery<TransitionFunction> seed,
+							ForwardBoomerangResults<TransitionFunction> res) {
+						 File file = new File(outputFile);
+				          boolean fileExisted = file.exists();
+				          FileWriter writer;
+				          try {
+				              writer = new FileWriter(file, true);
+				              if(!fileExisted)
+				                  writer.write(
+				                          "Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;VisitedMethod;ReachableMethods;CallRecursion;FieldLoop;MaxAccessPath;MaxMemory\n");
+			                  writer.write(asCSVLine(seed, res));
+				              writer.close();
+				          } catch (IOException e1) {
+				              // TODO Auto-generated catch block
+				              e1.printStackTrace();
+				          }
+				//
+						super.report(seed, res);
+					}
+				};
 			}
 		}){};
     	
@@ -115,10 +142,11 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
 
   private IDEALAnalysis<TransitionFunction> analysis;
   protected long analysisTime;
+private String outputFile;
 
   public void run(final String outputFile) {
     G.v().reset();
-
+    this.outputFile = outputFile;
     setupSoot();
     Transform transform = new Transform("wjtp.ifds", new SceneTransformer() {
       protected void internalTransform(String phaseName,
@@ -135,46 +163,7 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
         	}
         }
         System.out.println("Application Classes: " + Scene.v().getApplicationClasses().size());
-        Map<WeightedForwardQuery<TransitionFunction>, ForwardBoomerangResults<TransitionFunction>> seedToAnalysisTime = IDEALRunner.this.getAnalysis().run();
-          File file = new File(outputFile);
-          boolean fileExisted = file.exists();
-          FileWriter writer;
-          try {
-              writer = new FileWriter(file, true);
-              if(!fileExisted)
-                  writer.write(
-                          "Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;VisitedMethod;ReachableMethods;CallRecursion;FieldLoop;MaxAccessPath;MaxMemory\n");
-              for (Entry<WeightedForwardQuery<TransitionFunction>, ForwardBoomerangResults<TransitionFunction>> entry : seedToAnalysisTime.entrySet()) {
-                  writer.write(asCSVLine(entry.getKey(), entry.getValue()));
-              }
-              writer.close();
-          } catch (IOException e1) {
-              // TODO Auto-generated catch block
-              e1.printStackTrace();
-          }
-//
-//          File seedStats = new File(outputFile+"-seedStats");
-//
-//          try {
-//              writer = new FileWriter(seedStats);
-//
-//              for (Map.Entry<WeightedForwardQuery<TransitionFunction>, IDEALSeedSolver<TransitionFunction>> entry : seedToAnalysisTime.entrySet()) {
-//                  IDEALSeedSolver<TransitionFunction> idealSeedSolver = entry.getValue();
-//                  writer.write("Seed: "+entry.getKey().toString()+"\n");
-//                  if(!idealSeedSolver.isTimedOut()) {
-//                      writer.write("Stats Solver 1: "+idealSeedSolver.getPhase1Solver().getStats());
-//                      writer.write("Stats Solver 2: "+idealSeedSolver.getPhase2Solver().getStats());
-//                  } else{
-//                      writer.write("Timedout:" + idealSeedSolver.getTimedoutSolver().getStats());
-//
-//                  }
-//
-//              }
-//              writer.close();
-//          } catch (IOException e1) {
-//              // TODO Auto-generated catch block
-//              e1.printStackTrace();
-//          }
+        IDEALRunner.this.getAnalysis().run();
 
       }
     });
