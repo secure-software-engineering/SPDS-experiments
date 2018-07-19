@@ -75,11 +75,11 @@ public abstract class PointerBenchAnalysis {
 		List<String> includeList = new LinkedList<String>();
 		includeList.add("java.lang.*");
 		includeList.add("java.util.*");
-		includeList.add("java.io.*");
-		includeList.add("sun.misc.*");
-		includeList.add("java.net.*");
-		includeList.add("javax.servlet.*");
-		includeList.add("javax.crypto.*");
+//		includeList.add("java.io.*");
+//		includeList.add("sun.misc.*");
+//		includeList.add("java.net.*");
+//		includeList.add("javax.servlet.*");
+//		includeList.add("javax.crypto.*");
 
 		Options.v().set_include(includeList);
 		Options.v().setPhaseOption("jb", "use-original-names:true");
