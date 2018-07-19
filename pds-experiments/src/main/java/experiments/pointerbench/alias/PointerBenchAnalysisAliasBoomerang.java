@@ -15,6 +15,7 @@ import boomerang.results.BackwardBoomerangResults;
 import boomerang.BackwardQuery;
 import boomerang.ForwardQuery;
 import boomerang.seedfactory.SeedFactory;
+import boomerang.util.AccessPath;
 import experiments.pointerbench.pointsto.PointerBenchBoomerangOptions;
 import soot.SootMethod;
 import soot.Unit;
@@ -46,16 +47,20 @@ public class PointerBenchAnalysisAliasBoomerang extends PointerBenchAliasAnalysi
 	
 	@Override
 	protected boolean computeQuery(AliasQuery q) {
-		Set<ForwardQuery> allocsA = getPointsTo(q.queryA);
-		Set<ForwardQuery> allocsB = getPointsTo(q.queryB);
-		System.out.println(q.queryA);
-		System.out.println(allocsA);
-		System.out.println(q.queryB);
-		System.out.println(allocsB);
-		for(ForwardQuery a : allocsA){
-			if(allocsB.contains(a))
-				return true;
-		}
-		return false;
+		Boomerang solver = new Boomerang(new PointerBenchBoomerangOptions()) {
+			@Override
+			public BiDiInterproceduralCFG<Unit, SootMethod> icfg() {
+				return icfg;
+			}
+
+			@Override
+			public SeedFactory<NoWeight> getSeedFactory() {
+				return seedFactory;
+			}
+		};
+		BackwardBoomerangResults<NoWeight> res = solver.solve(q.queryA);
+		if(!q.queryA.stmt().equals(q.queryB.stmt()))
+			throw new RuntimeException("Wrong assumption!");
+		return res.getAllAliases().contains(new AccessPath(q.queryB.var()));
 	}
 }
