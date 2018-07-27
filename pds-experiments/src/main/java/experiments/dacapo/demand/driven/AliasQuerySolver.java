@@ -22,7 +22,7 @@ public abstract class AliasQuerySolver {
 		try {
 			boolean sol = internalComputeQuery(q);
 			watch.stop();
-			return new AliasQueryExperimentResult(q, sol, watch.elapsed(TimeUnit.MILLISECONDS),  watch.elapsed(TimeUnit.MILLISECONDS) > timeoutMS);
+			return new AliasQueryExperimentResult(q, watch.elapsed(TimeUnit.MILLISECONDS) > timeoutMS || sol, watch.elapsed(TimeUnit.MILLISECONDS),  watch.elapsed(TimeUnit.MILLISECONDS) > timeoutMS);
 		} catch(Exception e) {
 			if(!(e instanceof ManuTimeoutException) && !(e instanceof DacongOutOfBudgetException) && !(e instanceof SkipQueryException)) {
 				e.printStackTrace();
