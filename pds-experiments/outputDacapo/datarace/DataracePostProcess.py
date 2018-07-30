@@ -19,6 +19,12 @@ def res(val,total):
     return str(val) +" " + str(round(float(val*100)/total,1)) +"%"
 path = "*.csv"
 
+def geo_mean(iterable):
+   # return np.mean(iterable)
+    if len(iterable) == 0:
+        return 0;
+    a = np.log(iterable)
+    return np.exp(a.sum()/len(a))
 
 def prunedPairs(val,total):
     return total-val;
@@ -43,10 +49,18 @@ for fname in glob.glob(path):
         timeoutsBoomerang += toInt(row['Boomerang_timeout'])
         timeoutsDacong += toInt(row['Dacong_timeout'])
         timeoutsSridharan += toInt(row['Sridharan_timeout'])
-
-        aliasesBoomerang += toInt(row['Boomerang_res'])
-        aliasesDacong += toInt(row['Dacong_res'])
-        aliasesSridharan += toInt(row['Sridharan_res'])
+        if toInt(row['Boomerang_timeout']) == 1:
+            aliasesBoomerang += 1
+        else:
+            aliasesBoomerang += toInt(row['Boomerang_res'])
+        if toInt(row['Dacong_timeout']) == 1:
+            aliasesDacong += 1
+        else:
+            aliasesDacong += toInt(row['Dacong_res'])
+        if toInt(row['Sridharan_timeout']) == 1:
+            aliasesSridharan += 1
+        else:
+            aliasesSridharan += toInt(row['Sridharan_res'])
  
     entry = {"benchmark":   fname.replace("-datarace.csv",""), 
                 "total_pairs": rowCount,
@@ -73,6 +87,19 @@ for fname in glob.glob(path):
     print "D: " + res(timeoutsDacong,rowCount)
     print "S: " + res(timeoutsSridharan,rowCount)
 
+
+avgTimeoutsSridharan = []
+avgTimeoutsBoomerang = []
+avgTimeoutsDacong = []
+for bench in results:
+    total = results[bench]["total_pairs"]
+    avgTimeoutsDacong.append(float(results[bench]["dacong_timeouts"]*100)/total)
+    avgTimeoutsSridharan.append(float(results[bench]["sridharan_timeouts"]*100)/total)
+    avgTimeoutsBoomerang.append(float(results[bench]["boomerang_timeouts"]*100)/total)
+
+print("Average Timeouts B:" + str(geo_mean(avgTimeoutsBoomerang)))
+print("Average Timeouts S:" + str(geo_mean(avgTimeoutsSridharan)))
+print("Average Timeouts D:" + str(geo_mean(avgTimeoutsDacong)))
 
 header = ["benchmark","total_pairs","boomerang_pairs","boomerang_timeouts","boomerang_improvement","dacong_pairs","dacong_timeouts","dacong_improvement","sridharan_pairs","sridharan_timeouts","sridharan_improvement"]
 
