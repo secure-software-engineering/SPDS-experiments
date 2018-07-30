@@ -17,8 +17,10 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
 import boomerang.Query;
+import boomerang.WeightedBoomerang;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
+import boomerang.preanalysis.PreTransformBodies;
 import boomerang.BackwardQuery;
 import boomerang.seedfactory.SeedFactory;
 import experiments.dacapo.SootSceneSetupDacapo;
@@ -60,6 +62,7 @@ public class DataraceClientExperiment extends SootSceneSetupDacapo {
 
 	public void run() {
 		setupSoot();
+		PackManager.v().getPack("wjtp").add(new Transform("wjtp.prepare", new PreTransformBodies()));
 		Transform transform = new Transform("wjtp.ifds", new SceneTransformer() {
 
 			protected void internalTransform(String phaseName, @SuppressWarnings("rawtypes") Map options) {
@@ -77,6 +80,9 @@ public class DataraceClientExperiment extends SootSceneSetupDacapo {
 							Collection calledMethods) {
 						if(!method.hasActiveBody())
 							return Collections.emptySet();
+						if(!isApplicationMethod(method.getSignature())){
+							return Collections.emptySet();
+						}
 						if (u.containsFieldRef() && !method.isJavaLibraryMethod()) {
 							FieldRef fieldRef = u.getFieldRef();
 							if (u instanceof AssignStmt && fieldRef instanceof InstanceFieldRef) {
@@ -88,6 +94,14 @@ public class DataraceClientExperiment extends SootSceneSetupDacapo {
 							}
 						}
 						return Collections.emptySet();
+					}
+
+					private boolean isApplicationMethod(String name) {
+						for(String s: getApplicationClasses()){
+							if(name.startsWith(s))
+								return true;
+						}
+						return false;
 					}
 
 				};
@@ -121,17 +135,21 @@ public class DataraceClientExperiment extends SootSceneSetupDacapo {
 				
 				int solved = 0;
 				for (AliasQuery q : dataraceQueries) {
-					System.out.println(String.format("Status, #Solved queries: %s ", solved));
+					if(solved % 200 == 0){
+						System.out.println(String.format("Status, #Solved queries: %s ", solved));
+					}
 					AliasQueryExperimentResult bRes = bSolver.computeQuery(q);
 					AliasQueryExperimentResult dRes = dSolver.computeQuery(q);
 					AliasQueryExperimentResult sRes = sSolver.computeQuery(q);
 					if(DEBUG) {
 						if(bRes.queryResult == false && (sRes.queryResult == true || dRes.queryResult == true)) {
 							BoomerangAliasQuerySolver.VISUALIZATION = true;
+							WeightedBoomerang.DEBUG = true;
 							System.out.println("Re-run boomerang");
 							BoomerangAliasQuerySolver s = new BoomerangAliasQuerySolver(10000,icfg, seedFactory);
 							s.computeQuery(q);
 							BoomerangAliasQuerySolver.VISUALIZATION = false;
+							WeightedBoomerang.DEBUG = false;
 						}
 					}
 					solved++;
@@ -192,8 +210,7 @@ public class DataraceClientExperiment extends SootSceneSetupDacapo {
 		});
 
 		PackManager.v().getPack("wjtp").add(transform);
-		PackManager.v().getPack("cg").apply();
-		PackManager.v().getPack("wjtp").apply();
+		PackManager.v().runPacks();
 	}
 
 	protected boolean sparkReportsDataRace(AliasQuery q) {

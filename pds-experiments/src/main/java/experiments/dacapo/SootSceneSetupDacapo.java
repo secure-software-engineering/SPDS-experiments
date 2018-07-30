@@ -38,7 +38,7 @@ public class SootSceneSetupDacapo {
 	private void benchLoad() throws IOException {
 		if (project == null)
 			throw new RuntimeException("Set property -Dbenchmark= as VM argument to select the benchmark");
-		String propFileName = benchmarkFolder + project + "/" + project + ".properties";
+		String propFileName = benchmarkFolder + project + File.separator + project + ".properties";
 		InputStream stream = new FileInputStream(propFileName);
 		benchProperties.load(stream);
 	}
@@ -74,7 +74,7 @@ public class SootSceneSetupDacapo {
 //		Options.v().setPhaseOption("cg.spark", "on,verbose:true,simulate-natives:true,merge-stringbuffer:false,string-constants:true");
 		Options.v().setPhaseOption("cg", "implicit-entry:false,trim-clinit:false");
 		Options.v().setPhaseOption("cg.spark", "enabled:true,verbose:true,simulate-natives:false,empties-as-allocs:true,merge-stringbuffer:false,string-constants:true");
-		// readDynamicClasses();
+		readDynamicClasses();
 		Scene.v().addBasicClass("java.security.Signature",SootClass.HIERARCHY);
 		Scene.v().loadNecessaryClasses();
 		LinkedList<SootMethod> entryPoint = new LinkedList<>();

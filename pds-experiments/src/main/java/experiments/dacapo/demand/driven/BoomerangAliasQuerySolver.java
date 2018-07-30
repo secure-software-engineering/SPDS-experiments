@@ -2,6 +2,8 @@ package experiments.dacapo.demand.driven;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.util.Set;
 
@@ -93,8 +95,13 @@ public class BoomerangAliasQuerySolver extends AliasQuerySolver {
 				if(!VISUALIZATION) {
 					return new Debugger<>();
 				}
-				File ideVizFile = new File(
-						"target/IDEViz/"+aliasQuery.toString() + "/"+ q+".json");
+				File ideVizFile;
+				try {
+					ideVizFile = new File(
+							"target/IDEViz/"+URLEncoder.encode(aliasQuery.toString(),"UTF-8") + "/"+ URLEncoder.encode(q.toString(),"UTF-8") +".json");
+				} catch (UnsupportedEncodingException e1) {
+					throw new RuntimeException("Wrong encoding error for creating IDEViz output!");
+				}
 				if (!ideVizFile.getParentFile().exists()) {
 					try {
 						Files.createDirectories(ideVizFile.getParentFile().toPath());
