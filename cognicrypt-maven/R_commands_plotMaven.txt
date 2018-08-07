@@ -1,0 +1,55 @@
+
+setwd(<DIR OF analysis-results.csv>)
+
+res <- read.csv("analysis-results.csv",sep=";")
+sorted_res<-res[order(res$CryptoAnalysisTime_ms),]
+
+pdf("maven-performance-cryptoanalysis.pdf")
+plot(sorted_res$CryptoAnalysisTime_ms/60000,xlab="Maven Artifact",ylab="Analysis Time (in min)")
+dev.off()
+
+pdf("maven-performance-callgraphtime.pdf")
+plot(sorted_res$CallGraphTime_ms/60000,xlab="Maven Artifact",ylab="Setup Time (in min)")
+dev.off()
+
+pdf("maven-performance-callgraphmethods.pdf")
+plot(sorted_res$CallGraphReachableMethods_ActiveBodies,xlab="Maven Artifact",ylab="Call Graph Reachable Methods")
+dev.off()
+
+pdf("maven-performance-seeds.pdf")
+plot(sorted_res$SeedObjectCount,xlab="Maven Artifact",ylab="Analyzed Object")
+dev.off()
+
+> cor(sorted_res$CryptoAnalysisTime_ms,sorted_res$CallGraphTime_ms)
+[1] 0.08090481
+> cor(sorted_res$CryptoAnalysisTime_ms,sorted_res$SeedObjectCount)
+[1] 0.4607155
+> cor(sorted_res$CryptoAnalysisTime_ms,sorted_res$CallGraphReachableMethods_ActiveBodies)
+[1] 0.1110968
+> cor(sorted_res$CryptoAnalysisTime_ms,sorted_res$DataflowVisitedMethod)
+[1] 0.3200829
+
+> cor(res$QueryTime,res$StaticFlows)
+[1] 0.5404258
+> cor(res$QueryTime,res$CallTransitions)
+[1] 0.5411793
+> cor(res$QueryTime,res$FieldTransitions)
+[1] 0.06906688
+> cor(res$QueryTime,res$CallRules)
+[1] 0.07250565
+> cor(res$QueryTime,res$FieldRules)
+[1] 0.0745781
+> cor(res$QueryTime,res$FieldTransitions)
+[1] 0.06906688
+> cor(res$QueryTime,res$CallVisitedMethods)
+[1] 0.09476464
+> cor(res$QueryTime,res$FieldVisitedMethods)
+[1] 0.2271369
+> cor(res$QueryTime,res$FieldWritePOI)
+[1] 0.0339485
+> cor(res$QueryTime,res$FieldReadPOI)
+[1] 0.05461717
+> cor(res$QueryTime,res$ArrayFlows)
+[1] 0.02387741
+> cor(res$QueryTime,res$Timeout)
+[1] 0.1834655
