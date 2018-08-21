@@ -8,7 +8,7 @@ from sets import Set
 MAX_ANALYSIS_TIME = 600000;
 MAX_ACCESS_PATH = 0;
 MAX_VISITED_METHODS = 1000;
-
+import numpy
 def beautifyAnalysisTime(time):
     if int(time) > MAX_ANALYSIS_TIME:
         return MAX_ANALYSIS_TIME
@@ -52,6 +52,8 @@ for fname in glob.glob(path):
         timeoutsFINK_UNIQUE = 0
         maxMemoryIDEAL_AP = 0
         maxMemoryIDEAL = 0
+        maxMemoryIDEAL_AP_ARRAY = []
+        maxMemoryIDEAL_ARRAY = []
         timeoutsFINK_APMUST = 0
         errorsIDEAL = 0
         errorsFINK_UNIQUE = 0
@@ -83,6 +85,8 @@ for fname in glob.glob(path):
                             timesFINK_UNIQUE.append(beautifyAnalysisTime(rowFINK_UNIQUE['AnalysisTimes']))
                         maxMemoryIDEAL = max(int(rowIDEAL_AP['MaxMemory']), maxMemoryIDEAL)
                         maxMemoryIDEAL_AP = max(int(rowFINK_UNIQUE['MaxMemory']), maxMemoryIDEAL_AP)
+                        maxMemoryIDEAL_ARRAY.append(maxMemoryIDEAL)
+                        maxMemoryIDEAL_AP_ARRAY.append(maxMemoryIDEAL_AP)
                         methodsIDEAL.append(int(rowIDEAL_AP['VisitedMethod']))
                         methodsIDEAL_AP.append(int(rowFINK_UNIQUE['VisitedMethod']))
                         maxAccessPath.append(computeAccessPathLength(rowFINK_UNIQUE['MaxAccessPath']))
@@ -105,6 +109,15 @@ for fname in glob.glob(path):
             print str(len(timesIDEAL)) + " "+ str(geo_mean(timesIDEAL))
             print str(len(timesIDEAL_AP)) + " "+ str(geo_mean(timesIDEAL_AP))
             print str(len(timesFINK_UNIQUE)) + " "+ str(geo_mean(timesFINK_UNIQUE))
+
+            print "SPDS-Times-Methods " + str(numpy.corrcoef(timesIDEAL,methodsIDEAL))
+            print "SPDS-Times-AccessPath " + str(numpy.corrcoef(timesIDEAL,maxAccessPath))
+            print "SPDS-Times-Memory " + str(numpy.corrcoef(timesIDEAL,maxMemoryIDEAL_ARRAY))
+
+            print "AP-Times-Methods " + str(numpy.corrcoef(timesFINK_UNIQUE,methodsIDEAL_AP))
+            print "AP-Times-AccessPath " + str(numpy.corrcoef(timesFINK_UNIQUE,maxAccessPath))
+            print "AP-Times-Memory " + str(numpy.corrcoef(timesFINK_UNIQUE,maxMemoryIDEAL_AP_ARRAY))
+
             outputFileName = ""
             print "IDEAL Errors:" + str(errorsIDEAL)
             if "-IO.csv" in fname:
