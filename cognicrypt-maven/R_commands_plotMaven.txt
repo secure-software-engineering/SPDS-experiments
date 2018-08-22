@@ -53,3 +53,12 @@ dev.off()
 [1] 0.02387741
 > cor(res$QueryTime,res$Timeout)
 [1] 0.1834655
+
+
+
+pds <- read.csv("~/Arbeit/Fraunhofer/diss-experiments/cognicrypt-maven/results-August2018-no-dependencies/analysis-results-queries.csv",sep=";")
+pdf("maven-performance-querytime.pdf")
+pdsNoTimeout <- pds[pds$QueryTime<=5000,]
+sorted_pdsNoTimeout <- pdsNoTimeout[order(pdsNoTimeout$QueryTime),]
+plot(sorted_pdsNoTimeout$QueryTime/1000,xlab="Query Number",ylab="Query Time (in s)")
+dev.off()
