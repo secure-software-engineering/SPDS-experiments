@@ -14,6 +14,7 @@ import boomerang.Query;
 import boomerang.jimple.AllocVal;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
+import boomerang.preanalysis.PreTransformBodies;
 import boomerang.BackwardQuery;
 import boomerang.ForwardQuery;
 import boomerang.seedfactory.SeedFactory;
@@ -56,6 +57,7 @@ public abstract class PointerBenchAnalysis {
 
 	public PointerBenchResult run() {
 		Transform transform = new Transform("wjtp.ifds", createAnalysisTransformer());
+		PackManager.v().getPack("wjtp").add(new Transform("wjtp.pre", new PreTransformBodies()));
 		PackManager.v().getPack("wjtp").add(transform);
 		PackManager.v().getPack("cg").apply();
 		PackManager.v().getPack("wjtp").apply();

@@ -14,6 +14,6 @@ public class PointerBenchBoomerangOptions extends DefaultBoomerangOptions {
 
 	@Override
 	public int analysisTimeoutMS() {
-		return 300000;
+		return 20 * 60 * 1000;
 	}
 }

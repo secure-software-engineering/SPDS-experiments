@@ -44,18 +44,22 @@ public class PointerBench {
 //				continue;
 			
 			if(packagePrefixFilter(className)){
+				System.out.println("Boomerang PTS");
 				PointerBenchAnalysis pointerBenchAnalysis = new PointerBenchAnalysisBoomerang(args[0], className);
 				boomerangResultsPtsTo.add(pointerBenchAnalysis.run());
-
+				System.out.println("Sridharan PTS");
 				PointerBenchAnalysis sridharanAnalysis = new PointerBenchAnalysisSridharan(args[0], className);
 				sridharanResultsPtsTo.add(sridharanAnalysis.run());
 				
+				System.out.println("Boomerang Alias");
 				PointerBenchAliasAnalysis boomerangAliasAnalysis= new PointerBenchAnalysisAliasBoomerang(args[0], className);
 				boomerangResultsAlias.add(boomerangAliasAnalysis.run());
 				
+				System.out.println("Sridharan Alias");
 				PointerBenchAliasAnalysis sridharanAliasAnalysis = new PointerBenchAnalysisAliasSridharan(args[0], className);
 				sridharanResultsAlias.add(sridharanAliasAnalysis.run());
-				
+
+				System.out.println("Dacong Alias");
 				PointerBenchAliasAnalysis dacongAliasAnalysis = new PointerBenchAnalysisAliasDacong(args[0], className);
 				dacongResultsAlias.add(dacongAliasAnalysis.run());
 			}

@@ -61,6 +61,7 @@ public class PointerBenchAnalysisAliasBoomerang extends PointerBenchAliasAnalysi
 		BackwardBoomerangResults<NoWeight> res = solver.solve(q.queryA);
 		if(!q.queryA.stmt().equals(q.queryB.stmt()))
 			throw new RuntimeException("Wrong assumption!");
-		return res.getAllAliases().contains(new AccessPath(q.queryB.var()));
+		System.out.println("Before get all aLiases");
+		return res.aliases(q.queryB);
 	}
 }
