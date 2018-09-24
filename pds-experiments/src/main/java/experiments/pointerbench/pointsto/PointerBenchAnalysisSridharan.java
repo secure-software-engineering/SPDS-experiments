@@ -43,7 +43,7 @@ public class PointerBenchAnalysisSridharan extends PointerBenchAnalysis {
 				pointsToSize = SridharanHelper.getPointsToSize(reachingObjects);
 			} catch (Exception e){
 				e.printStackTrace();
-				pointsToSize = SridharanHelper.getPointsToSize(Scene.v().getPointsToAnalysis().reachingObjects(v));
+				pointsToSize = 0;
 			} catch (StackOverflowError e) {
 				System.out.println("StackoverflowError");
 				pointsToSize = 0;
