@@ -9,7 +9,7 @@ public class TypestateDacapoAnalysis {
 
 	static String[] dacapo = new String[] { "antlr", "chart", "eclipse", "hsqldb", "jython", "luindex", "lusearch",
 			"pmd", "fop","xalan", "bloat" };
-	static String[] analyses = new String[] { "ideal","#ideal-ap","#fink-unique" ,"#fink-apmust"};
+	static String[] analyses = new String[] { "ideal","ideal-ap","fink-unique" ,"fink-apmust"};
 	static String[] rules = new String[] { 
 	    "IteratorHasNext",
 		    "KeyStore",
