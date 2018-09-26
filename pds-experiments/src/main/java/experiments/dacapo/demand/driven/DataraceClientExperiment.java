@@ -16,13 +16,12 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
+import boomerang.BackwardQuery;
 import boomerang.Query;
 import boomerang.WeightedBoomerang;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
 import boomerang.preanalysis.BoomerangPretransformer;
-import boomerang.preanalysis.PreTransformBodies;
-import boomerang.BackwardQuery;
 import boomerang.seedfactory.SeedFactory;
 import experiments.dacapo.SootSceneSetupDacapo;
 import heros.solver.Pair;
@@ -145,12 +144,12 @@ public class DataraceClientExperiment extends SootSceneSetupDacapo {
 					if(DEBUG) {
 						if(bRes.queryResult == false && (sRes.queryResult == true || dRes.queryResult == true)) {
 							BoomerangAliasQuerySolver.VISUALIZATION = true;
-							WeightedBoomerang.DEBUG = true;
+//							WeightedBoomerang.DEBUG = true;
 							System.out.println("Re-run boomerang");
 							BoomerangAliasQuerySolver s = new BoomerangAliasQuerySolver(10000,icfg, seedFactory);
 							s.computeQuery(q);
 							BoomerangAliasQuerySolver.VISUALIZATION = false;
-							WeightedBoomerang.DEBUG = false;
+//							WeightedBoomerang.DEBUG = false;
 						}
 					}
 					solved++;

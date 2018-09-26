@@ -6,17 +6,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 
+import boomerang.BackwardQuery;
+import boomerang.ForwardQuery;
 import boomerang.Query;
 import boomerang.jimple.AllocVal;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
-import boomerang.preanalysis.PreTransformBodies;
-import boomerang.BackwardQuery;
-import boomerang.ForwardQuery;
+import boomerang.preanalysis.BoomerangPretransformer;
 import boomerang.seedfactory.SeedFactory;
 import soot.G;
 import soot.Local;
@@ -57,7 +56,6 @@ public abstract class PointerBenchAnalysis {
 
 	public PointerBenchResult run() {
 		Transform transform = new Transform("wjtp.ifds", createAnalysisTransformer());
-		PackManager.v().getPack("wjtp").add(new Transform("wjtp.pre", new PreTransformBodies()));
 		PackManager.v().getPack("wjtp").add(transform);
 		PackManager.v().getPack("cg").apply();
 		PackManager.v().getPack("wjtp").apply();
@@ -124,6 +122,8 @@ public abstract class PointerBenchAnalysis {
 		return new SceneTransformer() {
 
 			protected void internalTransform(String phaseName, @SuppressWarnings("rawtypes") Map options) {
+				BoomerangPretransformer.v().reset();
+				BoomerangPretransformer.v().apply();
 				icfg = new JimpleBasedInterproceduralCFG(true);
 				seedFactory = new SeedFactory<NoWeight>() {
 					@Override
