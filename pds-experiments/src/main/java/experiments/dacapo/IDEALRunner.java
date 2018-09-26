@@ -17,6 +17,7 @@ import boomerang.WeightedForwardQuery;
 import boomerang.debugger.Debugger;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
+import boomerang.preanalysis.BoomerangPretransformer;
 import boomerang.results.ForwardBoomerangResults;
 import ideal.IDEALAnalysis;
 import ideal.IDEALAnalysisDefinition;
@@ -47,6 +48,8 @@ public class IDEALRunner extends SootSceneSetupDacapo  {
 protected IDEALAnalysis<TransitionFunction> createAnalysis() {
     String className = System.getProperty("rule");
     try {
+		BoomerangPretransformer.v().reset();
+		BoomerangPretransformer.v().apply();
     	final JimpleBasedInterproceduralCFG icfg = new JimpleBasedInterproceduralCFG(false);
     	System.out.println("Reachable Methods" +  Scene.v().getReachableMethods().size());
 		final TypeStateMachineWeightFunctions genericsType = (TypeStateMachineWeightFunctions) Class.forName(className).getConstructor()
