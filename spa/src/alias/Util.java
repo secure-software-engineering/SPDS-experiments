@@ -112,6 +112,8 @@ public class Util {
 		new HashMap<SootMethod, HashSet<AbstractAllocNode>>();
 
 	public static boolean POINTERBENCH;
+
+	public static boolean TWEAK_BODY = true;
 	
 //	public static boolean magicDebug = false;
 	

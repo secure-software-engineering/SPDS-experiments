@@ -16,7 +16,7 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  */
-package soot.jimple.spark.ondemand2;
+package soot.jimple.spark.ondemand.flowdroid;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,8 +27,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
-import alias.Util;
+import com.google.common.base.Stopwatch;
 
 import soot.AnySubType;
 import soot.ArrayType;
@@ -60,8 +61,8 @@ import soot.jimple.spark.ondemand.pautil.AssignEdge;
 import soot.jimple.spark.ondemand.pautil.ContextSensitiveInfo;
 import soot.jimple.spark.ondemand.pautil.OTFMethodSCCManager;
 import soot.jimple.spark.ondemand.pautil.SootUtil;
-import soot.jimple.spark.ondemand.pautil.ValidMatches;
 import soot.jimple.spark.ondemand.pautil.SootUtil.FieldToEdgesMap;
+import soot.jimple.spark.ondemand.pautil.ValidMatches;
 import soot.jimple.spark.pag.AllocNode;
 import soot.jimple.spark.pag.FieldRefNode;
 import soot.jimple.spark.pag.GlobalVarNode;
@@ -205,6 +206,8 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 
 	protected static final int DEFAULT_MAX_TRAVERSAL = 75000;
 
+	protected static final boolean DEFAULT_LAZY = true;
+
 	/**
 	 * if <code>true</code>, refine the pre-computed call graph
 	 */
@@ -218,14 +221,14 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 	 * @return
 	 */
 	public static DemandCSPointsTo makeDefault() {
-		return makeWithBudget(DEFAULT_MAX_TRAVERSAL, DEFAULT_MAX_PASSES);
+		return makeWithBudget(DEFAULT_MAX_TRAVERSAL, DEFAULT_MAX_PASSES, DEFAULT_LAZY);
 	}
 
 	public static DemandCSPointsTo makeWithBudget(int maxTraversal,
-			int maxPasses) {
+			int maxPasses, boolean lazy) {
 		PAG pag = (PAG) Scene.v().getPointsToAnalysis();
 		ContextSensitiveInfo csInfo = new ContextSensitiveInfo(pag);
-		return new DemandCSPointsTo(csInfo, pag, maxTraversal, maxPasses);
+		return new DemandCSPointsTo(csInfo, pag, maxTraversal, maxPasses, lazy);
 	}
 
 	protected final AllocAndContextCache allocAndContextCache = new AllocAndContextCache();
@@ -252,19 +255,19 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 
 	protected HeuristicType heuristicType;
 	
-	protected final FieldToEdgesMap fieldToLoads;
+	protected FieldToEdgesMap fieldToLoads;
 
-	protected final FieldToEdgesMap fieldToStores;
+	protected FieldToEdgesMap fieldToStores;
 
-//	protected final int maxNodesPerPass;
-//
-//	protected final int maxPasses;
+	protected final int maxNodesPerPass;
+
+	protected final int maxPasses;
 
 	protected int nesting = 0;
 
 	protected int numNodesTraversed;
 	
-//	protected int numPasses = 0;
+	protected int numPasses = 0;
 
 	protected final PAG pag;
 
@@ -280,36 +283,61 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 
 	protected Map<VarContextAndUp, Map<AllocAndContext, CallingContextSet>> upContextCache = new HashMap<VarContextAndUp, Map<AllocAndContext, CallingContextSet>>();
 
-	protected final ValidMatches vMatches;
+	protected ValidMatches vMatches;
 	
 	protected Map<Local,PointsToSet> reachingObjectsCache, reachingObjectsCacheNoCGRefinement;
 
     protected boolean useCache;
+    
+    private Stopwatch elapsed;
+
+	private final boolean lazy;
+
+	public static long timeBudget = 60000;
 
 	public DemandCSPointsTo(ContextSensitiveInfo csInfo, PAG pag) {
-		this(csInfo, pag, DEFAULT_MAX_TRAVERSAL, DEFAULT_MAX_PASSES);
+		this(csInfo, pag, DEFAULT_MAX_TRAVERSAL, DEFAULT_MAX_PASSES, DEFAULT_LAZY);
 	}
 
 	public DemandCSPointsTo(ContextSensitiveInfo csInfo, PAG pag,
-			int maxTraversal, int maxPasses) {
+			int maxTraversal, int maxPasses, boolean lazy) {
 		this.csInfo = csInfo;
 		this.pag = pag;
-		this.fieldToStores = SootUtil.storesOnField(pag);
-		this.fieldToLoads = SootUtil.loadsOnField(pag);
-		this.vMatches = new ValidMatches(pag, fieldToStores);
-//		this.maxPasses = maxPasses;
-//		this.maxNodesPerPass = maxTraversal / maxPasses;
+		this.maxPasses = maxPasses;
+		this.lazy = lazy;
+		this.maxNodesPerPass = maxTraversal / maxPasses;
 		this.heuristicType = HeuristicType.INCR;
 		this.reachingObjectsCache = new HashMap<Local, PointsToSet>();
 		this.reachingObjectsCacheNoCGRefinement = new HashMap<Local, PointsToSet>();
         this.useCache = true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public PointsToSet reachingObjects(Local l) {	
-	    PointsToSet result;
+	private void init() {
+		this.fieldToStores = SootUtil.storesOnField(pag);
+        this.fieldToLoads = SootUtil.loadsOnField(pag);
+        this.vMatches = new ValidMatches(pag, fieldToStores);
+	}
+
+	public PointsToSet reachingObjects(Local l) {
+		//Commented out: Option is disabled.
+//		if(lazy)
+			/*
+			 * create a lazy points-to set; this will not actually compute context information until we ask whether this points-to set
+			 * has a non-empty intersection with another points-to set and this intersection appears to be non-empty; when this is the case
+			 * then the points-to set will call doReachingObjects(..) to refine itself
+			 */			
+//			return new LazyContextSensitivePointsToSet(l,new WrappedPointsToSet((PointsToSetInternal) pag.reachingObjects(l)),this);
+//		else
+			return doReachingObjects(l);
+	}
+
+	public PointsToSet doReachingObjects(Local l) {
+		//lazy initialization
+		elapsed = Stopwatch.createStarted();
+		if(fieldToStores==null) {
+	        init();
+		}
+		PointsToSet result;
         Map<Local, PointsToSet> cache;
 	    if(refineCallGraph) {  //we use different caches for different settings  
             cache = reachingObjectsCache;
@@ -369,21 +397,20 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
         this.fieldCheckHeuristic = HeuristicType.getHeuristic(
             heuristicType, pag.getTypeManager(), getMaxPasses());
         doPointsTo = true;
-//        numPasses = 0;
+        numPasses = 0;
         PointsToSet contextSensitiveResult = null;
         while (true) {
-        	if (Util.isOutOfBudget()) break;
-//        	numPasses++;
-//        	if (DEBUG_PASS != -1 && numPasses > DEBUG_PASS) {
-//        		break;
-//        	}
-//        	if (numPasses > maxPasses) {
-//        		break;
-//        	}
-//        	if (DEBUG) {
-//        		G.v().out.println("PASS " + numPasses);
-//        		G.v().out.println(fieldCheckHeuristic);
-//        	}
+        	numPasses++;
+        	if (DEBUG_PASS != -1 && numPasses > DEBUG_PASS) {
+        		break;
+        	}
+        	if (numPasses > maxPasses) {
+        		break;
+        	}
+        	if (DEBUG) {
+        		G.v().out.println("PASS " + numPasses);
+        		G.v().out.println(fieldCheckHeuristic);
+        	}
         	clearState();
         	pointsTo = new AllocAndContextSet();
         	try {
@@ -486,20 +513,19 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 		// DEBUG = v.getNumber() == 150;
 		this.fieldCheckHeuristic = HeuristicType.getHeuristic(heuristic, pag
 				.getTypeManager(), getMaxPasses());
-//		numPasses = 0;
+		numPasses = 0;
 		while (true) {
-			if (Util.isOutOfBudget()) return true;
-//			numPasses++;
-//			if (DEBUG_PASS != -1 && numPasses > DEBUG_PASS) {
-//				return true;
-//			}
-//			if (numPasses > maxPasses) {
-//				return true;
-//			}
-//			if (DEBUG) {
-//				G.v().out.println("PASS " + numPasses);
-//				G.v().out.println(fieldCheckHeuristic);
-//			}
+			numPasses++;
+			if (DEBUG_PASS != -1 && numPasses > DEBUG_PASS) {
+				return true;
+			}
+			if (numPasses > maxPasses) {
+				return true;
+			}
+			if (DEBUG) {
+				G.v().out.println("PASS " + numPasses);
+				G.v().out.println(fieldCheckHeuristic);
+			}
 			clearState();
 			pointsTo = new AllocAndContextSet();
 			boolean success = false;
@@ -596,23 +622,20 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 			HeuristicType heuristic) {
 		this.fieldCheckHeuristic = HeuristicType.getHeuristic(heuristic, pag
 				.getTypeManager(), getMaxPasses());
-//		numPasses = 0;
+		numPasses = 0;
 		Set<VarNode> smallest = null;
 		while (true) {
-			if (Util.isOutOfBudget()) {
+			numPasses++;
+			if (DEBUG_PASS != -1 && numPasses > DEBUG_PASS) {
 				return smallest;
 			}
-//			numPasses++;
-//			if (DEBUG_PASS != -1 && numPasses > DEBUG_PASS) {
-//				return smallest;
-//			}
-//			if (numPasses > maxPasses) {
-//				return smallest;
-//			}
-//			if (DEBUG) {
-//				G.v().out.println("PASS " + numPasses);
-//				G.v().out.println(fieldCheckHeuristic);
-//			}
+			if (numPasses > maxPasses) {
+				return smallest;
+			}
+			if (DEBUG) {
+				G.v().out.println("PASS " + numPasses);
+				G.v().out.println(fieldCheckHeuristic);
+			}
 			clearState();
 			Set<VarNode> result = null;
 			try {
@@ -633,11 +656,11 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 	}
 
 	protected void debugPrint(String str) {
-//		if (nesting <= DEBUG_NESTING) {
-//			if (DEBUG_PASS == -1 || DEBUG_PASS == numPasses) {
-//				G.v().out.println(":" + nesting + " " + str);
-//			}
-//		}
+		if (nesting <= DEBUG_NESTING) {
+			if (DEBUG_PASS == -1 || DEBUG_PASS == numPasses) {
+				G.v().out.println(":" + nesting + " " + str);
+			}
+		}
 	}
 
 	/*
@@ -776,7 +799,9 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 					}
 				} else if (contextForAllocsStack.size() - oldIndex > 5) {
 					// just give up
-					throw new TerminateEarlyException();
+					
+					checkTime();
+//					throw new TerminateEarlyException();
 				}
 			}
 		}
@@ -1133,7 +1158,7 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 				p.prop(new VarAndContext(v, allocContext));
 			}
 			while (!worklist.isEmpty()) {
-//				incrementNodesTraversed();
+				incrementNodesTraversed();
 				VarAndContext curVarAndContext = worklist.pop();
 				if (DEBUG) {
 					debugPrint("looking at " + curVarAndContext);
@@ -1254,7 +1279,7 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 		}
 	}
 
-//	@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	protected Set<SootMethod> getCallTargets(PointsToSetInternal p2Set,
 			NumberedString methodStr, Type receiverType,
 			Set<SootMethod> possibleTargets) {
@@ -1320,7 +1345,7 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 				p.prop(new VarAndContext(v, allocContext));
 			}
 			while (!worklist.isEmpty()) {
-//				incrementNodesTraversed();
+				incrementNodesTraversed();
 				VarAndContext curVarAndContext = worklist.pop();
 				if (DEBUG) {
 					debugPrint("looking at " + curVarAndContext);
@@ -1440,21 +1465,18 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 	}
 
 	protected int getMaxPasses() {
-//		return maxPasses;
-		return 10;	// FIXME
+		return maxPasses;
 	}
 
 	protected void incrementNodesTraversed() {
-		if (Util.isOutOfBudget()) {
-			throw new TerminateEarlyException();
-		}
-//		numNodesTraversed++;
+		numNodesTraversed++;
 //		if (numNodesTraversed > maxNodesPerPass) {
+			checkTime();
 //			throw new TerminateEarlyException();
 //		}
 	}
 
-//	@SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	protected boolean isRecursive(ImmutableStack<Integer> context,
 			AssignEdge assignEdge) {
 		boolean sameSCCAlready = callEdgeInSCC(assignEdge);
@@ -1484,7 +1506,7 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 		return sccManager.inSameSCC(invokingMethod, invokedMethod);
 	}
 
-//	@SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	protected Set<VarNode> nodesPropagatedThrough(final VarNode source,
 			final PointsToSetInternal allocs) {
 		final Set<VarNode> marked = new HashSet<VarNode>();
@@ -1654,7 +1676,8 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 				}
 				// TODO properly collapse recursive methods
 				if (true) {
-					throw new TerminateEarlyException();
+					checkTime();
+//					throw new TerminateEarlyException();
 				}
 				Set<SootMethod> toBeCollapsed = new ArraySet<SootMethod>();
 				int callSiteInd = 0;
@@ -1689,6 +1712,12 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 		}
 	}
 
+	private void checkTime() {
+		if(elapsed.elapsed(TimeUnit.MILLISECONDS) > timeBudget){
+			throw new ManuTimeoutException();
+		}
+	}
+
 	protected boolean refineAlias(VarNode v1, VarNode v2,
 			PointsToSetInternal intersection, HeuristicType heuristic) {
 		if (refineAliasInternal(v1, v2, intersection, heuristic))
@@ -1702,20 +1731,17 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 			PointsToSetInternal intersection, HeuristicType heuristic) {
 		this.fieldCheckHeuristic = HeuristicType.getHeuristic(heuristic, pag
 				.getTypeManager(), getMaxPasses());
-//		numPasses = 0;
+		numPasses = 0;
 		while (true) {
-			if (Util.isOutOfBudget()) {
+			numPasses++;
+			if (DEBUG_PASS != -1 && numPasses > DEBUG_PASS) {
 				return false;
 			}
-//			numPasses++;
-//			if (DEBUG_PASS != -1 && numPasses > DEBUG_PASS) {
-//				return false;
-//			}
-//			if (numPasses > maxPasses) {
-//				return false;
-//			}
+			if (numPasses > maxPasses) {
+				return false;
+			}
 			if (DEBUG) {
-//				G.v().out.println("PASS " + numPasses);
+				G.v().out.println("PASS " + numPasses);
 				G.v().out.println(fieldCheckHeuristic);
 			}
 			clearState();
@@ -1738,7 +1764,7 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 				success = false;
 			}
 			if (success) {
-//				G.v().out.println("took " + numPasses + " passes");
+				G.v().out.println("took " + numPasses + " passes");
 				return true;
 			} else {
 				if (!fieldCheckHeuristic.runNewPass()) {
@@ -2046,20 +2072,17 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 		this.fieldCheckHeuristic = HeuristicType.getHeuristic(heuristic, pag
 				.getTypeManager(), getMaxPasses());
 		try {
-//			numPasses = 0;
+			numPasses = 0;
 			while (true) {
-				if (Util.isOutOfBudget()) {
+				numPasses++;
+				if (DEBUG_PASS != -1 && numPasses > DEBUG_PASS) {
 					return false;
 				}
-//				numPasses++;
-//				if (DEBUG_PASS != -1 && numPasses > DEBUG_PASS) {
-//					return false;
-//				}
-//				if (numPasses > maxPasses) {
-//					return false;
-//				}
+				if (numPasses > maxPasses) {
+					return false;
+				}
 				if (DEBUG) {
-//					G.v().out.println("PASS " + numPasses);
+					G.v().out.println("PASS " + numPasses);
 					G.v().out.println(fieldCheckHeuristic);
 				}
 				clearState();

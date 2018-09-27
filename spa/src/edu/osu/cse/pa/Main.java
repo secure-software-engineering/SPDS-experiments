@@ -68,7 +68,7 @@ import soot.SootField;
 import soot.SootMethod;
 import soot.Transform;
 import soot.Type;
-import soot.jimple.spark.ondemand2.DemandCSPointsTo;
+import soot.jimple.spark.ondemand.flowdroid.DemandCSPointsTo;
 import soot.jimple.toolkits.callgraph.CallGraph;
 import soot.jimple.toolkits.callgraph.Edge;
 import soot.jimple.toolkits.callgraph.ReachableMethods;
@@ -147,7 +147,8 @@ public class Main implements MayAliasAnalysis {
 			}
 			
 			long start = System.currentTimeMillis();
-			Util.tweakBody(method);
+			if(Util.TWEAK_BODY)
+				Util.tweakBody(method);
 			SymbolicPointerGraph.v(method).build();
 			long end = System.currentTimeMillis();
 			long delta = end - start;
@@ -875,6 +876,7 @@ public class Main implements MayAliasAnalysis {
 		if (!compatibleRefLikeType(vn1.getType(), vn2.getType())) {
 			return false;
 		}
+		Util.isOutOfBudget();
     	SootMethod mtd1 = vn1.getMethod();
 		SootMethod mtd2 = vn2.getMethod();
 		

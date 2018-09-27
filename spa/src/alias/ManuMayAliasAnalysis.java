@@ -5,7 +5,7 @@ import soot.PointsToAnalysis;
 import soot.PointsToSet;
 import soot.Scene;
 import soot.SootMethod;
-import soot.jimple.spark.ondemand2.DemandCSPointsTo;
+import soot.jimple.spark.ondemand.flowdroid.DemandCSPointsTo;
 import iohoister.analysis.MayAliasAnalysis;
 
 public class ManuMayAliasAnalysis implements MayAliasAnalysis {
@@ -13,15 +13,13 @@ public class ManuMayAliasAnalysis implements MayAliasAnalysis {
 	private PointsToAnalysis pta;
 	
 	private ManuMayAliasAnalysis() {		
+		pta = DemandCSPointsTo.makeWithBudget(75000000, 10000, false);
 	}
 	
 	public static ManuMayAliasAnalysis v() {
 		if (ins == null) {
 			ins = new ManuMayAliasAnalysis();
-			ins.pta = DemandCSPointsTo.makeWithBudget(
-				Util.MANU_MAX_TRAVERSAL, Util.MANU_MAX_PASSES);
 		}
-		
 		return ins;
 	}
 
