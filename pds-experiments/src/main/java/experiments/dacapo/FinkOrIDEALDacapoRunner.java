@@ -88,7 +88,7 @@ public class FinkOrIDEALDacapoRunner extends SootSceneSetupDacapo {
 	private String getModuleNames() {
 		String input_jar_files = getBasePath() + benchProperties.getProperty("input_jar_files");
 		String library_jar_files = getBasePath() + benchProperties.getProperty("library_jar_files");
-		input_jar_files += ":" + library_jar_files;
+		input_jar_files += File.pathSeparator + library_jar_files;
 		System.out.println(input_jar_files);
 		return input_jar_files.replace(":", ",");
 	}

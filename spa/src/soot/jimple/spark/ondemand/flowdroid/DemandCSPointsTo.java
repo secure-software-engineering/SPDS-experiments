@@ -970,7 +970,9 @@ public final class DemandCSPointsTo implements PointsToAnalysis {
 			return tmpSet;
 		}
 		final CallingContextSet ret = new CallingContextSet();
-		upContextCache.get(varContextAndUp).put(allocAndContext, ret);
+		if(upContextCache.get(varContextAndUp) != null) {
+			upContextCache.get(varContextAndUp).put(allocAndContext, ret);
+		}
 		nesting++;
 		if (DEBUG) {
 			debugPrint("finding up context for " + varContextAndUp + " to "
