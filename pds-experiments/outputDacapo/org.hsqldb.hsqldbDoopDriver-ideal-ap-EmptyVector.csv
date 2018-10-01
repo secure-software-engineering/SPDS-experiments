@@ -1,2 +1,0 @@
-Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;MaxAccessPath;MaxMemory
-ideal-ap;EmptyVector;$r6 @ $r6 = new java.util.Vector;$r6 = new java.util.Vector;<dacapo.hsqldb.PseudoJDBCBench: void <init>(java.lang.String,java.lang.String,java.lang.String,boolean)>;dacapo.hsqldb.PseudoJDBCBench;false;false;754;951;366;388;16;6016;r0[this$0];336268048;
