@@ -3,7 +3,6 @@
 import glob, csv, math, os.path, sys
 import plotly.graph_objs
 import numpy as np
-from sets import Set
 
 def getData(filename):
     with open(filename) as csvfile:
@@ -20,7 +19,6 @@ def res(val,total):
 path = "*.csv"
 
 def geo_mean(iterable):
-   # return np.mean(iterable)
     if len(iterable) == 0:
         return 0;
     a = np.log(iterable)
@@ -31,6 +29,10 @@ def prunedPairs(val,total):
 def improvement(val,total):
     return round(float((total-val)*100)/total,1)
 
+def oneIfZero(val):
+    if val == 0:
+        return 1;
+    return val;
 
 results ={}
 
@@ -77,15 +79,15 @@ for fname in glob.glob(path):
                 "sridharan_timeouts": timeoutsSridharan}
     
     results[fname.replace("-datarace.csv","")] = entry;
-    print fname
-    print "Aliases (Total: " + str(rowCount) +")"
-    print "B: " + res(aliasesBoomerang,rowCount)
-    print "D: " + res(aliasesDacong,rowCount)
-    print "S: " + res(aliasesSridharan,rowCount)
-    print "Timeouts"
-    print "B: " + res(timeoutsBoomerang,rowCount)
-    print "D: " + res(timeoutsDacong,rowCount)
-    print "S: " + res(timeoutsSridharan,rowCount)
+    print(fname)
+    print("Aliases (Total: " + str(rowCount) +")")
+    print("B: " + res(aliasesBoomerang,rowCount))
+    print("D: " + res(aliasesDacong,rowCount))
+    print("S: " + res(aliasesSridharan,rowCount))
+    print("Timeouts")
+    print("B: " + res(timeoutsBoomerang,rowCount))
+    print("D: " + res(timeoutsDacong,rowCount))
+    print("S: " + res(timeoutsSridharan,rowCount))
 
 
 avgTimeoutsSridharan = []
@@ -93,9 +95,9 @@ avgTimeoutsBoomerang = []
 avgTimeoutsDacong = []
 for bench in results:
     total = results[bench]["total_pairs"]
-    avgTimeoutsDacong.append(float(results[bench]["dacong_timeouts"]*100)/total)
-    avgTimeoutsSridharan.append(float(results[bench]["sridharan_timeouts"]*100)/total)
-    avgTimeoutsBoomerang.append(float(results[bench]["boomerang_timeouts"]*100)/total)
+    avgTimeoutsDacong.append(oneIfZero(float(results[bench]["dacong_timeouts"]*100)/total))
+    avgTimeoutsSridharan.append(oneIfZero(float(results[bench]["sridharan_timeouts"]*100)/total))
+    avgTimeoutsBoomerang.append(oneIfZero(float(results[bench]["boomerang_timeouts"]*100)/total))
 
 print("Average Timeouts B:" + str(geo_mean(avgTimeoutsBoomerang)))
 print("Average Timeouts S:" + str(geo_mean(avgTimeoutsSridharan)))
@@ -106,13 +108,13 @@ header = ["benchmark","total_pairs","boomerang_pairs","boomerang_timeouts","boom
 headerString = "rowIndex;"
 for colHeader in header:
     headerString += colHeader +";"
-print headerString
+print(headerString)
 index = 1
 for bench in sorted(results):
     res = str(index) +";"
     for col in header:
         res += str(results[bench][col]) +";"
-    print res
+    print(res)
     index += 1
 
 
