@@ -61,6 +61,11 @@ public class FinkOrIDEALDacapoRunner extends SootSceneSetupDacapo {
 			System.out.println("running " + System.getProperty("rule"));
 			System.setProperty("dacapo", "true");
 			new IDEALAPRunner(benchFolder,project).run(outputFile);
+		}else if(analysis.equalsIgnoreCase("ideal-sanitize")){
+			System.setProperty("rule", Util.selectTypestateMachine(System.getProperty("rule")).getName());
+			System.out.println("running " + System.getProperty("rule"));
+			System.setProperty("dacapo", "true");
+			new IDEALandIDEALAPSanitizeCheck(benchFolder,project).run();
 		} else if(analysis.equalsIgnoreCase("fink-apmust")){
 			TypestateRegressionUnit test = new TypestateRegressionUnit(null, 0);
 			test.selectTypestateRule(System.getProperty("rule"));
