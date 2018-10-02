@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 import com.google.common.collect.Table.Cell;
 
@@ -238,6 +239,8 @@ public class IDEALandIDEALAPSanitizeCheck extends SootSceneSetupDacapo {
 
 				
 
+				private Collection<IFactAtStatement> apTimeouts = Sets.newHashSet();
+
 				@Override
 				public void addSummary(SootMethod methodToSummary, PathEdge<Unit, AccessGraph> summary) {
 				}
@@ -363,6 +366,7 @@ public class IDEALandIDEALAPSanitizeCheck extends SootSceneSetupDacapo {
 
 				@Override
 				public void onAnalysisTimeout(IFactAtStatement seed) {
+					apTimeouts.add(seed);
 				}
 
 				@Override
@@ -392,6 +396,8 @@ public class IDEALandIDEALAPSanitizeCheck extends SootSceneSetupDacapo {
 				@Override
 				public void onSeedFinished(IFactAtStatement seed,
 						AnalysisSolver<TypestateDomainValue<ConcreteState>> solver) {
+					if(apTimeouts.contains(seed))
+						return;
 					HashBasedTable<Unit, AccessGraph, TypestateDomainValue<ConcreteState>> endPathOfPropagation = solver.results();
 					boolean error = false;
 					for(Cell<Unit, AccessGraph, TypestateDomainValue<ConcreteState>> e : endPathOfPropagation.cellSet()){
@@ -409,7 +415,7 @@ public class IDEALandIDEALAPSanitizeCheck extends SootSceneSetupDacapo {
 
 				@Override
 				public long analysisBudgetInSeconds() {
-					return TimeUnit.MINUTES.toSeconds(10);
+					return TimeUnit.MINUTES.toSeconds(1);
 				}
 
 				@Override
