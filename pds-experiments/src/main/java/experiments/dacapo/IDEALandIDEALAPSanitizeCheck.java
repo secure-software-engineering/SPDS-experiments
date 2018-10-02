@@ -92,8 +92,8 @@ public class IDEALandIDEALAPSanitizeCheck extends SootSceneSetupDacapo {
 				}
 				System.out.println("Application Classes: " + Scene.v().getApplicationClasses().size());
 				for (Query q : computeSeeds) {
-					if(!q.toString().contains("<dacapo.TestHarness: java.util.Vector vectorise(java.lang.String[])>"))
-						continue;
+//					if(!q.toString().contains("<dacapo.TestHarness: java.util.Vector vectorise(java.lang.String[])>"))
+//						continue;
 					System.out.println("Executing seed with PDS " + q);
 					pdsAnalysis.run((ForwardQuery) q);
 					if(!pdsAnalysisErrors.containsKey(q))

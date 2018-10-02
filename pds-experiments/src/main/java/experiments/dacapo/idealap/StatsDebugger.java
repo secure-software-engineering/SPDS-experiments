@@ -11,7 +11,9 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import com.google.common.base.Stopwatch;
+import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Table.Cell;
 
 import boomerang.Util;
 import boomerang.accessgraph.AccessGraph;
@@ -192,16 +194,14 @@ public class StatsDebugger implements IDebugger<TypestateDomainValue<ConcreteSta
 
 	@Override
 	public void onSeedFinished(IFactAtStatement seed, AnalysisSolver<TypestateDomainValue<ConcreteState>> solver) {
-		Multimap<Unit, AccessGraph> endPathOfPropagation = solver.getEndPathOfPropagation();
+		HashBasedTable<Unit, AccessGraph, TypestateDomainValue<ConcreteState>> endPathOfPropagation = solver.results();
 		boolean error = false;
-		for(Entry<Unit, AccessGraph> e : endPathOfPropagation.entries()){
-			 TypestateDomainValue<ConcreteState> resultAt = solver.resultAt(e.getKey(), e.getValue());
-			 if(resultAt != null)
-				 for(ConcreteState s : resultAt.getStates()){
-					 if(s.isErrorState()){
-						 error = true;
-					 }	
-				 }
+		for(Cell<Unit, AccessGraph, TypestateDomainValue<ConcreteState>> e : endPathOfPropagation.cellSet()){
+			 for(ConcreteState s : e.getValue().getStates()){
+				 if(s.isErrorState()){
+					 error = true;
+				 }	
+			 }
 		}
 		long phase1Time = phase1Watch.elapsed(TimeUnit.MILLISECONDS);
 		long phase2Time = phase2Watch.elapsed(TimeUnit.MILLISECONDS);
