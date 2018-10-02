@@ -32,6 +32,7 @@ import ideal.IDEALAnalysis;
 import ideal.IDEALAnalysisDefinition;
 import ideal.IDEALResultHandler;
 import ideal.IDEALSeedSolver;
+import ideal.IDEALSeedTimeout;
 import ideal.ap.Analysis;
 import ideal.ap.AnalysisSolver;
 import ideal.ap.FactAtStatement;
@@ -95,7 +96,11 @@ public class IDEALandIDEALAPSanitizeCheck extends SootSceneSetupDacapo {
 //					if(!q.toString().contains("<dacapo.TestHarness: java.util.Vector vectorise(java.lang.String[])>"))
 //						continue;
 					System.out.println("Executing seed with PDS " + q);
-					pdsAnalysis.run((ForwardQuery) q);
+					try {
+						pdsAnalysis.run((ForwardQuery) q);
+					} catch (IDEALSeedTimeout e) {
+						// TODO: handle exception
+					}
 					if(!pdsAnalysisErrors.containsKey(q))
 						continue;
 					System.out.println("Executing seed with AP " + q);
@@ -121,9 +126,7 @@ public class IDEALandIDEALAPSanitizeCheck extends SootSceneSetupDacapo {
 			ForwardBoomerangResults<TransitionFunction> forwardBoomerangResults) {
 		Table<Statement, Val, TransitionFunction> objectDestructingStatements = forwardBoomerangResults
 				.asStatementValWeightTable();
-		System.out.println("RES " + key);
 		for (Table.Cell<Statement, Val, TransitionFunction> c : objectDestructingStatements.cellSet()) {
-			System.out.println(c);
 			for (ITransition t : c.getValue().values()) {
 				if (t.to() != null) {
 					if (t.to().isErrorState()) {
@@ -389,7 +392,6 @@ public class IDEALandIDEALAPSanitizeCheck extends SootSceneSetupDacapo {
 				@Override
 				public void onSeedFinished(IFactAtStatement seed,
 						AnalysisSolver<TypestateDomainValue<ConcreteState>> solver) {
-					System.out.println(solver.getVisitedMethods());
 					HashBasedTable<Unit, AccessGraph, TypestateDomainValue<ConcreteState>> endPathOfPropagation = solver.results();
 					boolean error = false;
 					for(Cell<Unit, AccessGraph, TypestateDomainValue<ConcreteState>> e : endPathOfPropagation.cellSet()){

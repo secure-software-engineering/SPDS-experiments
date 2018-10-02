@@ -36,8 +36,8 @@ protected Analysis<TypestateDomainValue<ConcreteState>> createAnalysis() {
 	String className = System.getProperty("rule");
 	className = className.replace("typestate.", "typestate.ap.");
     try {
-    	final ExtendedICFG icfg = new ExtendedICFG(false);
     	System.out.println("Reachable Methods" +  Scene.v().getReachableMethods().size());
+    	final ExtendedICFG icfg = new ExtendedICFG(false);
     	Analysis.ALIASING_FOR_STATIC_FIELDS = false;
     	Analysis.SEED_IN_APPLICATION_CLASS_METHOD = true;
 	AliasFinder.HANDLE_EXCEPTION_FLOW = false;

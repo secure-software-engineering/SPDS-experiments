@@ -87,6 +87,11 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
 						return false;
 					}
 					
+					@Override
+					public boolean staticFlows() {
+						return false;
+					}
+					
 				};
 			}
 			@Override
