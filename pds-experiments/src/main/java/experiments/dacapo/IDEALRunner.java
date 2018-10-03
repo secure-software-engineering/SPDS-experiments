@@ -201,7 +201,7 @@ private String outputFile;
     }
 
     private boolean isInErrorState(WeightedForwardQuery<TransitionFunction> key, ForwardBoomerangResults<TransitionFunction> forwardBoomerangResults) {
-        Table<Statement, Val, TransitionFunction> objectDestructingStatements = forwardBoomerangResults.getObjectDestructingStatements();
+        Table<Statement, Val, TransitionFunction> objectDestructingStatements = forwardBoomerangResults.asStatementValWeightTable();
         for(Table.Cell<Statement,Val,TransitionFunction> c : objectDestructingStatements.cellSet()){
             for(ITransition t : c.getValue().values()){
                 if(t.to() != null){
