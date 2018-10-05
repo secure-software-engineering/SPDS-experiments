@@ -122,6 +122,7 @@ public abstract class PointerBenchAnalysis {
 		return new SceneTransformer() {
 
 			protected void internalTransform(String phaseName, @SuppressWarnings("rawtypes") Map options) {
+				BoomerangPretransformer.TRANSFORM_CONSTANTS = false;
 				BoomerangPretransformer.v().reset();
 				BoomerangPretransformer.v().apply();
 				icfg = new JimpleBasedInterproceduralCFG(true);

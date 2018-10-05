@@ -118,6 +118,7 @@ for fname in glob.glob(path):
                 d = results[outputFileName]
             benchmarkName = fname.replace("dacapo.","") 
             benchmarkName= benchmarkName.replace("typestate\\","")
+            benchmarkName= benchmarkName.replace("org","hsqldb")
             benchmarkName = benchmarkName[0:benchmarkName.find(".")]
             entry = {"benchmark":  benchmarkName, 
                     "ideal": toSeconds(geo_mean(timesIDEAL)),

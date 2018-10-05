@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
 
 import boomerang.BoomerangOptions;
@@ -43,6 +44,7 @@ public class IDEALRunner extends SootSceneSetupDacapo  {
   public IDEALRunner(String benchmarkFolder, String benchFolder) {
 		super(benchmarkFolder, benchFolder);
 	}
+	private Collection<WeightedForwardQuery<TransitionFunction>> printedSeeds = Sets.newHashSet();
 
 protected IDEALAnalysis<TransitionFunction> createAnalysis() {
     String className = System.getProperty("rule");
@@ -105,9 +107,12 @@ protected IDEALAnalysis<TransitionFunction> createAnalysis() {
 			@Override
 			public IDEALResultHandler<TransitionFunction> getResultHandler() {
 				return new IDEALResultHandler<TransitionFunction>() {
+
 					@Override
 					public void report(WeightedForwardQuery<TransitionFunction> seed,
 							ForwardBoomerangResults<TransitionFunction> res) {
+						if(!printedSeeds.add(seed))
+							return;
 						 File file = new File(outputFile);
 				          boolean fileExisted = file.exists();
 				          FileWriter writer;

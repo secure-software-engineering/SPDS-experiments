@@ -26,11 +26,11 @@ def scale(val,valMax,intervalMin,intervalMax):
     return intervalMin + val/(float(valMax))*diff
 
 def printForTikz(data,fillData,timeoutData):
-    print "x,y,r,times,opacity,seeds,timeouts"
+    print("x,y,r,times,opacity,seeds,timeouts")
     for i in range(0,len(data)):
         for j in range(0,len(data[i])):
             if data[i][j] != 0:
-                print str(j+1)+","+str(i+1)+","+str(scale(data[i][j],MAX_ANALYSIS_TIME,0.1,0.5))+","+str((data[i][j]/1000).round(1))+","+str(scale(fillData[i][j],SEEDS,0.1,1))+","+str(fillData[i][j])+","+str(timeoutData[i][j])
+                print(str(j+1)+","+str(i+1)+","+str(scale(data[i][j],MAX_ANALYSIS_TIME,0.1,0.5))+","+str((data[i][j]/1000).round(1))+","+str(scale(fillData[i][j],SEEDS,0.1,1))+","+str(fillData[i][j])+","+str(timeoutData[i][j]))
 
 
 
@@ -55,13 +55,13 @@ def plotBarChartTimes(analysisTimes):
             bucket = int(math.floor(time)/bucketRangeTime)
         data[bucket] = data[bucket] + 1
 
-    print "TimeRanges Seeds"
+    print("TimeRanges Seeds")
     bucketNo = 0
     for d in data:
-        print "["+str(bucketNo*bucketRangeTime/1000) +"-"+str((bucketNo+1)*bucketRangeTime/1000)+"] " + str(d)
+        print("["+str(bucketNo*bucketRangeTime/1000) +"-"+str((bucketNo+1)*bucketRangeTime/1000)+"] " + str(d))
         bucketNo += 1
     return plotly.graph_objs.Bar(y=data)
-path = "*.csv"
+path = "typestate/*.csv"
 methodAP = []
 timesAP = []
 timesPDS = []
@@ -202,7 +202,7 @@ def plotHeatMapVisitedMethods(analysisTimes, visitedMethods, filename ):
 def plotHeatMapVisitedMethodsTimes(analysisTimes, visitedMethods, filename ):
     bucketRangeAccessPath = int(math.floor(MAX_ACCESS_PATH/numberOfBucketsForTimes)) +1
     bucketRangeMethods = MAX_VISITED_METHODS/numberOfBucketsForTimes
-    print MAX_ACCESS_PATH
+    print(MAX_ACCESS_PATH)
     data = []
     timeoutData = []
     xLabel = []
@@ -257,7 +257,7 @@ trace2 = plotBarChartTimes(timesPDS)
 
 plotly.offline.plot([trace1,trace2], filename="plot-barchart.html")
 
-print len(timesAP)
-print len(timesPDS)
+print(len(timesAP))
+print(len(timesPDS))
 
 
