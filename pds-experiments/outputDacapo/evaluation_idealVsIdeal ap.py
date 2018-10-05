@@ -149,6 +149,8 @@ for fname in glob.glob(RESULTS_PATH):
             if outputFileName in results:
                 d = results[outputFileName]
             benchmarkName = fname.replace("dacapo.","")
+            benchmarkName = benchmarkName.replace("typestate\\","")
+            benchmarkName = benchmarkName.replace("org","hsqldb")
             benchmarkName = benchmarkName[0:benchmarkName.find(".")]
             entry = {"benchmark":  benchmarkName, 
                     "ideal": toSeconds(geo_mean(timesIDEAL)),
@@ -173,33 +175,46 @@ for fname in glob.glob(RESULTS_PATH):
 
 header = ["benchmark", "ideal","ideal_ap","seeds","timeouts_ideal_ap","timeouts_ideal","errors_ideal_ap","errors_ideal","methods_ideal_ap","methods_ideal", "containsFieldLoop","maxAccessPath", "total_ideal", "total_ideal_ap","timeouts_fraction_ideal_ap","timeouts_fraction_ideal","max_memory_ideal_ap","max_memory_ideal"]
 
+benchmarks = ["antlr", "bloat", "chart", "eclipse", "fop", "hsqldb", "jython", "luindex", "lusearch", "pmd", "xalan"]
+
+def index_containing_substring(diction, substring):
+    for key,value in diction.items():
+        if substring in key:
+              return key
+    return -1
+
 for i in results:
     file = open(i,"w")
     for k in header:
         file.write(k+";")
     file.write("index\n")
     index = 1
-    inorder = sorted(results[i])
     avegareRatiosTime = []
-    for j in sorted(results[i]):
-        for k in header:
-            file.write(str(results[i][j][k]) + ";")
+    print("SSS")
+    print(results[i])
+    for j in benchmarks:
+        if index_containing_substring(results[i], j) != -1:
+            realKey = index_containing_substring(results[i], j)
+            for k in header:
+                file.write(str(results[i][realKey][k]) + ";")
+            avegareRatiosTime.append(float(results[i][realKey]["ideal_ap"])/results[i][realKey]["ideal"])
+        else:
+        	file.write(j + ";-;-;-;-;-;-;-;-;-;-;-;-;-;0;0;-;-;")
         file.write(str(index)+"\n")
-        avegareRatiosTime.append(float(results[i][j]["ideal_ap"])/results[i][j]["ideal"])
         index += 1
-    print(avegareRatiosTime)
-    print("Ratio Times: IDEAL vs Fink AP Must:" + str(geo_mean(avegareRatiosTime)))
+    #print(avegareRatiosTime)
+    #print("Ratio Times: IDEAL vs Fink AP Must:" + str(geo_mean(avegareRatiosTime)))
 
-print(asPrecise)
-print(notAsPrecise)
+#print(asPrecise)
+#print(notAsPrecise)
 
-print(APfalse)
-print(APtrue)
+#print(APfalse)
+#print(APtrue)
 
 for i in unsound:
-    print(i["SeedMethod"])
+    print(i["SeedStatement"])
 
 
 print("IMPRECISE")
 for i in imprecise:
-    print(i["SeedMethod"])
+    print(i["SeedStatement"])

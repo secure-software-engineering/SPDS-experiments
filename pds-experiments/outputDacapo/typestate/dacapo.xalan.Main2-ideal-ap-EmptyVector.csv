@@ -1,4 +1,4 @@
 Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;MaxAccessPath;MaxMemory
-ideal-ap;EmptyVector;$r4 @ $r4 = new java.util.Vector;$r4 = new java.util.Vector;<dacapo.parser.ConfigFile: void sizeClause(dacapo.parser.Config,java.lang.String)>;dacapo.parser.ConfigFile;false;false;333;254;208;125;13;1742;null;0;
-ideal-ap;EmptyVector;$r3 @ $r3 = new java.util.Vector;$r3 = new java.util.Vector;<dacapo.TestHarness: java.util.Vector vectorise(java.lang.String[])>;dacapo.TestHarness;false;false;228;560;148;80;13;1742;null;0;
-ideal-ap;EmptyVector;$r4 @ $r4 = new java.util.Vector;$r4 = new java.util.Vector;<dacapo.parser.ConfigFile: void <init>(java.io.InputStream,java.lang.String)>;dacapo.parser.ConfigFile;false;false;420;1627;339;81;32;1742;r0[jj_expentries];0;
+ideal-ap;EmptyVector;$r4 @ $r4 = new java.util.Vector;$r4 = new java.util.Vector;<dacapo.parser.ConfigFile: void sizeClause(dacapo.parser.Config,java.lang.String)>;dacapo.parser.ConfigFile;false;false;210;254;122;88;13;1742;null;0;
+ideal-ap;EmptyVector;$r3 @ $r3 = new java.util.Vector;$r3 = new java.util.Vector;<dacapo.TestHarness: java.util.Vector vectorise(java.lang.String[])>;dacapo.TestHarness;true;false;177;560;121;56;13;1742;null;0;
+ideal-ap;EmptyVector;$r4 @ $r4 = new java.util.Vector;$r4 = new java.util.Vector;<dacapo.parser.ConfigFile: void <init>(java.io.InputStream,java.lang.String)>;dacapo.parser.ConfigFile;true;false;554;1631;482;72;32;1742;r0[jj_expentries];0;
