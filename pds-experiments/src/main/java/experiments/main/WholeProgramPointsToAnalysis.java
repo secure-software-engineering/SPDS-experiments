@@ -8,6 +8,7 @@ import boomerang.debugger.Debugger;
 import boomerang.jimple.Field;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
+import boomerang.preanalysis.BoomerangPretransformer;
 import boomerang.ForwardQuery;
 import experiments.dacapo.SootSceneSetupDacapo;
 import soot.G;
@@ -53,6 +54,7 @@ public class WholeProgramPointsToAnalysis extends SootSceneSetupDacapo {
 						}
 					}
 				}
+				BoomerangPretransformer.v().apply();
 
 				final JimpleBasedInterproceduralCFG icfg = new JimpleBasedInterproceduralCFG(false);
 				WholeProgramBoomerang<NoWeight> solver = new WholeProgramBoomerang<NoWeight>(
