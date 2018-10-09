@@ -33,6 +33,12 @@ public class PDSAnalysis extends AbstractAnalysis {
 		return new SceneTransformer() {
 
 			protected void internalTransform(String phaseName, @SuppressWarnings("rawtypes") Map options) {
+				/**
+				 * The seed factory iterates over all statements in the program. 
+				 * We then select any statement that is a call site calling a method with  
+				 * name "queryFor". From this Statement, trigger a BackwardQuery for the allocation
+				 * sites of the first argument to the method call.
+				 */
 				final SeedFactory<NoWeight> seedFactory = new SeedFactory<NoWeight>() {
 					@Override
 					public BiDiInterproceduralCFG<Unit, SootMethod> icfg() {
@@ -50,6 +56,7 @@ public class PDSAnalysis extends AbstractAnalysis {
 						return Collections.emptySet();
 					}
 				};
+				//Instantiate Boomerang with the default options and set the timeout budget appropriately.
 				Boomerang solver = new Boomerang(new DefaultBoomerangOptions() {
 					@Override
 					public int analysisTimeoutMS() {
@@ -67,9 +74,12 @@ public class PDSAnalysis extends AbstractAnalysis {
 					}
 
 				};
+
+				//Triggers the SeedFactory to find all "seeds" (all BackwardQuery)
 				Collection<Query> seeds = seedFactory.computeSeeds();
 				Stopwatch watch = Stopwatch.createStarted();
 				for (Query q : seeds) {
+					//Triggers the Boomerang solver to solve the actual query.
 					solver.solve((BackwardQuery) q);
 				}
 				analysisTime = watch.elapsed();

@@ -48,6 +48,11 @@ public abstract class AbstractAnalysis {
 		PackManager.v().getPack("wjtp").apply();
 	}
 
+	/**
+	 * Checks if a statement contains a call site and the called method contains the string queryFor
+	 * @param s
+	 * @return
+	 */
 	protected boolean isQueryForStmt(Stmt s) {
 		if (!(s.containsInvokeExpr()))
 			return false;
@@ -55,6 +60,7 @@ public abstract class AbstractAnalysis {
 		return invokeExpr.getMethod().getName().matches("queryFor");
 	}
 
+	
 	protected Pair<SootMethod, Stmt> findQueryForStatement() {
 		List<Pair<SootMethod, Stmt>> stmts = Lists.newArrayList();
 		for (SootClass c : Scene.v().getApplicationClasses()) {
@@ -83,6 +89,7 @@ public abstract class AbstractAnalysis {
 	protected abstract Transformer createAnalysisTransformer();
 
 	private void initializeSootWithEntryPoint() {
+		//General soot setup
 		G.v().reset();
 		Options.v().set_whole_program(true);
 		Options.v().setPhaseOption("cg.spark", "on");
