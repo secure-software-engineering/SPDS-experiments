@@ -7,8 +7,7 @@ import numpy as np
 MAX_ANALYSIS_TIME = 600000;
 MAX_ACCESS_PATH = 0;
 MAX_VISITED_METHODS = 0;
-USE_ARITHMEAN = True
-SEEDS = 0
+OBJECTS = 0
 
 
 ## Compute Heatmaps
@@ -27,22 +26,18 @@ def scale(val,valMax,intervalMin,intervalMax):
 
 def printForTikz(data,fillData,timeoutData, filename):
     file = open(filename,"w")
-    file.write("x,y,r,times,opacity,seeds,timeouts\n")
+    file.write("bucket_nesting_depth(x);bucket_visited_methods(y);radius_bubble;average_bucket_analysis_time;bubble_opacity;sum_objects\n")
     for i in range(0,len(data)):
         for j in range(0,len(data[i])):
             if data[i][j] != 0:
-                 file.write(str(j+1)+","+str(i+1)+","+str(scale(data[i][j],MAX_ANALYSIS_TIME,0.1,0.5))+","+str((data[i][j]/1000).round(1))+","+str(scale(fillData[i][j],SEEDS,0.1,1))+","+str(fillData[i][j])+","+str(timeoutData[i][j])+"\n")
+                 file.write(str(j+1)+";"+str(i+1)+";"+str(scale(data[i][j],MAX_ANALYSIS_TIME,0.1,0.5))+";"+str((data[i][j]/1000).round(1))+";"+str(scale(fillData[i][j],OBJECTS,0.1,1))+";"+str(fillData[i][j])+";\n")
 
 
 
 def mean(iterable):
     if len(iterable) == 0:
         return 0;
-    if USE_ARITHMEAN:
-        return np.mean(iterable)
-    a = np.log(iterable)
-    return np.exp(a.sum()/len(a))
-
+    return np.mean(iterable)
 
 path = "typestate/*.csv"
 methodAP = []
@@ -76,10 +71,10 @@ for fname in glob.glob(path):
                                 MAX_VISITED_METHODS = int(math.ceil(vm / 100.0)) * 100;
                             if ap > MAX_ACCESS_PATH:
                                 MAX_ACCESS_PATH = ap
-SEEDS = len(timesAP)
+OBJECTS = len(timesAP)
 
 
-def plotHeatMapVisitedMethodsTimes(analysisTimes, visitedMethods, filename ):
+def computeBubbles(analysisTimes, visitedMethods, filename ):
     bucketRangeAccessPath = int(math.floor(MAX_ACCESS_PATH/numberOfBucketsForTimes))
     bucketRangeMethods = MAX_VISITED_METHODS/numberOfBucketsForTimes
     data = []
@@ -127,8 +122,8 @@ def plotHeatMapVisitedMethodsTimes(analysisTimes, visitedMethods, filename ):
         textData.append(textDataRow)
     printForTikz(avgData,textData,timeoutData,filename)
 
-plotHeatMapVisitedMethodsTimes(timesAP,methodAP,"ap_bubbles.csv")
-plotHeatMapVisitedMethodsTimes(timesPDS,methodAP,"pds_bubbles.csv")
+computeBubbles(timesAP,methodAP,"ap_bubbles.csv")
+computeBubbles(timesPDS,methodAP,"pds_bubbles.csv")
 
 
 

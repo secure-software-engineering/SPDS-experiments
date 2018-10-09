@@ -23,9 +23,10 @@ def geo_mean(iterable):
 def getData(filename, replacement):
     if os.path.isfile(filename.replace("ideal",replacement)):
         with open(filename.replace("ideal",replacement)) as csvfile:
-            readerFINK_UNIQUE = csv.DictReader(csvfile,delimiter = ";")
-            return list(readerFINK_UNIQUE)
+            reader = csv.DictReader(csvfile,delimiter = ";")
+            return list(reader)
     return []
+
 def toSeconds(ms):
     return (ms/1000).round(1)
 
@@ -39,43 +40,42 @@ for fname in glob.glob(RESULTS_PATH):
     if "ideal" in fname and not "-ap" in fname:
         timesIDEAL = []
         timesIDEAL_AP = []
-        timesFINK_UNIQUE = []
+        timesIDEAL_AP = []
         timesFINK_APMUST = []
         timeoutsIDEAL = 0
         containsFieldLoop = 0
         timeoutsIDEAL_AP = 0
-        timeoutsFINK_UNIQUE = 0
+        errorsIDEAL = 0
+        errorsIDEAL_AP = 0
         maxMemoryIDEAL_AP = 0
         maxMemoryIDEAL = 0
         maxMemoryIDEAL_AP_ARRAY = []
         maxMemoryIDEAL_ARRAY = []
         timeoutsFINK_APMUST = 0
-        errorsIDEAL = 0
-        errorsFINK_UNIQUE = 0
-        errorsFINK_APMUST = 0
         methodsIDEAL_AP = []
         methodsIDEAL  = []
         maxAccessPath  = []
         dataIDEAL_AP = getData(fname,"ideal-ap")
         dataIDEAL =  getData(fname,"ideal")
+        # Iterate over all rows of file with ideal-ap (access graph) and file with name ideal (SPDS) and compare results
         for rowIDEAL in dataIDEAL:
-            foundInFINK_UNIQUE = False
+            foundSameSeed = False
             for rowIDEAL_AP in dataIDEAL_AP:
+                #Do both csv files contain the same seed?
                 if rowIDEAL_AP['SeedMethod'] == rowIDEAL['SeedMethod'] and rowIDEAL_AP['SeedStatement'] == rowIDEAL['SeedStatement']:
-                    if not foundInFINK_UNIQUE:
-                        foundInFINK_UNIQUE = True
+                    if not foundSameSeed:
+                        foundSameSeed = True
                         if rowIDEAL['Timedout'] == "true":
                             timeoutsIDEAL += 1
                             timesIDEAL.append(MAX_ANALYSIS_TIME)
                         else:
                             timesIDEAL.append(beautifyAnalysisTime(rowIDEAL['AnalysisTimes']))
                             
-
                         if rowIDEAL_AP['Timedout'] == "true":
-                            timesFINK_UNIQUE.append(MAX_ANALYSIS_TIME)
-                            timeoutsFINK_UNIQUE += 1
+                            timesIDEAL_AP.append(MAX_ANALYSIS_TIME)
+                            timeoutsIDEAL_AP += 1
                         else:
-                            timesFINK_UNIQUE.append(beautifyAnalysisTime(rowIDEAL_AP['AnalysisTimes']))
+                            timesIDEAL_AP.append(beautifyAnalysisTime(rowIDEAL_AP['AnalysisTimes']))
                         maxMemoryIDEAL = max(int(rowIDEAL['MaxMemory']), maxMemoryIDEAL)
                         maxMemoryIDEAL_AP = max(int(rowIDEAL_AP['MaxMemory']), maxMemoryIDEAL_AP)
                         maxMemoryIDEAL_ARRAY.append(maxMemoryIDEAL)
@@ -91,27 +91,12 @@ for fname in glob.glob(RESULTS_PATH):
                         if rowIDEAL['Is_In_Error'] == "true":
                             errorsIDEAL += 1
                         if rowIDEAL_AP['Is_In_Error'] == "true":
-                            errorsFINK_UNIQUE += 1
+                            errorsIDEAL_AP += 1
 
         if(len(dataIDEAL) < len(timesIDEAL_AP)):
             print("SOMETHING WENT WRONG")
         if len(timesIDEAL) != 0:
-            print(fname.replace("ideal",""))
-            print(timesIDEAL)
-            print(str(len(timesIDEAL)) + " "+ str(geo_mean(timesIDEAL)))
-            print(str(len(timesIDEAL_AP)) + " "+ str(geo_mean(timesIDEAL_AP)))
-            print(str(len(timesFINK_UNIQUE)) + " "+ str(geo_mean(timesFINK_UNIQUE)))
-
-            print("SPDS-Times-Methods " + str(numpy.corrcoef(timesIDEAL,methodsIDEAL)))
-            print("SPDS-Times-AccessPath " + str(numpy.corrcoef(timesIDEAL,maxAccessPath)))
-            print("SPDS-Times-Memory " + str(numpy.corrcoef(timesIDEAL,maxMemoryIDEAL_ARRAY)))
-
-            print("AP-Times-Methods " + str(numpy.corrcoef(timesFINK_UNIQUE,methodsIDEAL_AP)))
-            print("AP-Times-AccessPath " + str(numpy.corrcoef(timesFINK_UNIQUE,maxAccessPath)))
-            print("AP-Times-Memory " + str(numpy.corrcoef(timesFINK_UNIQUE,maxMemoryIDEAL_AP_ARRAY)))
-
             outputFileName = ""
-            print("IDEAL Errors:" + str(errorsIDEAL))
             if "-IO.csv" in fname:
                 outputFileName = "io_ideal_vs_idealap.csv"
             if "-EmptyVector.csv" in fname:
@@ -133,15 +118,15 @@ for fname in glob.glob(RESULTS_PATH):
             benchmarkName = benchmarkName[0:benchmarkName.find(".")]
             entry = {"benchmark":  benchmarkName, 
                     "ideal": toSeconds(geo_mean(timesIDEAL)),
-                    "ideal_ap": toSeconds(geo_mean(timesFINK_UNIQUE)),
+                    "ideal_ap": toSeconds(geo_mean(timesIDEAL_AP)),
                     "total_ideal": toSeconds(np.sum(timesIDEAL)),
-                    "total_ideal_ap": toSeconds(np.sum(timesFINK_UNIQUE)),
-                    "seeds": len(timesIDEAL),
-                    "timeouts_ideal_ap": timeoutsFINK_UNIQUE,
+                    "total_ideal_ap": toSeconds(np.sum(timesIDEAL_AP)),
+                    "objects": len(timesIDEAL),
+                    "timeouts_ideal_ap": timeoutsIDEAL_AP,
                     "timeouts_ideal": timeoutsIDEAL,
-                    "timeouts_fraction_ideal_ap": round(timeoutsFINK_UNIQUE*100/float(len(timesIDEAL)),1),
+                    "timeouts_fraction_ideal_ap": round(timeoutsIDEAL_AP*100/float(len(timesIDEAL)),1),
                     "timeouts_fraction_ideal": round(timeoutsIDEAL*100/float(len(timesIDEAL)),1),
-                    "errors_ideal_ap": errorsFINK_UNIQUE,
+                    "errors_ideal_ap": errorsIDEAL_AP,
                     "errors_ideal": errorsIDEAL,
                     "methods_ideal": int(geo_mean(methodsIDEAL)),
                     "methods_ideal_ap": int(geo_mean(methodsIDEAL_AP)),
@@ -152,7 +137,7 @@ for fname in glob.glob(RESULTS_PATH):
             d[fname] = entry
             results[outputFileName] = d
 
-header = ["benchmark", "ideal","ideal_ap","seeds","timeouts_ideal_ap","timeouts_ideal","errors_ideal_ap","errors_ideal","methods_ideal_ap","methods_ideal", "containsFieldLoop","maxAccessPath", "total_ideal", "total_ideal_ap","timeouts_fraction_ideal_ap","timeouts_fraction_ideal","max_memory_ideal_ap","max_memory_ideal"]
+header = ["benchmark", "ideal","ideal_ap","objects","timeouts_ideal_ap","timeouts_ideal","errors_ideal_ap","errors_ideal","methods_ideal_ap","methods_ideal", "containsFieldLoop","maxAccessPath", "total_ideal", "total_ideal_ap","timeouts_fraction_ideal_ap","timeouts_fraction_ideal","max_memory_ideal_ap","max_memory_ideal"]
 
 benchmarks = ["antlr", "bloat", "chart", "eclipse", "fop", "hsqldb", "jython", "luindex", "lusearch", "pmd", "xalan"]
 
@@ -169,8 +154,6 @@ for i in results:
     file.write("index\n")
     index = 1
     avegareRatiosTime = []
-    print("SSS")
-    print(results[i])
     for j in benchmarks:
         if index_containing_substring(results[i], j) != -1:
             realKey = index_containing_substring(results[i], j)
