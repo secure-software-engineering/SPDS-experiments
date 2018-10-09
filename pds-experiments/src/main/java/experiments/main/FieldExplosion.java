@@ -11,17 +11,40 @@ import experiments.field.complexity.PDSAnalysis;
 
 public class FieldExplosion {
 
+	/**
+	 * Generale timeout for each individual query.
+	 */
 	private static final int TIMEOUT_IN_MS = 100 * 1000;
+	/**
+	 * Mapping from TestCaseName(class name of classes experiments.field.complexity.benchmark) to the analysis time for the SPDS based analysis
+	 */
 	private static Map<String, Long> pdsAnalysisTimes = new LinkedHashMap<>();
-	private static Map<Integer, Map<String, Long>> apAnalysisTimes = new LinkedHashMap<>();
-	private static boolean[] aptimeouts = new boolean[] { false, false, false, false, false, false, false };
+	
+	/**
+	 * Defines the used k-limit for the access path based analysis.
+	 * Note: -1 equals Access Graph model
+	 */
 	private static int[] AP = new int[] { -1, 1, 2, 3, 4, 5 };
+	/**
+	 * Maps the access path length to a map. The latter than maps from a test case to the analysis time. 
+	 */
+	private static Map<Integer, Map<String, Long>> apAnalysisTimes = new LinkedHashMap<>();
+	
+	/**
+	 * A map holding which k-limit already timedout. Used to prevent overlong computation.
+	 */
+	private static boolean[] aptimeouts = new boolean[] { false, false, false, false, false, false, false };
+	
 	public static int NUMBER_OF_ITERATIONS = 5;
 
 	public static void main(String... args) {
 		for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
-			runOnce();
+			runOneIteration();
 		}
+		printResults();
+	}
+
+	private static void printResults() {
 		String header = "index;testCaseName;PushdownSystem;";
 		for (int length : AP) {
 			header += "AccessPath_" + length + ";";
@@ -43,12 +66,18 @@ public class FieldExplosion {
 		}
 	}
 
-	private static void runOnce() {
+	private static void runOneIteration() {
+		//Load test case class in package experiments.field.complexity.benchmark,
 		for (int i = 2; i < 21; i++) {
+			//Define class name to run the analysis on.
 			String testCaseName = "experiments.field.complexity.benchmark.Fields" + i + "LongTest";
+			
+			//Execute SPDS based analysis
 			AbstractAnalysis analysis = new PDSAnalysis(testCaseName, TIMEOUT_IN_MS);
 			analysis.run();
 			increase(testCaseName, pdsAnalysisTimes, analysis.getAnalysisTime().toMillis());
+			
+			//Run for all k-limits
 			for (int length : AP) {
 				System.out.println("Running for AP " + length);
 				runAnalysisWithKLimit(testCaseName, length);
@@ -57,6 +86,7 @@ public class FieldExplosion {
 	}
 
 	private static void runAnalysisWithKLimit(String testCaseName, int i) {
+		//If the analysis already timeout for a early, skip.
 		if (!aptimeouts[(i < 0 ? 0 : i)]) {
 			AccessGraph.KLimiting = i;
 			AccessPathAnalysis analysis = new AccessPathAnalysis(testCaseName, TIMEOUT_IN_MS);
