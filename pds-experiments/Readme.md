@@ -64,6 +64,8 @@ Open a terminal, and execute the command from within the folder `outputDacapo` o
  - `vector_ideal_vs_idealap.csv`
  - `iterator_ideal_vs_idealap.csv`
 
+Open the files in LibreOffice, the files represent the data of Table 5.
+
 #### Generating Figure 11
 
 From the data in `outputDacapo/typestate` we can also obtain Figure 11.
@@ -73,4 +75,6 @@ Open a terminal, and execute the command from within the folder `outputDacapo` o
  The python scripts uses the `csv` files in `outputDacapo/typestate` and generate two `csv` files that contain the data for Figure 11.  
  - `pds_bubbles.csv`: Data for the left side of Figure 11 (IDEal_P)
  - `ap_bubbleas.csv`: Data for the right side of Figure 11 (IDEal)
+ 
+ Open the files in LibreOffice, the files represent the data for Figure 11.
  
