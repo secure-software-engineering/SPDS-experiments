@@ -1,6 +1,6 @@
-# Artifact for POPL2019 Paper "Context-, Flow- and Field-Sensitive Data-Flow Analysis using Synchronized Pushdown Systems"
+# Artifact for Paper "Context-, Flow- and Field-Sensitive Data-Flow Analysis using Synchronized Pushdown Systems"
 
-This repository contains all necessary software artifact to reproduce the evaluation of the paper.
+This repository contains all necessary software artifacts to reproduce the evaluation of the paper.
 
 ## General overview over the maven-projects
 
