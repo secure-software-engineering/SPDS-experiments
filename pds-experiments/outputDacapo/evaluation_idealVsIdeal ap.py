@@ -33,14 +33,6 @@ def computeAccessPathLength(accessPathString):
     return len(accessPathString.split(","))
 results ={}
 
-notAsPrecise = 0
-asPrecise = 0
-APtrue = 0
-APfalse = 0
-unsound =[]
-imprecise =[]
-
-
 uniqueSeeds = set()
 for fname in glob.glob(RESULTS_PATH):
     print(fname)
@@ -101,19 +93,6 @@ for fname in glob.glob(RESULTS_PATH):
                         if rowIDEAL_AP['Is_In_Error'] == "true":
                             errorsFINK_UNIQUE += 1
 
-                        if rowIDEAL['Timedout'] != "true" and rowIDEAL_AP['Timedout'] != "true":
-                            if rowIDEAL['Is_In_Error'] != rowIDEAL_AP['Is_In_Error']:
-                                print("NOT AS PRECISE" +  str(rowIDEAL['SeedMethod']))
-                                notAsPrecise = notAsPrecise + 1
-                                if rowIDEAL_AP['Is_In_Error'] ==  "true":
-                                    APtrue = APtrue + 1
-                                    unsound.append(rowIDEAL)
-                                else:
-                                    APfalse = APfalse + 1
-                                    imprecise.append(rowIDEAL)
-                            else: 
-                                asPrecise = asPrecise + 1
-           
         if(len(dataIDEAL) < len(timesIDEAL_AP)):
             print("SOMETHING WENT WRONG")
         if len(timesIDEAL) != 0:
@@ -202,19 +181,3 @@ for i in results:
         	file.write(j + ";-;-;-;-;-;-;-;-;-;-;-;-;-;0;0;-;-;")
         file.write(str(index)+"\n")
         index += 1
-    #print(avegareRatiosTime)
-    #print("Ratio Times: IDEAL vs Fink AP Must:" + str(geo_mean(avegareRatiosTime)))
-
-#print(asPrecise)
-#print(notAsPrecise)
-
-#print(APfalse)
-#print(APtrue)
-
-for i in unsound:
-    print(i["SeedStatement"])
-
-
-print("IMPRECISE")
-for i in imprecise:
-    print(i["SeedStatement"])
