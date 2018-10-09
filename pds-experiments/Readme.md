@@ -64,7 +64,7 @@ Open a terminal, and execute the command from within the folder `outputDacapo` o
  - `vector_ideal_vs_idealap.csv`
  - `iterator_ideal_vs_idealap.csv`
 
-Open the files in LibreOffice, the files represent the data of Table 5.
+Open the files in LibreOffice, the files represent the data for Table 5.
 
 #### Generating Figure 11
 
