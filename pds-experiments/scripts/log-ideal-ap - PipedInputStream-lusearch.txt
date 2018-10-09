@@ -1,8 +1,0 @@
-Writing output to file outputDacapo/dacapo.lusearch.Main2-ideal-ap-IO.csv
-running typestate.impl.statemachines.PipedInputStreamStateMachine
-/Users/johannesspath/Documents/dacapo/lusearch/lusearch.jar:/Users/johannesspath/Documents/dacapo/lusearch/lusearch-deps.jar
-/Users/johannesspath/Documents/dacapo/lusearch/lusearch.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
-[<dacapo.lusearch.Main2: void main(java.lang.String[])>]
-Application Classes: 351
-Reachable Methods2492
-No seeds found!

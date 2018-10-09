@@ -61,21 +61,23 @@ public class SootSceneSetupDacapo {
 		}
 		String soot_cp = Joiner.on(":").join(path);
 		System.out.println(soot_cp);
-//		Options.v().set_soot_classpath(soot_cp);
+		// Options.v().set_soot_classpath(soot_cp);
 		Options.v().set_prepend_classpath(true);
 		Options.v().set_whole_program(true);
-		 Options.v().set_include_all(true);
+		Options.v().set_include_all(true);
 		Options.v().set_allow_phantom_refs(true);
 		Options.v().set_no_bodies_for_excluded(true);
 		Options.v().set_exclude(getExclusions());
 		Options.v().set_process_dir(new LinkedList<String>(Collections.singleton(process_dir)));
 		Options.v().set_output_format(Options.output_format_none);
 		Options.v().set_main_class(this.getMainClass());
-//		Options.v().setPhaseOption("cg.spark", "on,verbose:true,simulate-natives:true,merge-stringbuffer:false,string-constants:true");
+		// Options.v().setPhaseOption("cg.spark",
+		// "on,verbose:true,simulate-natives:true,merge-stringbuffer:false,string-constants:true");
 		Options.v().setPhaseOption("cg", "implicit-entry:false,trim-clinit:false");
-		Options.v().setPhaseOption("cg.spark", "enabled:true,verbose:true,simulate-natives:false,empties-as-allocs:true,merge-stringbuffer:false,string-constants:true");
-//		readDynamicClasses();
-		Scene.v().addBasicClass("java.security.Signature",SootClass.HIERARCHY);
+		Options.v().setPhaseOption("cg.spark",
+				"enabled:true,verbose:true,simulate-natives:false,empties-as-allocs:true,merge-stringbuffer:false,string-constants:true");
+		// readDynamicClasses();
+		Scene.v().addBasicClass("java.security.Signature", SootClass.HIERARCHY);
 		Scene.v().loadNecessaryClasses();
 		LinkedList<SootMethod> entryPoint = new LinkedList<>();
 		entryPoint.add(Scene.v().getMainMethod());

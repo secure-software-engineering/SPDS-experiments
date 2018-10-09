@@ -1,4 +1,0 @@
-Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;VisitedMethod;ReachableMethods;CallRecursion;FieldLoop;MaxAccessPath
-ideal;IO;ForwardQuery: (makeLog $r3 = new PrintWriter,$r3 (SimpleLog.makeLog) Value: new java.io.PrintWriter);$r3 = new java.io.PrintWriter;<org.hsqldb.lib.SimpleLog: void makeLog(java.io.File)>;org.hsqldb.lib.SimpleLog;false;true;615198;23621;505;5923;true;true;
-ideal;IO;ForwardQuery: (<init> $r3 = new PrintWriter,$r3 (SimpleLog.<init>) Value: new java.io.PrintWriter);$r3 = new java.io.PrintWriter;<org.hsqldb.lib.SimpleLog: void <init>(java.lang.String,int,boolean)>;org.hsqldb.lib.SimpleLog;false;true;601895;24186;513;5923;true;true;
-ideal;IO;ForwardQuery: (getStackTrace $r5 = new PrintWriter,$r5 (Trace.getStackTrace) Value: new java.io.PrintWriter);$r5 = new java.io.PrintWriter;<org.hsqldb.Trace: java.lang.String getStackTrace()>;org.hsqldb.Trace;false;false;10002;372;23;5923;true;false;

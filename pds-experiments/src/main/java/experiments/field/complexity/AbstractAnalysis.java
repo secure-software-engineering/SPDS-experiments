@@ -23,66 +23,63 @@ import soot.options.Options;
 
 public abstract class AbstractAnalysis {
 
-	
 	protected final String testClass;
 	private JimpleBasedInterproceduralCFG icfg;
 	protected Duration analysisTime;
 	protected int timeoutInMs;
 
-	public AbstractAnalysis(String testClass, int timeoutInMs){
+	public AbstractAnalysis(String testClass, int timeoutInMs) {
 		this.testClass = testClass;
 		this.timeoutInMs = timeoutInMs;
 		initializeSootWithEntryPoint();
 	}
-	
-	
-	protected JimpleBasedInterproceduralCFG getOrCreateICFG(){
-		if(icfg == null){
-			icfg = new JimpleBasedInterproceduralCFG(true); 
+
+	protected JimpleBasedInterproceduralCFG getOrCreateICFG() {
+		if (icfg == null) {
+			icfg = new JimpleBasedInterproceduralCFG(true);
 		}
 		return icfg;
 	}
-	
 
-	public void run(){
+	public void run() {
 		Transform transform = new Transform("wjtp.ifds", createAnalysisTransformer());
 		PackManager.v().getPack("wjtp").add(transform);
 		PackManager.v().getPack("cg").apply();
 		PackManager.v().getPack("wjtp").apply();
 	}
-	
-	protected boolean isQueryForStmt(Stmt s){
+
+	protected boolean isQueryForStmt(Stmt s) {
 		if (!(s.containsInvokeExpr()))
 			return false;
 		InvokeExpr invokeExpr = s.getInvokeExpr();
 		return invokeExpr.getMethod().getName().matches("queryFor");
 	}
-	
-	protected Pair<SootMethod, Stmt> findQueryForStatement(){
-		List<Pair<SootMethod,Stmt>> stmts = Lists.newArrayList();
-		for(SootClass c: Scene.v().getApplicationClasses()){
-			for(SootMethod m : c.getMethods()){
-				if(!m.hasActiveBody())
+
+	protected Pair<SootMethod, Stmt> findQueryForStatement() {
+		List<Pair<SootMethod, Stmt>> stmts = Lists.newArrayList();
+		for (SootClass c : Scene.v().getApplicationClasses()) {
+			for (SootMethod m : c.getMethods()) {
+				if (!m.hasActiveBody())
 					continue;
-				for(Unit unit : m.getActiveBody().getUnits()){
-					if(!(unit instanceof Stmt))
+				for (Unit unit : m.getActiveBody().getUnits()) {
+					if (!(unit instanceof Stmt))
 						continue;
 					Stmt stmt = (Stmt) unit;
 					if (isQueryForStmt(stmt))
-						stmts.add(new Pair<SootMethod,Stmt>(m,stmt));
+						stmts.add(new Pair<SootMethod, Stmt>(m, stmt));
 				}
 			}
 		}
-		
-		if(stmts.size() > 1){
+
+		if (stmts.size() > 1) {
 			throw new RuntimeException("Selection of statement is not unique.");
 		}
-		if(stmts.size() == 1){
+		if (stmts.size() == 1) {
 			return stmts.get(0);
 		}
 		throw new RuntimeException("No statement found that invoke the method queryFor.");
 	}
-	
+
 	protected abstract Transformer createAnalysisTransformer();
 
 	private void initializeSootWithEntryPoint() {
@@ -114,7 +111,7 @@ public abstract class AbstractAnalysis {
 
 		Options.v().setPhaseOption("jb", "use-original-names:true");
 
-//		Options.v().set_exclude(excludedPackages());
+		// Options.v().set_exclude(excludedPackages());
 		Options.v().set_soot_classpath(sootCp);
 		// Options.v().set_main_class(this.getTargetClass());
 		Scene.v().addBasicClass(testClass, SootClass.BODIES);
@@ -124,8 +121,8 @@ public abstract class AbstractAnalysis {
 			c.setApplicationClass();
 		}
 	}
-	
-	public Duration getAnalysisTime(){
+
+	public Duration getAnalysisTime() {
 		return analysisTime;
 	}
 }

@@ -1,14 +1,15 @@
 package experiments.dacapo;
 
-
 public class Util {
 	public static boolean strongUpdates() {
-		return (System.getProperty("strongUpdates") != null && Boolean.parseBoolean(System.getProperty("strongUpdates")));
+		return (System.getProperty("strongUpdates") != null
+				&& Boolean.parseBoolean(System.getProperty("strongUpdates")));
 	}
 
 	public static boolean aliasing() {
 		return (System.getProperty("aliasing") != null && Boolean.parseBoolean(System.getProperty("aliasing")));
 	}
+
 	public static Class selectTypestateMachine(String rule) {
 		switch (rule) {
 		case "IteratorHasNext":

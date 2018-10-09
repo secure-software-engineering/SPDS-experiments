@@ -1,8 +1,0 @@
-Writing output to file outputDacapo/dacapo.chart.Main2-ideal-ap-IO.csv
-running typestate.impl.statemachines.PipedOutputStreamStateMachine
-/Users/johannesspath/Documents/dacapo/chart/chart.jar:/Users/johannesspath/Documents/dacapo/chart/chart-deps.jar
-/Users/johannesspath/Documents/dacapo/chart/chart.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
-[<dacapo.chart.Main2: void main(java.lang.String[])>]
-Application Classes: 516
-Reachable Methods2488
-No seeds found!

@@ -6,13 +6,11 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashSet;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Multimap;
 import com.google.common.collect.Table.Cell;
 
 import boomerang.Util;
@@ -43,13 +41,6 @@ public class StatsDebugger implements IDebugger<TypestateDomainValue<ConcreteSta
 		this.icfg = icfg;
 	}
 
-//	@Override
-//	public void computedSeeds(Map<PathEdge<Unit, AccessGraph>, EdgeFunction<TypestateDomainValue<ConcreteState>>> seeds) {
-//		for(PathEdge<Unit,AccessGraph> pe : seeds.keySet()){
-//			System.out.println("Seed " + pe.getTarget() +"€" + icfg.getMethodOf(pe.getTarget()));
-//		}
-//	}
-
 	@Override
 	public void beforeAnalysis() {
 	}
@@ -58,7 +49,8 @@ public class StatsDebugger implements IDebugger<TypestateDomainValue<ConcreteSta
 	public void startWithSeed(IFactAtStatement seed) {
 		String timeStamp = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime());
 		log("Alive tick {}", timeStamp);
-		System.out.println(String.format("Starting with seed in %s",  icfg.getMethodOf(seed.getStmt()) +" "+ seed + "€"));
+		System.out.println(
+				String.format("Starting with seed in %s", icfg.getMethodOf(seed.getStmt()) + " " + seed + "€"));
 		System.out.println(String.format("Alive tick %s", timeStamp));
 		timedout = false;
 		visitedMethods.clear();
@@ -75,29 +67,32 @@ public class StatsDebugger implements IDebugger<TypestateDomainValue<ConcreteSta
 		phase1Watch.reset();
 		phase2Watch.reset();
 		boomerangWatch.reset();
-		
+
 		phase1Watch.start();
 	}
 
 	@Override
 	public void startPhase2WithSeed(IFactAtStatement seed, AnalysisSolver<TypestateDomainValue<ConcreteState>> solver) {
 		log("===== START IDE PHASE ===== ");
-		
+
 		phase2Watch.start();
 	}
 
 	@Override
-	public void finishPhase1WithSeed(IFactAtStatement seed, AnalysisSolver<TypestateDomainValue<ConcreteState>> solver) {
+	public void finishPhase1WithSeed(IFactAtStatement seed,
+			AnalysisSolver<TypestateDomainValue<ConcreteState>> solver) {
 		phase1Watch.stop();
 	}
 
 	@Override
-	public void finishPhase2WithSeed(IFactAtStatement seed, AnalysisSolver<TypestateDomainValue<ConcreteState>> solver) {
+	public void finishPhase2WithSeed(IFactAtStatement seed,
+			AnalysisSolver<TypestateDomainValue<ConcreteState>> solver) {
 		phase2Watch.stop();
 	}
 
 	@Override
-	public void finishWithSeed(PathEdge<Unit, AccessGraph> seed, boolean timeout, boolean isInErrorState, AnalysisSolver<TypestateDomainValue<ConcreteState>> solver) {
+	public void finishWithSeed(PathEdge<Unit, AccessGraph> seed, boolean timeout, boolean isInErrorState,
+			AnalysisSolver<TypestateDomainValue<ConcreteState>> solver) {
 	}
 
 	@Override
@@ -114,13 +109,13 @@ public class StatsDebugger implements IDebugger<TypestateDomainValue<ConcreteSta
 
 	@Override
 	public void onAliasesComputed(AccessGraph boomerangAccessGraph, Unit curr, AccessGraph d1, AliasResults res) {
-		if(boomerangWatch.isRunning())
+		if (boomerangWatch.isRunning())
 			boomerangWatch.stop();
 	}
 
 	@Override
 	public void onAliasTimeout(AccessGraph boomerangAccessGraph, Unit curr, AccessGraph d1) {
-		if(boomerangWatch.isRunning())
+		if (boomerangWatch.isRunning())
 			boomerangWatch.stop();
 	}
 
@@ -142,9 +137,8 @@ public class StatsDebugger implements IDebugger<TypestateDomainValue<ConcreteSta
 	public void solvePOA(PointOfAlias<TypestateDomainValue<ConcreteState>> p) {
 	}
 
-
 	@Override
-	public void onNormalPropagation(AccessGraph sourceFact, Unit curr, Unit succ,AccessGraph d2) {
+	public void onNormalPropagation(AccessGraph sourceFact, Unit curr, Unit succ, AccessGraph d2) {
 		SootMethod m = icfg.getMethodOf(curr);
 		visitedMethods.add(m);
 	}
@@ -152,7 +146,7 @@ public class StatsDebugger implements IDebugger<TypestateDomainValue<ConcreteSta
 	@Override
 	public void addSummary(SootMethod methodToSummary, PathEdge<Unit, AccessGraph> summary) {
 	}
-	
+
 	@Override
 	public void normalFlow(Unit start, AccessGraph startFact, Unit target, AccessGraph targetFact) {
 		assert targetFact.isStatic() || targetFact.getBase() != null;
@@ -184,28 +178,28 @@ public class StatsDebugger implements IDebugger<TypestateDomainValue<ConcreteSta
 
 	@Override
 	public void indirectFlowAtWrite(AccessGraph source, Unit curr, AccessGraph target) {
-		
+
 	}
 
 	@Override
 	public void indirectFlowAtCall(AccessGraph source, Unit curr, AccessGraph target) {
-		
+
 	}
 
 	@Override
 	public void onSeedFinished(IFactAtStatement seed, AnalysisSolver<TypestateDomainValue<ConcreteState>> solver) {
 		HashBasedTable<Unit, AccessGraph, TypestateDomainValue<ConcreteState>> endPathOfPropagation = solver.results();
 		boolean error = false;
-		for(Cell<Unit, AccessGraph, TypestateDomainValue<ConcreteState>> e : endPathOfPropagation.cellSet()){
-			 for(ConcreteState s : e.getValue().getStates()){
-				 if(s.isErrorState()){
-					 error = true;
-				 }	
-			 }
+		for (Cell<Unit, AccessGraph, TypestateDomainValue<ConcreteState>> e : endPathOfPropagation.cellSet()) {
+			for (ConcreteState s : e.getValue().getStates()) {
+				if (s.isErrorState()) {
+					error = true;
+				}
+			}
 		}
 		long phase1Time = phase1Watch.elapsed(TimeUnit.MILLISECONDS);
 		long phase2Time = phase2Watch.elapsed(TimeUnit.MILLISECONDS);
-//		long aliasTime = boomerangWatch.elapsed(TimeUnit.MILLISECONDS);
+		// long aliasTime = boomerangWatch.elapsed(TimeUnit.MILLISECONDS);
 		long totalTime = (phase1Time + phase2Time);
 		long propagationCount = solver.propagationCount;
 
@@ -214,18 +208,21 @@ public class StatsDebugger implements IDebugger<TypestateDomainValue<ConcreteSta
 		FileWriter writer;
 		try {
 			writer = new FileWriter(file, true);
-			if(!fileExisted)
-				 writer.write(
-                         "Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;MaxAccessPath;MaxMemory\n");
-				SootMethod method = icfg.getMethodOf(seed.getStmt());
+			if (!fileExisted)
+				writer.write(
+						"Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;MaxAccessPath;MaxMemory\n");
+			SootMethod method = icfg.getMethodOf(seed.getStmt());
 			long usedMemory = Util.getReallyUsedMemory();
-			String line = String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n","ideal-ap",	System.getProperty("ruleIdentifier"),seed, seed.getStmt(),method,method.getDeclaringClass(), error,timedout,totalTime,propagationCount,phase1Time,phase2Time,visitedMethods.size(), Scene.v().getReachableMethods().size(), AccessGraph.MAX_ACCESS_GRAPH, usedMemory);
+			String line = String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;\n", "ideal-ap",
+					System.getProperty("ruleIdentifier"), seed, seed.getStmt(), method, method.getDeclaringClass(),
+					error, timedout, totalTime, propagationCount, phase1Time, phase2Time, visitedMethods.size(),
+					Scene.v().getReachableMethods().size(), AccessGraph.MAX_ACCESS_GRAPH, usedMemory);
 			writer.write(line);
 			writer.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-					
+
 	}
 }

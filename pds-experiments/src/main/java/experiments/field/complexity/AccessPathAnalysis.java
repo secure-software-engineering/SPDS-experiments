@@ -21,7 +21,7 @@ import soot.jimple.Stmt;
 public class AccessPathAnalysis extends AbstractAnalysis {
 
 	public AccessPathAnalysis(String testClass, int timeoutInMS) {
-		super(testClass,timeoutInMS);
+		super(testClass, timeoutInMS);
 	}
 
 	@Override
@@ -34,6 +34,7 @@ public class AccessPathAnalysis extends AbstractAnalysis {
 					public long getTimeBudget() {
 						return timeoutInMs;
 					}
+
 					@Override
 					public IExtendedICFG icfg() {
 						return new ExtendedICFG(getOrCreateICFG());

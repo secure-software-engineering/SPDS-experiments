@@ -1,8 +1,0 @@
-Writing output to file outputDacapo/dacapo.jython.Main2-ideal-IO.csv
-running typestate.impl.statemachines.PipedInputStreamStateMachine
-/Users/johannesspath/Documents/dacapo/jython/jython.jar:/Users/johannesspath/Documents/dacapo/jython/jython-deps.jar
-/Users/johannesspath/Documents/dacapo/jython/jython.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
-[<dacapo.jython.Main2: void main(java.lang.String[])>]
-Application Classes: 920
-Reachable Methods4247
-No seeds found!

@@ -1,8 +1,0 @@
-Writing output to file outputDacapo/org.hsqldb.hsqldbDoopDriver-ideal-IteratorHasNext.csv
-running typestate.impl.statemachines.HasNextStateMachine
-/Users/johannesspath/Documents/dacapo/hsqldb/hsqldb.jar:/Users/johannesspath/Documents/dacapo/hsqldb/hsqldb-deps.jar
-/Users/johannesspath/Documents/dacapo/hsqldb/hsqldb.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/jre/lib/jce.jar
-[<org.hsqldb.hsqldbDoopDriver: void main(java.lang.String[])>]
-Application Classes: 417
-Reachable Methods5923
-No seeds found!

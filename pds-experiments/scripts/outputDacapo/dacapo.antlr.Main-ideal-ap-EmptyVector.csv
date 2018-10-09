@@ -1,3 +1,0 @@
-Analysis;Rule;Seed;SeedStatement;SeedMethod;SeedClass;Is_In_Error;Timedout;AnalysisTimes;PropagationCount;Phase1Time;Phase2Time;VisitedMethod;ReachableMethods;MaxAccessPath
-ideal-ap;EmptyVector;$r6 @ $r6 = new java.util.Vector;$r6 = new java.util.Vector;<dacapo.antlr.AntlrHarness: void iterate(java.lang.String)>;dacapo.antlr.AntlrHarness;false;false;696;215;343;353;12;2007;null;
-ideal-ap;EmptyVector;$r2 @ $r2 = new java.util.Vector;$r2 = new java.util.Vector;<antlr.NameSpace: void <init>(java.lang.String)>;antlr.NameSpace;false;false;372;136;174;198;13;2007;r0[tool, nameSpace, names];
