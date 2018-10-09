@@ -11,6 +11,7 @@ import boomerang.DefaultBoomerangOptions;
 import boomerang.Query;
 import boomerang.jimple.Statement;
 import boomerang.jimple.Val;
+import boomerang.preanalysis.BoomerangPretransformer;
 import boomerang.BackwardQuery;
 import boomerang.seedfactory.SeedFactory;
 import soot.SceneTransformer;
@@ -33,6 +34,7 @@ public class PDSAnalysis extends AbstractAnalysis {
 		return new SceneTransformer() {
 
 			protected void internalTransform(String phaseName, @SuppressWarnings("rawtypes") Map options) {
+				BoomerangPretransformer.v().apply();
 				/**
 				 * The seed factory iterates over all statements in the program. 
 				 * We then select any statement that is a call site calling a method with  
