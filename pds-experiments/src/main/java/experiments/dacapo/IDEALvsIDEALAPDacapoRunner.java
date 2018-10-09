@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 
 import experiments.dacapo.ideal.IDEALRunner;
 import experiments.dacapo.idealap.IDEALAPRunner;
-import experiments.typestate.microbench.Util;
 
 public class IDEALvsIDEALAPDacapoRunner extends SootSceneSetupDacapo {
 	private static String project;
