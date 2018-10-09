@@ -10,3 +10,6 @@
 [submodule "heros"]
 	path = heros
 	url = https://github.com/Sable/heros.git
+[submodule "IDEViz"]
+	path = IDEViz
+	url = https://github.com/johspaeth/IDEViz
