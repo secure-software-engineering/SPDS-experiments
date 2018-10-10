@@ -75,19 +75,19 @@ OBJECTS = len(timesAP)
 
 
 def computeBubbles(analysisTimes, visitedMethods, filename ):
-    bucketRangeAccessPath = int(math.floor(MAX_ACCESS_PATH/numberOfBucketsForTimes))
-    bucketRangeMethods = MAX_VISITED_METHODS/numberOfBucketsForTimes
+    bucketRangeAccessPath = int(math.floor((MAX_ACCESS_PATH)/numberOfBucketsForTimes))
+    bucketRangeMethods = (MAX_VISITED_METHODS + 1)/numberOfBucketsForTimes
     data = []
     timeoutData = []
     xLabel = []
     yLabel = []
     #Create Labels
-    for i in range(0,numberOfBucketsForTimes +1):
+    for i in range(0,numberOfBucketsForTimes):
         yLabel.append("["+str(i*bucketRangeMethods) +"-"+str((i+1)*bucketRangeMethods)+"]")
         zero = []
         zeroTime = []
-        for j in range(0,numberOfBucketsForTimes + 1):
-            if j == numberOfBucketsForTimes - 1:
+        for j in range(0,numberOfBucketsForTimes ):
+            if j == numberOfBucketsForTimes:
                 xLabel.append("["+str(j*bucketRangeAccessPath) +"-"+str(MAX_ACCESS_PATH)+"]")
             else:
                 xLabel.append("["+str(j*bucketRangeAccessPath) +"-"+str((j+1)*bucketRangeAccessPath)+"]")
@@ -102,6 +102,9 @@ def computeBubbles(analysisTimes, visitedMethods, filename ):
         time = int(t)
         visitedMethodBucket = int(math.floor(int(visitedMethods[xBucketIndex])/bucketRangeMethods))
         accessPathBucket = int(math.floor(int(ap_length[xBucketIndex])/bucketRangeAccessPath))
+        #The last bucket is an open interval
+        if accessPathBucket == numberOfBucketsForTimes:
+            accessPathBucket = accessPathBucket - 1;
         if time != 0:
             data[visitedMethodBucket][accessPathBucket].append(time)
         else:

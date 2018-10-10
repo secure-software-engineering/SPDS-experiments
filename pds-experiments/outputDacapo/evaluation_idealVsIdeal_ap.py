@@ -113,7 +113,7 @@ for fname in glob.glob(RESULTS_PATH):
             if outputFileName in results:
                 d = results[outputFileName]
             benchmarkName = fname.replace("dacapo.","")
-            benchmarkName = benchmarkName.replace("typestate\\","")
+            benchmarkName = benchmarkName.replace("typestate/","")
             benchmarkName = benchmarkName.replace("org","hsqldb")
             benchmarkName = benchmarkName[0:benchmarkName.find(".")]
             entry = {"benchmark":  benchmarkName, 
@@ -121,7 +121,7 @@ for fname in glob.glob(RESULTS_PATH):
                     "ideal_ap": toSeconds(geo_mean(timesIDEAL_AP)),
                     "total_ideal": toSeconds(np.sum(timesIDEAL)),
                     "total_ideal_ap": toSeconds(np.sum(timesIDEAL_AP)),
-                    "objects": len(timesIDEAL),
+                    "seeds": len(timesIDEAL),
                     "timeouts_ideal_ap": timeoutsIDEAL_AP,
                     "timeouts_ideal": timeoutsIDEAL,
                     "timeouts_fraction_ideal_ap": round(timeoutsIDEAL_AP*100/float(len(timesIDEAL)),1),
@@ -137,7 +137,7 @@ for fname in glob.glob(RESULTS_PATH):
             d[fname] = entry
             results[outputFileName] = d
 
-header = ["benchmark", "ideal","ideal_ap","objects","timeouts_ideal_ap","timeouts_ideal","errors_ideal_ap","errors_ideal","methods_ideal_ap","methods_ideal", "containsFieldLoop","maxAccessPath", "total_ideal", "total_ideal_ap","timeouts_fraction_ideal_ap","timeouts_fraction_ideal","max_memory_ideal_ap","max_memory_ideal"]
+header = ["benchmark", "ideal","ideal_ap","seeds","timeouts_ideal_ap","timeouts_ideal","errors_ideal_ap","errors_ideal","methods_ideal_ap","methods_ideal", "containsFieldLoop","maxAccessPath", "total_ideal", "total_ideal_ap","timeouts_fraction_ideal_ap","timeouts_fraction_ideal","max_memory_ideal_ap","max_memory_ideal"]
 
 benchmarks = ["antlr", "bloat", "chart", "eclipse", "fop", "hsqldb", "jython", "luindex", "lusearch", "pmd", "xalan"]
 
